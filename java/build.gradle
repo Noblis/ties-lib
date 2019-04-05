@@ -1,0 +1,165 @@
+plugins {
+    id 'application'
+    id 'groovy'
+    id 'jacoco'
+    id 'maven-publish'
+}
+
+//check that we're running the correct version of gradle
+def requiredGradleVersion = '2.14.1'
+if(gradle.gradleVersion != requiredGradleVersion) {
+    def message = """\
+Invalid gradle version: expected ${requiredGradleVersion}, got ${gradle.gradleVersion}.
+Perhaps you meant to use ./gradlew?"""
+    throw new GradleScriptException(message, null)
+}
+task wrapper(type: Wrapper) {
+    gradleVersion = requiredGradleVersion
+}
+
+task schema(type: Copy) {
+    from '../schemata'
+    into "${project.buildDir}/generated-resources/main/schemata"
+}
+
+task examples(type: Copy) {
+    from '../examples'
+    into "${project.buildDir}/generated-resources/test/examples"
+}
+
+task buildNumber << {
+    // $BUILD_NUMBER is provided by jenkins
+    def buildNumber = System.getenv('BUILD_NUMBER')
+    if (buildNumber) {
+        new File("${project.buildDir}/generated-resources/main/version").mkdirs()
+        // build_number.txt is read by the Version class
+        new File("${project.buildDir}/generated-resources/main/version/build_number.txt").text = buildNumber
+    }
+}
+
+task buildTime << {
+    // $BUILD_TIMESTAMP is provided by jenkins
+    def buildTime = System.getenv('BUILD_TIMESTAMP')
+    if (buildTime) {
+        new File("${project.buildDir}/generated-resources/main/version").mkdirs()
+        // build_time.txt is read by the Version class
+        new File("${project.buildDir}/generated-resources/main/version/build_time.txt").text = buildTime
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+    compile 'com.github.java-json-tools:json-schema-validator:2.2.10'
+    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'commons-cli:commons-cli:1.4'
+    compile 'commons-lang:commons-lang:2.6'
+    compile 'log4j:log4j:1.2.17'
+    compile 'net.sourceforge.argparse4j:argparse4j:0.8.1'
+    compile 'org.codehaus.groovy:groovy-all:2.5.6'
+
+    compile 'org.projectlombok:lombok:1.18.6'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.github.stefanbirkner:system-rules:1.19.0'
+}
+
+// task to copy all dependencies to a directory, useful for creating a library in IntelliJ
+task getDependencies(type: Copy) {
+    from sourceSets.test.compileClasspath
+    into "${project.buildDir}/dependencies"
+}
+assemble.dependsOn('getDependencies')
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+group 'org.noblis'
+version '0.9.0'
+
+//put json schemas on the classpath
+sourceSets.main.output.dir("${project.buildDir}/generated-resources/main", builtBy: 'schema')
+//put json examples on the test classpath
+sourceSets.test.output.dir("${project.buildDir}/generated-resources/test", builtBy: 'examples')
+
+sourceSets.main.output.dir("${project.buildDir}/generated-resources/main", builtBy: 'buildNumber')
+sourceSets.main.output.dir("${project.buildDir}/generated-resources/main", builtBy: 'buildTime')
+
+jacoco.toolVersion = '0.7.9'
+check.dependsOn('jacocoTestReport')
+
+task convertStartScripts(type: CreateStartScripts) {
+    mainClassName = 'org.noblis.ties.cli.TiesConvertCli'
+    applicationName = 'ties-convert'
+    classpath = startScripts.classpath
+    outputDir = startScripts.outputDir
+}
+
+task formatStartScripts(type: CreateStartScripts) {
+    mainClassName = 'org.noblis.ties.cli.TiesFormatCli'
+    applicationName = 'ties-format'
+    classpath = startScripts.classpath
+    outputDir = startScripts.outputDir
+}
+
+task validateStartScripts(type: CreateStartScripts) {
+    mainClassName = 'org.noblis.ties.cli.TiesValidateCli'
+    applicationName = 'ties-validate'
+    classpath = startScripts.classpath
+    outputDir = startScripts.outputDir
+}
+
+startScripts.dependsOn(['convertStartScripts', 'formatStartScripts', 'validateStartScripts'])
+//disable startScripts task so its dependencies will run, but not its actions
+startScripts.enabled = false
+
+groovydoc {
+    docTitle = 'TIES 0.9 Java'
+    noTimestamp = true
+    noVersionStamp = true
+    //add java classes to groovydoc
+    source(javadoc.source)
+}
+
+//task to create jar file containing groovydocs
+task groovydocJar(type: Jar, dependsOn: ['groovydoc']) {
+    classifier = 'groovydoc'
+    from groovydoc.destinationDir
+}
+
+artifacts {
+    //define artifact for jar file containing groovydocs
+    archives groovydocJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            //publish jar file containing groovydocs with class jar
+            artifact groovydocJar {
+                classifier 'groovydoc'
+            }
+
+            pom.withXml {
+                asNode().dependencies.'*'.findAll {
+                    it.scope.text() == 'runtime' && project.configurations.compile.allDependencies.find { dep ->
+                        dep.name == it.artifactId.text()
+                    }
+                }.each {
+                    it.scope*.value = 'compile'
+                }
+            }
+        }
+    }
+}
+
+task validateExamples(dependsOn: 'classes', type: JavaExec) {
+    main = 'org.noblis.ties.cli.TiesValidateCli'
+    args '../examples/*.json'
+    classpath = sourceSets.main.runtimeClasspath
+}

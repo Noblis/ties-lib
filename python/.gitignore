@@ -1,0 +1,9 @@
+# Python files
+*.pyc
+
+# Python coverage files
+.coverage
+
+# Generated build files
+src/ties/util/build_number.txt
+src/ties/util/build_time.txt

@@ -1,0 +1,497 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "stability": "prototype",
+  "title": "Triage Import Export Schema (TIES)",
+  "description": "A data interchange format for bidirectional sharing of data",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "securityTag", "objectItems"],
+  "properties": {
+    "version": {
+      "description": "TIES Schema version that the export conforms to",
+      "enum": ["0.9"]
+    },
+    "id": {
+      "description": "Unique identifier of the export (scoped to the exporting system)",
+      "$ref": "#/definitions/uniqueId-string"
+    },
+    "system": {
+      "description": "Name or identifier of the exporting system",
+      "type": "string",
+      "minLength": 1
+    },
+    "organization": {
+      "description": "Name or identifier of the organization that created the export",
+      "type": "string",
+      "minLength": 1
+    },
+    "time": {
+      "description": "Date and time that the export was created",
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "description": "Human-readable free-form text description of the export",
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "description": "Identifier indicating the type of export",
+      "type": "string",
+      "minLength": 1
+    },
+    "securityTag": {
+      "description": "Security markings associated with the export",
+      "type": "string"
+    },
+    "objectItems": {
+      "description": "Array of multimedia object items",
+      "$ref": "#/definitions/objectItem-array"
+    },
+    "objectGroups": {
+      "description": "Array of object groups",
+      "$ref": "#/definitions/objectGroup-array"
+    },
+    "objectRelationships": {
+      "description": "Array of object item and object group relationships",
+      "$ref": "#/definitions/objectRelationship-array"
+    },
+    "otherInformation": {
+      "description": "Array of key/value pairs containing additional information about the export",
+      "$ref": "#/definitions/otherInformation-array"
+    }
+  },
+  "definitions": {
+    "annotation-object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assertionId", "annotationType", "value", "securityTag"],
+      "properties": {
+        "assertionId": {
+          "description": "Unique identifier of the assertion (scoped to the exporting system)",
+          "$ref": "#/definitions/uniqueId-string"
+        },
+        "assertionReferenceId": {
+          "description": "Unique identifier of the assertion within the system that generated it (scoped to the generating system)",
+          "type": "string",
+          "minLength": 1
+        },
+        "assertionReferenceIdLabel": {
+          "description": "Descriptor indicating the type of assertionReferenceId",
+          "type": "string",
+          "minLength": 1
+        },
+        "system": {
+          "description": "Name or identifier of the system that created the assertion",
+          "type": "string",
+          "minLength": 1
+        },
+        "creator": {
+          "description": "Name or identifier of the user that created the assertion",
+          "type": "string",
+          "minLength": 1
+        },
+        "time": {
+          "description": "Date and time that the annotation was created",
+          "type": "string",
+          "format": "date-time"
+        },
+        "annotationType": {
+          "description": "Identifier indicating the type of annotation",
+          "type": "string",
+          "minLength": 1
+        },
+        "key": {
+          "description": "Key of the annotation, for annotations that represent key/value pairs",
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "description": "Value of the annotation",
+          "type": "string",
+          "minLength": 1
+        },
+        "itemAction": {
+          "description": "Identifier indicating the action or event that is being annotated",
+          "type": "string",
+          "minLength": 1
+        },
+        "itemActionTime": {
+          "description": "Date and time that the action or event that is being annotated occurred",
+          "type": "string",
+          "format": "date-time"
+        },
+        "securityTag": {
+          "description": "Security markings associated with the assertion",
+          "type": "string"
+        }
+      }
+    },
+    "annotation-array": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/definitions/annotation-object"
+      }
+    },
+    "assertions-object": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "description": "Array of objects containing metadata annotations about an exported object or object group",
+          "$ref": "#/definitions/annotation-array"
+        },
+        "supplementalDescriptions": {
+          "description": "Array of objects containing metadata about an exported object or group of objects, generated by the exporting system or other systems",
+          "$ref": "#/definitions/supplementalDescription-array"
+        }
+      }
+    },
+    "authorityInformation-object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["securityTag"],
+      "properties": {
+        "collectionId": {
+          "description": "Unique identifier of the collection the exported object is associated with (scoped to the exporting system)",
+          "type": "string",
+          "minLength": 1
+        },
+        "collectionIdLabel": {
+          "description": "Descriptor indicating the type of collection",
+          "type": "string",
+          "minLength": 1
+        },
+        "collectionIdAlias": {
+          "description": "Human-readable alias for the collectionId",
+          "type": "string",
+          "minLength": 1
+        },
+        "collectionDescription": {
+          "description": "Human-readable free-form text description of the collection",
+          "type": "string",
+          "minLength": 1
+        },
+        "subCollectionId": {
+          "description": "Unique identifier of the sub-collection the exported object is associated with (scoped to the collection)",
+          "type": "string",
+          "minLength": 1
+        },
+        "subCollectionIdLabel": {
+          "description": "Descriptor indicating the type of sub-collection",
+          "type": "string",
+          "minLength": 1
+        },
+        "subCollectionIdAlias": {
+          "description": "Human-readable alias for the subCollectionId",
+          "type": "string",
+          "minLength": 1
+        },
+        "subCollectionDescription": {
+          "description": "Human-readable free-form text description of the sub-collection",
+          "type": "string",
+          "minLength": 1
+        },
+        "registrationDate": {
+          "description": "Date and time that the exported object was brought into system control",
+          "type": "string",
+          "format": "date-time"
+        },
+        "expirationDate": {
+          "description": "Date and time that the retention of the exported object expires",
+          "type": "string",
+          "format": "date-time"
+        },
+        "owner": {
+          "description": "Name or identifier of the owner of the exported object",
+          "type": "string",
+          "minLength": 1
+        },
+        "securityTag": {
+          "description": "Security markings associated with the exported object",
+          "type": "string"
+        }
+      }
+    },
+    "objectGroup-object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["groupId", "groupType", "groupMemberIds"],
+      "properties": {
+        "groupId": {
+          "description": "Unique identifier of the group (scoped to the exporting system)",
+          "$ref": "#/definitions/uniqueId-string"
+        },
+        "groupType": {
+          "description": "Identifier indicating the type of group",
+          "type": "string",
+          "minLength": 1
+        },
+        "groupDescription": {
+          "description": "Human-readable free-form text description of the group",
+          "type": "string",
+          "minLength": 1
+        },
+        "groupMemberIds": {
+          "description": "List of objectIds of exported objects and/or groupIds of other groups that are members of the group",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uniqueId-string"
+          }
+        },
+        "groupAssertions": {
+          "description": "Object containing collections of metadata assertions about the group",
+          "$ref": "#/definitions/assertions-object"
+        },
+        "otherInformation": {
+          "description": "Array of key/value pairs containing additional information about the group",
+          "$ref": "#/definitions/otherInformation-array"
+        }
+      }
+    },
+    "objectGroup-array": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/definitions/objectGroup-object"
+      }
+    },
+    "objectItem-object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objectId", "sha256Hash", "md5Hash", "authorityInformation"],
+      "properties": {
+        "objectId": {
+          "description": "Unique identifier of the exported object (scoped to the exporting system)",
+          "$ref": "#/definitions/uniqueId-string"
+        },
+        "sha256Hash": {
+          "description": "SHA-256 file hash of the exported object",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$",
+          "minLength": 64,
+          "maxLength": 64
+        },
+        "md5Hash": {
+          "description": "MD5 file hash of the exported object",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{32}$",
+          "minLength": 32,
+          "maxLength": 32
+        },
+        "size": {
+          "description": "Size of the exported object in bytes",
+          "type": "integer",
+          "minimum": 0
+        },
+        "mimeType": {
+          "description": "MIME type of the exported object",
+          "type": "string",
+          "minLength": 1
+        },
+        "relativeUri": {
+          "description": "Uniform Resource Identifier (URI) describing the location of the exported object within the export package",
+          "type": "string",
+          "minLength": 1
+        },
+        "originalPath": {
+          "description": "Absolute file path of the exported object within the originating filesystem",
+          "type": "string",
+          "minLength": 1
+        },
+        "authorityInformation": {
+          "description": "Object containing authority information metadata about the exported object",
+          "$ref": "#/definitions/authorityInformation-object"
+        },
+        "objectAssertions": {
+          "description": "Object containing collections of metadata assertions about the exported object",
+          "$ref": "#/definitions/assertions-object"
+        },
+        "otherInformation": {
+          "description": "Array of key/value pairs containing additional information about the exported object",
+          "$ref": "#/definitions/otherInformation-array"
+        }
+      }
+    },
+    "objectItem-array": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/definitions/objectItem-object"
+      }
+    },
+    "objectRelationship-object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["linkageMemberIds", "linkageDirectionality"],
+      "properties": {
+        "linkageMemberIds": {
+          "description": "Pair of objectIds of exported objects and/or groupIds of groups that are connected by this relationship",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/definitions/uniqueId-string"
+          }
+        },
+        "linkageDirectionality": {
+          "description": "Enumeration value indicating the directionality of the relationship",
+          "enum": ["DIRECTED", "BIDIRECTED", "UNDIRECTED"]
+        },
+        "linkageType": {
+          "description": "Identifier indicating the type of relationship",
+          "type": "string",
+          "minLength": 1
+        },
+        "linkageAssertionId": {
+          "description": "assertionId of an assertion that is associated with this relationship",
+          "$ref": "#/definitions/uniqueId-string"
+        },
+        "otherInformation": {
+          "description": "Array of key/value pairs containing additional information about the relationship",
+          "$ref": "#/definitions/otherInformation-array"
+        }
+      }
+    },
+    "objectRelationship-array": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/definitions/objectRelationship-object"
+      }
+    },
+    "otherInformation-object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "value"],
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": ["string", "boolean", "integer", "number"]
+        }
+      }
+    },
+    "otherInformation-array": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/definitions/otherInformation-object"
+      }
+    },
+    "supplementalDescriptionDataFile-object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assertionId", "informationType", "sha256DataHash", "dataSize", "securityTag"],
+      "properties": {
+        "assertionId": {
+          "description": "Unique identifier of the assertion (scoped to the exporting system)",
+          "$ref": "#/definitions/uniqueId-string"
+        },
+        "assertionReferenceId": {
+          "description": "Unique identifier of the assertion within the system that generated it (scoped to the generating system)",
+          "type": "string",
+          "minLength": 1
+        },
+        "assertionReferenceIdLabel": {
+          "description": "Descriptor indicating the type of assertionReferenceId",
+          "type": "string",
+          "minLength": 1
+        },
+        "system": {
+          "description": "Name or identifier of the system that created the assertion",
+          "type": "string",
+          "minLength": 1
+        },
+        "informationType": {
+          "description": "Identifier indicating the type of supplemental description",
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256DataHash": {
+          "description": "SHA-256 file hash of the supplemental description data file",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$",
+          "minLength": 64,
+          "maxLength": 64
+        },
+        "dataSize": {
+          "description": "Size of the supplemental description data file in bytes",
+          "type": "integer",
+          "minimum": 0
+        },
+        "dataRelativeUri": {
+          "description": "Uniform Resource Identifier (URI) describing the location of the supplemental description data file within the export package",
+          "type": "string",
+          "minLength": 1
+        },
+        "securityTag": {
+          "description": "Security markings associated with the assertion",
+          "type": "string"
+        }
+      }
+    },
+    "supplementalDescriptionDataObject-object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assertionId", "informationType", "dataObject", "securityTag"],
+      "properties": {
+        "assertionId": {
+          "description": "Unique identifier of the assertion (scoped to the exporting system)",
+          "$ref": "#/definitions/uniqueId-string"
+        },
+        "assertionReferenceId": {
+          "description": "Unique identifier of the assertion within the system that generated it (scoped to the generating system)",
+          "type": "string",
+          "minLength": 1
+        },
+        "assertionReferenceIdLabel": {
+          "description": "Descriptor indicating the type of assertionReferenceId",
+          "type": "string",
+          "minLength": 1
+        },
+        "system": {
+          "description": "Name or identifier of the system that created the assertion",
+          "type": "string",
+          "minLength": 1
+        },
+        "informationType": {
+          "description": "Identifier indicating the type of supplemental description",
+          "type": "string",
+          "minLength": 1
+        },
+        "dataObject": {
+          "description": "JSON object containing the supplemental description data",
+          "type": "object"
+        },
+        "securityTag": {
+          "description": "Security markings associated with the assertion",
+          "type": "string"
+        }
+      }
+    },
+    "supplementalDescription-array": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/supplementalDescriptionDataFile-object"
+          },
+          {
+            "$ref": "#/definitions/supplementalDescriptionDataObject-object"
+          }
+        ]
+      }
+    },
+    "uniqueId-string": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    }
+  }
+}

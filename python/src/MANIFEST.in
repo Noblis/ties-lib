@@ -1,0 +1,3 @@
+graft ties
+global-exclude *.pyc __pycache__
+include COPYING LICENSE NOTICE README.rst

@@ -1,0 +1,72 @@
+{
+  "version": "0.9",
+  "id": "34:735",
+  "system": "Hypothetical",
+  "time": "1970-01-01T00:00:00Z",
+  "securityTag": "UNCLASSIFIED",
+  "objectItems": [
+    {
+      "objectId": "12:570",
+      "sha256Hash": "8ba48a863fc9a9a6bf9ffaf592d8fdb5590d5d7b22aa4f411acd8f098e382e29",
+      "md5Hash": "c7a0807c0bb2142980773b506ac348f7",
+      "mimeType": "video/mp4",
+      "relativeUri": "file:Media/examples/video_001.mp4",
+      "authorityInformation": {
+        "securityTag": "UNCLASSIFIED"
+      },
+      "objectAssertions": {
+        "annotations": [
+          {
+            "assertionId": "a570",
+            "annotationType": "UserDescribed",
+            "value": "Example Annotation Text",
+            "securityTag": "UNCLASSIFIED"
+          }
+        ],
+        "supplementalDescriptions": [
+          {
+            "assertionId": "ssa570",
+            "informationType": "Metadata",
+            "sha256DataHash": "3fc9b689459d738f8c88a3a48aa9e33542016b7a4052e001aaa536fca74813cb",
+            "dataSize": 12345,
+            "dataRelativeUri": "file:Media/examples/video_001.mp4.json",
+            "securityTag": "UNCLASSIFIED"
+          }
+        ]
+      },
+      "otherInformation": [
+        {
+          "key": "sha512",
+          "value": "39ca2b1f97c7d1d223dcb2b22cbe20c36f920aeefd201d0bf68ffc08db6d9ac608a0a202fb536d944c9d1f50cf9bd61b5bc84217212f0727a8db8a01c2fa54b7"
+        }
+      ]
+    },
+    {
+      "objectId": "12:571",
+      "sha256Hash": "51409d7fd051e50e274104cf0d8c97f6531dd592917d5797aa605620cee31d0a",
+      "md5Hash": "3435435434321443543543432144321a",
+      "mimeType": "image/png",
+      "relativeUri": "file:Media/examples/image_001.png",
+      "authorityInformation": {
+        "securityTag": "UNCLASSIFIED"
+      }
+    }
+  ],
+  "objectRelationships": [
+    {
+      "linkageMemberIds": [
+        "12:570",
+        "12:571"
+      ],
+      "linkageDirectionality": "DIRECTED",
+      "linkageType": "THUMBNAIL",
+      "linkageAssertionId": "ssa570",
+      "otherInformation": [
+        {
+          "key": "id",
+          "value": "134"
+        }
+      ]
+    }
+  ]
+}
