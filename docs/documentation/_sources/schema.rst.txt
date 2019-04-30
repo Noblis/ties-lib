@@ -1,8 +1,9 @@
-.. _ties-schema-label:
+.. _schema-label:
 
 TIES Schema Objects
 *******************
 
+`TIES 0.9 JSON Schema <../../schemata/ties-base.json>`_
 
 .. _top-level-label:
 

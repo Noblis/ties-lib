@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>TIES Schema Objects &#8212; TIES Schema 0.9 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="TIES Schema Validator" href="validate.html" />
+    <link rel="prev" title="Triage Import Export Schema (TIES)" href="overview.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="validate.html" title="TIES Schema Validator"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Triage Import Export Schema (TIES)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">TIES Schema 0.9 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ties-schema-objects">
+<span id="schema-label"></span><h1>TIES Schema Objects<a class="headerlink" href="#ties-schema-objects" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="../../schemata/ties-base.json">TIES 0.9 JSON Schema</a></p>
+<div class="section" id="top-level-object">
+<span id="top-level-label"></span><h2><strong>Top-level Object</strong><a class="headerlink" href="#top-level-object" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="version-required">
+<h3>version <strong>[required]</strong><a class="headerlink" href="#version-required" title="Permalink to this headline">¶</a></h3>
+<p><em>enum</em> : [“0.9”]</p>
+<p>TIES Schema version that the export conforms to</p>
+</div>
+<div class="section" id="id">
+<h3>id<a class="headerlink" href="#id" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the export (scoped to the exporting system)</p>
+</div>
+<div class="section" id="system">
+<h3>system<a class="headerlink" href="#system" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Name or identifier of the exporting system</p>
+</div>
+<div class="section" id="organization">
+<h3>organization<a class="headerlink" href="#organization" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Name or identifier of the organization that created the export</p>
+</div>
+<div class="section" id="time">
+<h3>time<a class="headerlink" href="#time" title="Permalink to this headline">¶</a></h3>
+<p><em>date-time</em></p>
+<p>Date and time that the export was created</p>
+<p>The date-time value should be formatted as an ISO 8601 datetime of YYYY-MM-DDThh:mm:ssZ or YYYY-MM-DDThh:mm:ss.sssZ in
+UTC time.</p>
+</div>
+<div class="section" id="description">
+<h3>description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Human-readable free-form text description of the export</p>
+</div>
+<div class="section" id="type">
+<h3>type<a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Identifier indicating the type of export</p>
+</div>
+<div class="section" id="securitytag-required">
+<h3>securityTag <strong>[required]</strong><a class="headerlink" href="#securitytag-required" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Security markings associated with the export</p>
+</div>
+<div class="section" id="objectitems-required">
+<span id="top-level-object-items-label"></span><h3>objectItems <strong>[required]</strong><a class="headerlink" href="#objectitems-required" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : <a class="reference internal" href="#object-item-label"><span class="std std-ref">objectItem</span></a></p>
+<p>Array of multimedia object items</p>
+</div>
+<div class="section" id="objectgroups">
+<span id="top-level-object-groups-label"></span><h3>objectGroups<a class="headerlink" href="#objectgroups" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : <a class="reference internal" href="#object-group-label"><span class="std std-ref">objectGroup</span></a></p>
+<p>Array of object groups</p>
+</div>
+<div class="section" id="objectrelationships">
+<h3>objectRelationships<a class="headerlink" href="#objectrelationships" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : <a class="reference internal" href="#object-relationship-label"><span class="std std-ref">objectRelationship</span></a></p>
+<p>Array of object item and object group relationships</p>
+</div>
+<div class="section" id="otherinformation">
+<h3>otherInformation<a class="headerlink" href="#otherinformation" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : <a class="reference internal" href="#other-information-label"><span class="std std-ref">otherInformation</span></a></p>
+<p>Array of key/value pairs containing additional information about the export</p>
+</div>
+</div>
+<div class="section" id="objectitem">
+<span id="object-item-label"></span><h2><strong>objectItem</strong><a class="headerlink" href="#objectitem" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="objectid-required">
+<span id="object-item-object-id-label"></span><h3>objectId <strong>[required]</strong><a class="headerlink" href="#objectid-required" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the exported object (scoped to the exporting system)</p>
+</div>
+<div class="section" id="sha256hash-required">
+<h3>sha256Hash <strong>[required]</strong><a class="headerlink" href="#sha256hash-required" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>SHA-256 file hash of the exported object</p>
+</div>
+<div class="section" id="md5hash-required">
+<h3>md5Hash <strong>[required]</strong><a class="headerlink" href="#md5hash-required" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>MD5 file hash of the exported object</p>
+</div>
+<div class="section" id="size">
+<h3>size<a class="headerlink" href="#size" title="Permalink to this headline">¶</a></h3>
+<p><em>integer</em></p>
+<p>Size of the exported object in bytes</p>
+</div>
+<div class="section" id="mimetype">
+<h3>mimeType<a class="headerlink" href="#mimetype" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>MIME type of the exported object</p>
+</div>
+<div class="section" id="relativeuri">
+<h3>relativeUri<a class="headerlink" href="#relativeuri" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Uniform Resource Identifier (URI) describing the location of the exported object within the export package</p>
+<p>The relativeUri property should be included if and only if the exported object is included in the export package as a
+file. The relativeUri property should be included if the exported object exists as a file in the export package, and
+should not be included if the exported object does not exist as a file in the export package.</p>
+</div>
+<div class="section" id="originalpath">
+<h3>originalPath<a class="headerlink" href="#originalpath" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Absolute file path of the exported object within the originating filesystem</p>
+</div>
+<div class="section" id="authorityinformation-required">
+<h3>authorityInformation <strong>[required]</strong><a class="headerlink" href="#authorityinformation-required" title="Permalink to this headline">¶</a></h3>
+<p><em>object</em> : <a class="reference internal" href="#authority-information-label"><span class="std std-ref">authorityInformation</span></a></p>
+<p>Object containing authority information metadata about the exported object</p>
+</div>
+<div class="section" id="objectassertions">
+<span id="object-item-object-assertions-label"></span><h3>objectAssertions<a class="headerlink" href="#objectassertions" title="Permalink to this headline">¶</a></h3>
+<p><em>object</em> : <a class="reference internal" href="#assertions-label"><span class="std std-ref">assertions</span></a></p>
+<p>Object containing collections of metadata assertions about the exported object</p>
+</div>
+<div class="section" id="id1">
+<h3>otherInformation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : <a class="reference internal" href="#other-information-label"><span class="std std-ref">otherInformation</span></a></p>
+<p>Array of key/value pairs containing additional information about the exported object</p>
+</div>
+</div>
+<div class="section" id="objectgroup">
+<span id="object-group-label"></span><h2><strong>objectGroup</strong><a class="headerlink" href="#objectgroup" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="groupid">
+<span id="object-group-group-id-label"></span><h3>groupId<a class="headerlink" href="#groupid" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the group (scoped to the exporting system)</p>
+</div>
+<div class="section" id="grouptype">
+<h3>groupType<a class="headerlink" href="#grouptype" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Identifier indicating the type of group</p>
+</div>
+<div class="section" id="groupdescription">
+<h3>groupDescription<a class="headerlink" href="#groupdescription" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Human-readable free-form text description of the group</p>
+</div>
+<div class="section" id="groupmemberids">
+<h3>groupMemberIds<a class="headerlink" href="#groupmemberids" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : string</p>
+<p>List of <a class="reference internal" href="#object-item-object-id-label"><span class="std std-ref">objectIds</span></a> of exported objects and/or
+<a class="reference internal" href="#object-group-group-id-label"><span class="std std-ref">groupIds</span></a> of other groups that are members of the group</p>
+<p>Members of a group can either be <a class="reference internal" href="#object-item-label"><span class="std std-ref">objectItems</span></a> referenced by
+<a class="reference internal" href="#object-item-object-id-label"><span class="std std-ref">objectId</span></a> or <a class="reference internal" href="#object-group-label"><span class="std std-ref">objectGroups</span></a> referenced by
+<a class="reference internal" href="#object-group-group-id-label"><span class="std std-ref">groupId</span></a>. A single group may contain both <a class="reference internal" href="#object-item-label"><span class="std std-ref">objectItems</span></a> and
+<a class="reference internal" href="#object-group-label"><span class="std std-ref">objectGroups</span></a>.</p>
+<p>All <a class="reference internal" href="#object-item-label"><span class="std std-ref">objectItems</span></a> and <a class="reference internal" href="#object-group-label"><span class="std std-ref">objectGroups</span></a> that are members of a group
+should be present in the export.</p>
+</div>
+<div class="section" id="groupassertions">
+<span id="object-group-group-assertions-label"></span><h3>groupAssertions<a class="headerlink" href="#groupassertions" title="Permalink to this headline">¶</a></h3>
+<p><em>object</em> : <a class="reference internal" href="#assertions-label"><span class="std std-ref">assertions</span></a></p>
+<p>Object containing collections of metadata assertions about the group</p>
+</div>
+<div class="section" id="id2">
+<h3>otherInformation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : <a class="reference internal" href="#other-information-label"><span class="std std-ref">otherInformation</span></a></p>
+<p>Array of key/value pairs containing additional information about the group</p>
+</div>
+</div>
+<div class="section" id="objectrelationship">
+<span id="object-relationship-label"></span><h2><strong>objectRelationship</strong><a class="headerlink" href="#objectrelationship" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="linkagememberids-required">
+<span id="object-relationship-linkage-system-ids-label"></span><h3>linkageMemberIds <strong>[required]</strong><a class="headerlink" href="#linkagememberids-required" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : string</p>
+<p>Pair of <a class="reference internal" href="#object-item-object-id-label"><span class="std std-ref">objectIds</span></a> of exported objects and/or
+<a class="reference internal" href="#object-group-group-id-label"><span class="std std-ref">groupIds</span></a> of groups that are connected by this relationship</p>
+<p>Members of a relationship can either be <a class="reference internal" href="#object-item-label"><span class="std std-ref">objectItems</span></a> referenced by
+<a class="reference internal" href="#object-item-object-id-label"><span class="std std-ref">objectId</span></a> or <a class="reference internal" href="#object-group-label"><span class="std std-ref">objectGroups</span></a> referenced by
+<a class="reference internal" href="#object-group-group-id-label"><span class="std std-ref">groupId</span></a>. A single relationship may connect two
+<a class="reference internal" href="#object-item-label"><span class="std std-ref">objectItems</span></a>, two <a class="reference internal" href="#object-group-label"><span class="std std-ref">objectGroups</span></a>, or an
+<a class="reference internal" href="#object-item-label"><span class="std std-ref">objectItem</span></a> and an <a class="reference internal" href="#object-group-label"><span class="std std-ref">objectGroup</span></a>.</p>
+<p>All <a class="reference internal" href="#object-item-label"><span class="std std-ref">objectItems</span></a> or <a class="reference internal" href="#object-group-label"><span class="std std-ref">objectGroups</span></a> that are connected by a
+relationship should be present in the export.</p>
+</div>
+<div class="section" id="linkagedirectionality-required">
+<h3>linkageDirectionality <strong>[required]</strong><a class="headerlink" href="#linkagedirectionality-required" title="Permalink to this headline">¶</a></h3>
+<p><em>enum</em> : [“DIRECTED”, “BIDIRECTED”, “UNDIRECTED”]</p>
+<p>Enumeration value indicating the directionality of the relationship</p>
+<p>A DIRECTED linkage indicates a relationship from the first
+<a class="reference internal" href="#object-relationship-linkage-system-ids-label"><span class="std std-ref">linkageMemberId</span></a> to the second. A BIDIRECTED linkage indicates a
+relationship from the first <a class="reference internal" href="#object-relationship-linkage-system-ids-label"><span class="std std-ref">linkageMemberId</span></a> to the second, and
+from the second <a class="reference internal" href="#object-relationship-linkage-system-ids-label"><span class="std std-ref">linkageMemberId</span></a> to the first. An UNDIRECTED
+linkage indicates a relationship with no directionality.</p>
+</div>
+<div class="section" id="linkagetype">
+<h3>linkageType<a class="headerlink" href="#linkagetype" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Identifier indicating the type of relationship</p>
+</div>
+<div class="section" id="linkageassertionid">
+<h3>linkageAssertionId<a class="headerlink" href="#linkageassertionid" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>assertionId of an assertion that is associated with this relationship</p>
+<p>The linkageAssertionId can be used to associate an <a class="reference internal" href="#object-relationship-label"><span class="std std-ref">objectRelationship</span></a> with an
+<a class="reference internal" href="#assertions-label"><span class="std std-ref">assertion</span></a> (either an <a class="reference internal" href="#annotation-label"><span class="std std-ref">annotation</span></a> or a supplementalDescription
+(<a class="reference internal" href="#supplemental-description-data-file-label"><span class="std std-ref">[Data File]</span></a>,
+<a class="reference internal" href="#supplemental-description-data-object-label"><span class="std std-ref">[Data Object]</span></a>) by referencing the
+<a class="reference internal" href="#assertions-label"><span class="std std-ref">assertion’s</span></a> assertionId property.</p>
+<p>The referenced assertion should be present within the <a class="reference internal" href="#object-item-object-assertions-label"><span class="std std-ref">objectAssertions</span></a> of
+an <a class="reference internal" href="#object-item-label"><span class="std std-ref">objectItem</span></a> or the <a class="reference internal" href="#object-group-group-assertions-label"><span class="std std-ref">groupAssertions</span></a> of an
+<a class="reference internal" href="#object-group-label"><span class="std std-ref">objectGroup</span></a> connected by this relationship.</p>
+</div>
+<div class="section" id="id3">
+<h3>otherInformation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : <a class="reference internal" href="#other-information-label"><span class="std std-ref">otherInformation</span></a></p>
+<p>Array of key/value pairs containing additional information about the relationship</p>
+</div>
+</div>
+<div class="section" id="other-information-label">
+<span id="id4"></span><h2><strong>otherInformation</strong><a class="headerlink" href="#other-information-label" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="key-required">
+<h3>key <strong>[required]</strong><a class="headerlink" href="#key-required" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+</div>
+<div class="section" id="value-required">
+<h3>value <strong>[required]</strong><a class="headerlink" href="#value-required" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em>, <em>boolean</em>, <em>integer</em>, <em>number</em></p>
+</div>
+</div>
+<div class="section" id="authorityinformation">
+<span id="authority-information-label"></span><h2><strong>authorityInformation</strong><a class="headerlink" href="#authorityinformation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="collectionid">
+<span id="authority-information-collection-id-label"></span><h3>collectionId<a class="headerlink" href="#collectionid" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the collection the exported object is associated with (scoped to the exporting system)</p>
+</div>
+<div class="section" id="collectionidlabel">
+<h3>collectionIdLabel<a class="headerlink" href="#collectionidlabel" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Descriptor indicating the type of collection</p>
+</div>
+<div class="section" id="collectionidalias">
+<h3>collectionIdAlias<a class="headerlink" href="#collectionidalias" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Human-readable alias for the <a class="reference internal" href="#authority-information-collection-id-label"><span class="std std-ref">collectionId</span></a></p>
+</div>
+<div class="section" id="collectiondescription">
+<h3>collectionDescription<a class="headerlink" href="#collectiondescription" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Human-readable free-form text description of the collection</p>
+</div>
+<div class="section" id="subcollectionid">
+<span id="authority-information-sub-collection-id-label"></span><h3>subCollectionId<a class="headerlink" href="#subcollectionid" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the sub-collection the exported object is associated with (scoped to the collection)</p>
+</div>
+<div class="section" id="subcollectionidlabel">
+<h3>subCollectionIdLabel<a class="headerlink" href="#subcollectionidlabel" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Descriptor indicating the type of sub-collection</p>
+</div>
+<div class="section" id="subcollectionidalias">
+<h3>subCollectionIdAlias<a class="headerlink" href="#subcollectionidalias" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Human-readable alias for the <a class="reference internal" href="#authority-information-sub-collection-id-label"><span class="std std-ref">subCollectionId</span></a></p>
+</div>
+<div class="section" id="subcollectiondescription">
+<h3>subCollectionDescription<a class="headerlink" href="#subcollectiondescription" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Human-readable free-form text description of the sub-collection</p>
+</div>
+<div class="section" id="registrationdate">
+<h3>registrationDate<a class="headerlink" href="#registrationdate" title="Permalink to this headline">¶</a></h3>
+<p><em>date-time</em></p>
+<p>Date and time that the exported object was brought into system control</p>
+<p>The date-time value should be formatted as an ISO 8601 datetime of YYYY-MM-DDThh:mm:ssZ or YYYY-MM-DDThh:mm:ss.sssZ in
+UTC time.</p>
+</div>
+<div class="section" id="expirationdate">
+<h3>expirationDate<a class="headerlink" href="#expirationdate" title="Permalink to this headline">¶</a></h3>
+<p><em>date-time</em></p>
+<p>Date and time that the retention of the exported object expires</p>
+<p>The date-time value should be formatted as an ISO 8601 datetime of YYYY-MM-DDThh:mm:ssZ or YYYY-MM-DDThh:mm:ss.sssZ in
+UTC time.</p>
+</div>
+<div class="section" id="owner">
+<h3>owner<a class="headerlink" href="#owner" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Name or identifier of the owner of the exported object</p>
+</div>
+<div class="section" id="id5">
+<h3>securityTag <strong>[required]</strong><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Security markings associated with the exported object</p>
+</div>
+</div>
+<div class="section" id="assertions">
+<span id="assertions-label"></span><h2><strong>assertions</strong><a class="headerlink" href="#assertions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="annotations">
+<h3>annotations<a class="headerlink" href="#annotations" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : <a class="reference internal" href="#annotation-label"><span class="std std-ref">annotation</span></a></p>
+<p>Array of objects containing metadata annotations about an exported object or group of objects</p>
+</div>
+<div class="section" id="supplementaldescriptions">
+<h3>supplementalDescriptions<a class="headerlink" href="#supplementaldescriptions" title="Permalink to this headline">¶</a></h3>
+<p><em>array</em> : <a class="reference internal" href="#supplemental-description-data-file-label"><span class="std std-ref">supplementalDescription (Data File)</span></a>, <a class="reference internal" href="#supplemental-description-data-object-label"><span class="std std-ref">supplementalDescription (Data Object)</span></a></p>
+<p>Array of objects containing metadata about an exported object or group of objects, generated by the exporting system or
+other systems</p>
+</div>
+</div>
+<div class="section" id="annotation">
+<span id="annotation-label"></span><h2><strong>annotation</strong><a class="headerlink" href="#annotation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="assertionid-required">
+<h3>assertionId <strong>[required]</strong><a class="headerlink" href="#assertionid-required" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the assertion (scoped to the exporting system)</p>
+</div>
+<div class="section" id="assertionreferenceid">
+<span id="annotation-assertion-reference-id-label"></span><h3>assertionReferenceId<a class="headerlink" href="#assertionreferenceid" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the assertion within the system that generated it (scoped to the generating system)</p>
+<p>The assertionReferenceId can be used to identify the assertion in the system that generated it, when the system that
+generated the assertion is not the same as the exporting system.</p>
+</div>
+<div class="section" id="assertionreferenceidlabel">
+<h3>assertionReferenceIdLabel<a class="headerlink" href="#assertionreferenceidlabel" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Descriptor indicating the type of <a class="reference internal" href="#annotation-assertion-reference-id-label"><span class="std std-ref">assertionReferenceId</span></a></p>
+</div>
+<div class="section" id="id6">
+<h3>system<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Name or identifier of the system that created the assertion</p>
+</div>
+<div class="section" id="creator">
+<h3>creator<a class="headerlink" href="#creator" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Name or identifier of the user that created the annotation</p>
+</div>
+<div class="section" id="id7">
+<h3>time<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p><em>date-time</em></p>
+<p>Date and time that the annotation was created</p>
+<p>The date-time value should be formatted as an ISO 8601 datetime of YYYY-MM-DDThh:mm:ssZ or YYYY-MM-DDThh:mm:ss.sssZ in
+UTC time.</p>
+</div>
+<div class="section" id="annotationtype-required">
+<h3>annotationType <strong>[required]</strong><a class="headerlink" href="#annotationtype-required" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Identifier indicating the type of annotation</p>
+</div>
+<div class="section" id="key">
+<h3>key<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Key of the annotation, for annotations that represent key/value pairs</p>
+</div>
+<div class="section" id="id8">
+<h3>value <strong>[required]</strong><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Value of the annotation</p>
+</div>
+<div class="section" id="itemaction">
+<h3>itemAction<a class="headerlink" href="#itemaction" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Identifier indicating the action or event that is being annotated</p>
+</div>
+<div class="section" id="itemactiontime">
+<h3>itemActionTime<a class="headerlink" href="#itemactiontime" title="Permalink to this headline">¶</a></h3>
+<p><em>date-time</em></p>
+<p>Date and time that the action or event that is being annotated occurred</p>
+<p>The date-time value should be formatted as an ISO 8601 datetime of YYYY-MM-DDThh:mm:ssZ or YYYY-MM-DDThh:mm:ss.sssZ in
+UTC time.</p>
+</div>
+<div class="section" id="id9">
+<h3>securityTag <strong>[required]</strong><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Security markings associated with the assertion</p>
+</div>
+</div>
+<div class="section" id="supplementaldescription-data-file">
+<span id="supplemental-description-data-file-label"></span><h2><strong>supplementalDescription (Data File)</strong><a class="headerlink" href="#supplementaldescription-data-file" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3>assertionId <strong>[required]</strong><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the assertion (scoped to the exporting system)</p>
+</div>
+<div class="section" id="supplemental-description-data-file-assertion-reference-id-label">
+<span id="id11"></span><h3>assertionReferenceId<a class="headerlink" href="#supplemental-description-data-file-assertion-reference-id-label" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the assertion within the system that generated it (scoped to the generating system)</p>
+<p>The assertionReferenceId can be used to identify the assertion in the system that generated it, when the system that
+generated the assertion is not the same as the exporting system.</p>
+</div>
+<div class="section" id="id12">
+<h3>assertionReferenceIdLabel<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Descriptor indicating the type of
+<a class="reference internal" href="#supplemental-description-data-file-assertion-reference-id-label"><span class="std std-ref">assertionReferenceId</span></a></p>
+</div>
+<div class="section" id="id13">
+<h3>system<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Name or identifier of the system that created the assertion</p>
+</div>
+<div class="section" id="informationtype-required">
+<h3>informationType <strong>[required]</strong><a class="headerlink" href="#informationtype-required" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Identifier indicating the type of supplemental description</p>
+</div>
+<div class="section" id="sha256datahash-required">
+<h3>sha256DataHash <strong>[required]</strong><a class="headerlink" href="#sha256datahash-required" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>SHA-256 file hash of the supplemental description data file</p>
+</div>
+<div class="section" id="datasize-required">
+<h3>dataSize <strong>[required]</strong><a class="headerlink" href="#datasize-required" title="Permalink to this headline">¶</a></h3>
+<p><em>integer</em></p>
+<p>Size of the supplemental description data file in bytes</p>
+</div>
+<div class="section" id="datarelativeuri">
+<h3>dataRelativeUri<a class="headerlink" href="#datarelativeuri" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Uniform Resource Identifier (URI) describing the location of the supplemental description data file within the export
+package</p>
+</div>
+<div class="section" id="id14">
+<h3>securityTag <strong>[required]</strong><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Security markings associated with the assertion</p>
+</div>
+</div>
+<div class="section" id="supplementaldescription-data-object">
+<span id="supplemental-description-data-object-label"></span><h2><strong>supplementalDescription (Data Object)</strong><a class="headerlink" href="#supplementaldescription-data-object" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id15">
+<h3>assertionId <strong>[required]</strong><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the assertion (scoped to the exporting system)</p>
+</div>
+<div class="section" id="supplemental-description-data-object-assertion-reference-id-label">
+<span id="id16"></span><h3>assertionReferenceId<a class="headerlink" href="#supplemental-description-data-object-assertion-reference-id-label" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Unique identifier of the assertion within the system that generated it (scoped to the generating system)</p>
+<p>The assertionReferenceId can be used to identify the assertion in the system that generated it, when the system that
+generated the assertion is not the same as the exporting system.</p>
+</div>
+<div class="section" id="id17">
+<h3>assertionReferenceIdLabel<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Descriptor indicating the type of
+<a class="reference internal" href="#supplemental-description-data-object-assertion-reference-id-label"><span class="std std-ref">assertionReferenceId</span></a></p>
+</div>
+<div class="section" id="id18">
+<h3>system<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Name or identifier of the system that created the assertion</p>
+</div>
+<div class="section" id="id19">
+<h3>informationType <strong>[required]</strong><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Identifier indicating the type of supplemental description</p>
+</div>
+<div class="section" id="dataobject-required">
+<h3>dataObject <strong>[required]</strong><a class="headerlink" href="#dataobject-required" title="Permalink to this headline">¶</a></h3>
+<p><em>object</em></p>
+<p>JSON object containing the supplemental description data</p>
+<p>Supplemental description data can be embedded directly in the TIES export as the content of the dataObject field. This
+can be used as an alternative to <a class="reference internal" href="#supplemental-description-data-file-label"><span class="std std-ref">supplementalDescription (Data File)</span></a> to store small amounts of JSON data.</p>
+</div>
+<div class="section" id="id20">
+<h3>securityTag <strong>[required]</strong><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p><em>string</em></p>
+<p>Security markings associated with the assertion</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">TIES Schema Objects</a><ul>
+<li><a class="reference internal" href="#top-level-object"><strong>Top-level Object</strong></a><ul>
+<li><a class="reference internal" href="#version-required">version <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#id">id</a></li>
+<li><a class="reference internal" href="#system">system</a></li>
+<li><a class="reference internal" href="#organization">organization</a></li>
+<li><a class="reference internal" href="#time">time</a></li>
+<li><a class="reference internal" href="#description">description</a></li>
+<li><a class="reference internal" href="#type">type</a></li>
+<li><a class="reference internal" href="#securitytag-required">securityTag <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#objectitems-required">objectItems <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#objectgroups">objectGroups</a></li>
+<li><a class="reference internal" href="#objectrelationships">objectRelationships</a></li>
+<li><a class="reference internal" href="#otherinformation">otherInformation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#objectitem"><strong>objectItem</strong></a><ul>
+<li><a class="reference internal" href="#objectid-required">objectId <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#sha256hash-required">sha256Hash <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#md5hash-required">md5Hash <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#size">size</a></li>
+<li><a class="reference internal" href="#mimetype">mimeType</a></li>
+<li><a class="reference internal" href="#relativeuri">relativeUri</a></li>
+<li><a class="reference internal" href="#originalpath">originalPath</a></li>
+<li><a class="reference internal" href="#authorityinformation-required">authorityInformation <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#objectassertions">objectAssertions</a></li>
+<li><a class="reference internal" href="#id1">otherInformation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#objectgroup"><strong>objectGroup</strong></a><ul>
+<li><a class="reference internal" href="#groupid">groupId</a></li>
+<li><a class="reference internal" href="#grouptype">groupType</a></li>
+<li><a class="reference internal" href="#groupdescription">groupDescription</a></li>
+<li><a class="reference internal" href="#groupmemberids">groupMemberIds</a></li>
+<li><a class="reference internal" href="#groupassertions">groupAssertions</a></li>
+<li><a class="reference internal" href="#id2">otherInformation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#objectrelationship"><strong>objectRelationship</strong></a><ul>
+<li><a class="reference internal" href="#linkagememberids-required">linkageMemberIds <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#linkagedirectionality-required">linkageDirectionality <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#linkagetype">linkageType</a></li>
+<li><a class="reference internal" href="#linkageassertionid">linkageAssertionId</a></li>
+<li><a class="reference internal" href="#id3">otherInformation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-information-label"><strong>otherInformation</strong></a><ul>
+<li><a class="reference internal" href="#key-required">key <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#value-required">value <strong>[required]</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#authorityinformation"><strong>authorityInformation</strong></a><ul>
+<li><a class="reference internal" href="#collectionid">collectionId</a></li>
+<li><a class="reference internal" href="#collectionidlabel">collectionIdLabel</a></li>
+<li><a class="reference internal" href="#collectionidalias">collectionIdAlias</a></li>
+<li><a class="reference internal" href="#collectiondescription">collectionDescription</a></li>
+<li><a class="reference internal" href="#subcollectionid">subCollectionId</a></li>
+<li><a class="reference internal" href="#subcollectionidlabel">subCollectionIdLabel</a></li>
+<li><a class="reference internal" href="#subcollectionidalias">subCollectionIdAlias</a></li>
+<li><a class="reference internal" href="#subcollectiondescription">subCollectionDescription</a></li>
+<li><a class="reference internal" href="#registrationdate">registrationDate</a></li>
+<li><a class="reference internal" href="#expirationdate">expirationDate</a></li>
+<li><a class="reference internal" href="#owner">owner</a></li>
+<li><a class="reference internal" href="#id5">securityTag <strong>[required]</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#assertions"><strong>assertions</strong></a><ul>
+<li><a class="reference internal" href="#annotations">annotations</a></li>
+<li><a class="reference internal" href="#supplementaldescriptions">supplementalDescriptions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#annotation"><strong>annotation</strong></a><ul>
+<li><a class="reference internal" href="#assertionid-required">assertionId <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#assertionreferenceid">assertionReferenceId</a></li>
+<li><a class="reference internal" href="#assertionreferenceidlabel">assertionReferenceIdLabel</a></li>
+<li><a class="reference internal" href="#id6">system</a></li>
+<li><a class="reference internal" href="#creator">creator</a></li>
+<li><a class="reference internal" href="#id7">time</a></li>
+<li><a class="reference internal" href="#annotationtype-required">annotationType <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#key">key</a></li>
+<li><a class="reference internal" href="#id8">value <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#itemaction">itemAction</a></li>
+<li><a class="reference internal" href="#itemactiontime">itemActionTime</a></li>
+<li><a class="reference internal" href="#id9">securityTag <strong>[required]</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#supplementaldescription-data-file"><strong>supplementalDescription (Data File)</strong></a><ul>
+<li><a class="reference internal" href="#id10">assertionId <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#supplemental-description-data-file-assertion-reference-id-label">assertionReferenceId</a></li>
+<li><a class="reference internal" href="#id12">assertionReferenceIdLabel</a></li>
+<li><a class="reference internal" href="#id13">system</a></li>
+<li><a class="reference internal" href="#informationtype-required">informationType <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#sha256datahash-required">sha256DataHash <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#datasize-required">dataSize <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#datarelativeuri">dataRelativeUri</a></li>
+<li><a class="reference internal" href="#id14">securityTag <strong>[required]</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#supplementaldescription-data-object"><strong>supplementalDescription (Data Object)</strong></a><ul>
+<li><a class="reference internal" href="#id15">assertionId <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#supplemental-description-data-object-assertion-reference-id-label">assertionReferenceId</a></li>
+<li><a class="reference internal" href="#id17">assertionReferenceIdLabel</a></li>
+<li><a class="reference internal" href="#id18">system</a></li>
+<li><a class="reference internal" href="#id19">informationType <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#dataobject-required">dataObject <strong>[required]</strong></a></li>
+<li><a class="reference internal" href="#id20">securityTag <strong>[required]</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">Triage Import Export Schema (TIES)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="validate.html"
+                        title="next chapter">TIES Schema Validator</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/schema.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="validate.html" title="TIES Schema Validator"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Triage Import Export Schema (TIES)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">TIES Schema 0.9 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Noblis, Inc..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>

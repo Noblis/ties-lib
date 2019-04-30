@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>TIES Schema &ndash; Exports</title>
+
+	<script src="static/js/jquery/3.3.1/jquery.min.js"></script>
+	<script src="static/js/bootstrap.min.js"></script>
+	<script src="static/js/fontawesome/5.7.2/fontawesome.min.js"></script>
+	<script src="static/js/footer.js"></script>
+
+	<!-- Bootstrap and Custom CSS -->
+	<link href="static/scss/ties.css" rel="stylesheet">
+
+	<!-- Industry -->
+	<link rel="stylesheet" href="https://use.typekit.net/jco5fzx.css">
+</head>
+
+<body>
+	<main role="main">
+		<nav class="navbar navbar-expand-md fixed-top navbar-light bg-white">
+			<div class="container-fluid max-width-1400">
+				<a class="navbar-brand font-weight-bold" href="index.html">TIES Schema</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#primary-nav">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse" id="primary-nav">
+					<ul class="navbar-nav w-100 justify-content-end">
+						<li class="nav-item">
+							<a class="nav-link font-weight-bold" href="index.html">Home</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link font-weight-bold dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Resources
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbar-dropdown">
+								<a class="dropdown-item active" href="exports.html">Exports</a>
+								<a class="dropdown-item" href="examples.html">Examples</a>
+								<a class="dropdown-item" href="terminology.html">Terminology</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="documentation/index.html" target="_blank">Documentation</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="jumbotron">
+			<div class="d-flex align-items-center justify-content-center text-center text-white px-2 py-3 mx-auto">
+				<h1>TIES Schema</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid max-width-750 mt-4 pb-3">
+			<h3 class="text-uppercase">TIES Exports</h3>
+			<h5 class="text-uppercase">Export Structure</h5>
+			<hr class="mt-2">
+			<span class="font-weight-bold">Top Level Information</span><br />
+			<span class="font-weight-bold">Object Items</span>
+			<ul class="mb-0">
+				<li>Object 1
+					<ul>
+						<li>Authority Information</li>
+						<li>Object Assertions
+							<ul>
+								<li>Annotation 1</li>
+								<li>Annotation 2</li>
+								<li>Annotation &lt;n&gt;</li>
+							</ul>
+							<li>System Supplemental Descriptions
+								<ul>
+									<li>System Supplemental Description 1</li>
+									<li>System Supplemental Description 2</li>
+									<li>System Supplemental Description &lt;n&gt;</li>
+								</ul>
+							</li>
+						</li>
+					</ul>
+					<li>Object 2
+						<ul>
+							<li>Authority Information</li>
+						</ul>
+						<li>Object &lt;n&gt;
+							<ul>
+								<li>Authority Information</li>
+							</ul>
+						</li>
+					</li>
+				</li>
+			</ul>
+			<span class="font-weight-bold">Object Relationships</span>
+			<ul>
+				<li>
+					Object Relationship 1
+				</li>
+				<li>
+					Object Relationship 2
+				</li>
+				<li>
+					Object Relationship &lt;n&gt;
+				</li>
+			</ul>
+			<h5 class="text-uppercase">Export Package</h5>
+			<hr class="mt-2">
+			<span class="font-weight-bold">Original media files</span><br />
+			<span>Example media types include:</span>
+			<ul class="mb-0">
+				<li>images</li>
+				<li>videos</li>
+				<li>documents</li>
+			</ul>
+			<small class="d-block mb-3">(each piece of media is considered an object item)</small>
+			<span class="font-weight-bold">Supplemental data</span><br />
+			<span>Examples of supplemental data include:</span>
+			<ul>
+				<li>extractions</li>
+				<li>motion detections</li>
+			</ul>
+			<span class="font-weight-bold">export.json file</span>
+			<p>
+				The export.json file includes relative Universal Resource Identifiers (URIs) for object items and supplemental data. An example export.json file can be found on the <a href="examples.html">examples page</a>.
+			</p>
+		</div>
+	</main>
+	<div id="footer"></div>
+</body>
+</html>

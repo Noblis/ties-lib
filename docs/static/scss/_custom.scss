@@ -1,0 +1,125 @@
+// Custom Styles
+
+/************************* QUICK STYLES */
+
+.max-height-150 { max-height: 150px; }
+
+.min-height-600 { min-height: 600px; }
+
+.max-width-600 { max-width: 600px; }
+.max-width-750 { max-width: 750px; }
+.max-width-1400 { max-width: 1400px; }
+
+/************************* GENERAL */
+
+// Offset fixed navbar height
+body {
+	margin-top: 58px;
+}
+
+h1 {
+	filter: drop-shadow(2px 2px 2px #000);
+}
+
+h3 {
+	border-bottom: 2px solid $primary;
+	border-top: 2px solid $primary;
+	padding-top: 0.3rem;
+	margin: 2rem 0 1rem;
+	color: $primary-darkest;
+}
+
+h5 {
+	color: $primary-darkest;
+	margin-top: 1.5rem;
+}
+
+h6 {
+	font-size: 1.1rem;
+}
+
+hr {
+	width: 100%;
+}
+
+span, ul, p {
+	font-size: 1.1rem;
+}
+
+/************************* FONTS */
+
+/***** Source Sans Pro */
+
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Source Sans Pro Regular"), local("SourceSansPro-Regular"),
+       url("../fonts/source-sans-pro-400.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url("../fonts/source-sans-pro-400.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Source Sans Pro Italic"), local("SourceSansPro-Italic"),
+       url("../fonts/source-sans-pro-400i.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url("../fonts/source-sans-pro-400i.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Source Sans Pro Bold"), local("SourceSansPro-Bold"),
+       url("../fonts/source-sans-pro-700.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url("../fonts/source-sans-pro-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: italic;
+  font-weight: 700;
+  src: local("Source Sans Pro Bold Italic"), local("SourceSansPro-BoldItalic"),
+       url("../fonts/source-sans-pro-700i.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url("../fonts/source-sans-pro-700i.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/************************* NAV */
+.navbar {
+	border-bottom: 2px solid $primary-dark;
+}
+
+.navbar-light .navbar-brand {
+	font-family: "Industry", sans-serif;
+	color: $primary-darkest; 
+	&:hover {
+		color: $primary-darkest;
+	}
+}
+
+/************************* JUMBOTRON */
+.jumbotron {
+	background: url(../img/ties-bg.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	   -moz-background-size: cover;
+		 -o-background-size: cover;
+			background-size: cover;
+	margin-bottom: 0;
+	border-radius: 0;
+	border-bottom: 2px solid $primary-dark;
+}
+
+/************************* FOOTER */
+.footer-icons a {
+	color: $primary;
+	&:hover {
+		color: $primary-dark;
+	}
+}
+
+footer a {
+	color: $white;
+	text-decoration: underline;
+	&:hover {
+		color: $gray-200;
+	}
+}

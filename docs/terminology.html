@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>TIES Schema &ndash; Terminology</title>
+
+	<script src="static/js/jquery/3.3.1/jquery.min.js"></script>
+	<script src="static/js/bootstrap.min.js"></script>
+	<script src="static/js/fontawesome/5.7.2/fontawesome.min.js"></script>
+	<script src="static/js/footer.js"></script>
+
+	<!-- Bootstrap and Custom CSS -->
+	<link href="static/scss/ties.css" rel="stylesheet">
+
+	<!-- Industry -->
+	<link rel="stylesheet" href="https://use.typekit.net/jco5fzx.css">
+</head>
+
+<body>
+	<main role="main">
+		<nav class="navbar navbar-expand-md fixed-top navbar-light bg-white">
+			<div class="container-fluid max-width-1400">
+				<a class="navbar-brand font-weight-bold" href="index.html">TIES Schema</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#primary-nav">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse" id="primary-nav">
+					<ul class="navbar-nav w-100 justify-content-end">
+						<li class="nav-item">
+							<a class="nav-link font-weight-bold" href="index.html">Home</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link font-weight-bold dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Resources
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbar-dropdown">
+								<a class="dropdown-item" href="exports.html">Exports</a>
+								<a class="dropdown-item" href="examples.html">Examples</a>
+								<a class="dropdown-item active" href="terminology.html">Terminology</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="documentation/index.html" target="_blank">Documentation</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="jumbotron">
+			<div class="d-flex align-items-center justify-content-center text-center text-white px-2 py-3 mx-auto">
+				<h1>TIES Schema</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid max-width-750 mt-4 pb-3">
+			<h3 class="text-uppercase">TIES Terminology</h3>
+			<p>
+				<strong>Top Level Information:</strong>
+				<br />
+				Data pertaining to the export such as the exporting system, schema version, time, and description
+			</p>
+			<p>
+				<strong>Object Items:</strong>
+				<small class="d-block">Property Name: objectItems</small>
+				Media (video, images, documents, etc.) output from the exporting system
+			</p>
+			<p>
+				<strong>Authority Information:</strong>
+				<small class="d-block">Property Name: authorityInformation</small>
+				Media (video, images, documents, etc.) output from the exporting system
+			</p>
+			<p>
+				<strong>Annotations:</strong>
+				<small class="d-block">Property Name: annotations</small>
+				Information used to identify/organize object items and provide evaluative information
+			</p>
+			<p>
+				<strong>Supplementals Description:</strong>
+				<small class="d-block">Property Name: supplementalDescriptions</small>
+				Other data associated with object items, such as motion detections, optical character recognition, etc.
+			</p>
+			<p>
+				<strong>Object Groups:</strong>
+				<small class="d-block">Property Name: objectGroups</small>
+				Defines groups of related object items and object groups
+			</p>
+			<p>
+				<strong>Object Relationships:</strong>
+				<small class="d-block">Property Name: objectRelationships</small>
+				Identifies the relationship present between two object items
+			</p>
+			<p>
+				<strong>Other Information:</strong>
+				<small class="d-block">Property Name: otherInformation</small>
+				Key/value pairs of user-defined metadata
+			</p>
+		</div>
+	</main>
+	<div id="footer"></div>
+</body>
+</html>
