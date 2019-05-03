@@ -6,14 +6,14 @@ plugins {
 }
 
 //check that we're running the correct version of gradle
-def requiredGradleVersion = '2.14.1'
+def requiredGradleVersion = '5.4.1'
 if(gradle.gradleVersion != requiredGradleVersion) {
     def message = """\
 Invalid gradle version: expected ${requiredGradleVersion}, got ${gradle.gradleVersion}.
 Perhaps you meant to use ./gradlew?"""
     throw new GradleScriptException(message, null)
 }
-task wrapper(type: Wrapper) {
+wrapper {
     gradleVersion = requiredGradleVersion
 }
 
@@ -27,23 +27,27 @@ task examples(type: Copy) {
     into "${project.buildDir}/generated-resources/test/examples"
 }
 
-task buildNumber << {
-    // $BUILD_NUMBER is provided by jenkins
-    def buildNumber = System.getenv('BUILD_NUMBER')
-    if (buildNumber) {
-        new File("${project.buildDir}/generated-resources/main/version").mkdirs()
-        // build_number.txt is read by the Version class
-        new File("${project.buildDir}/generated-resources/main/version/build_number.txt").text = buildNumber
+task buildNumber {
+    doLast {
+        // $BUILD_NUMBER is provided by jenkins
+        def buildNumber = System.getenv('BUILD_NUMBER')
+        if (buildNumber) {
+            new File("${project.buildDir}/generated-resources/main/version").mkdirs()
+            // build_number.txt is read by the Version class
+            new File("${project.buildDir}/generated-resources/main/version/build_number.txt").text = buildNumber
+        }
     }
 }
 
-task buildTime << {
-    // $BUILD_TIMESTAMP is provided by jenkins
-    def buildTime = System.getenv('BUILD_TIMESTAMP')
-    if (buildTime) {
-        new File("${project.buildDir}/generated-resources/main/version").mkdirs()
-        // build_time.txt is read by the Version class
-        new File("${project.buildDir}/generated-resources/main/version/build_time.txt").text = buildTime
+task buildTime {
+    doLast {
+        // $BUILD_TIMESTAMP is provided by jenkins
+        def buildTime = System.getenv('BUILD_TIMESTAMP')
+        if (buildTime) {
+            new File("${project.buildDir}/generated-resources/main/version").mkdirs()
+            // build_time.txt is read by the Version class
+            new File("${project.buildDir}/generated-resources/main/version/build_time.txt").text = buildTime
+        }
     }
 }
 
@@ -125,41 +129,58 @@ groovydoc {
 }
 
 //task to create jar file containing groovydocs
-task groovydocJar(type: Jar, dependsOn: ['groovydoc']) {
-    classifier = 'groovydoc'
-    from groovydoc.destinationDir
+task groovydocJar(type: Jar) {
+    from groovydoc
+    archiveClassifier = 'groovydoc'
 }
 
-artifacts {
-    //define artifact for jar file containing groovydocs
-    archives groovydocJar
+task dist {
+    group = 'Distribution'
+    description = 'Assembles all distribution artifacts'
+    dependsOn jar, groovydocJar, assembleDist
 }
 
 publishing {
+    repositories {
+        maven {
+            url { publishingMavenUrl }
+            credentials {
+                username publishingMavenUsername
+                password publishingMavenPassword
+            }
+        }
+    }
+
     publications {
         mavenJava(MavenPublication) {
             from components.java
 
             //publish jar file containing groovydocs with class jar
-            artifact groovydocJar {
-                classifier 'groovydoc'
-            }
+            artifact groovydocJar
 
-            pom.withXml {
-                asNode().dependencies.'*'.findAll {
-                    it.scope.text() == 'runtime' && project.configurations.compile.allDependencies.find { dep ->
-                        dep.name == it.artifactId.text()
+            pom {
+                name = 'ties-lib'
+                description = 'Triage Import Export Schema (TIES)'
+                url = 'https://github.com/Noblis/ties-lib'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     }
-                }.each {
-                    it.scope*.value = 'compile'
+                }
+                developers {
+                    developer {
+                        id = 'zhutzell'
+                        name = 'Zack Hutzell'
+                        email = 'zack.hutzell@noblis.org'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/Noblis/ties-lib.git'
+                    developerConnection = 'scm:git:https://github.com/Noblis/ties-lib.git'
+                    url = 'https://github.com/Noblis/ties-lib'
                 }
             }
         }
     }
-}
-
-task validateExamples(dependsOn: 'classes', type: JavaExec) {
-    main = 'org.noblis.ties.cli.TiesValidateCli'
-    args '../examples/*.json'
-    classpath = sourceSets.main.runtimeClasspath
 }
