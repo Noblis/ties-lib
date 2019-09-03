@@ -23,14 +23,23 @@ from setuptools import find_packages, setup
 
 here = path.abspath(path.dirname(__file__))
 
+
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+def long_description():
+    with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+        return f.read()
+
+
+# Get dependencies from requirements.txt file
+def load_dependencies():
+    with open("requirements.txt") as f:
+        return [dep for dep in [s.strip() for s in f.readlines()] if dep and not dep.startswith("#")]
+
 
 setup(name="ties-lib",
       version="0.9.0",
       description="Triage Import Export Schema (TIES)",
-      long_description=long_description,
+      long_description=long_description(),
       license="Apache License, Version 2.0",
       url="https://github.com/Noblis/ties-lib",
       author="Zack Hutzell",
@@ -58,8 +67,4 @@ setup(name="ties-lib",
           ]
       },
       python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
-      install_requires=[
-          "inflection ~=0.3",
-          "jsonschema ~=3.0",
-          "six ~=1.0",
-      ])
+      install_requires=load_dependencies())
