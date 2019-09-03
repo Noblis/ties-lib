@@ -83,7 +83,7 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 group 'org.noblis'
-version '0.9.0'
+version '0.9.1'
 
 //put json schemas on the classpath
 sourceSets.main.output.dir("${project.buildDir}/generated-resources/main", builtBy: 'schema')
@@ -134,7 +134,7 @@ startScripts.dependsOn(['convertStartScripts', 'formatStartScripts', 'validateSt
 startScripts.enabled = false
 
 groovydoc {
-    docTitle = 'TIES 0.9 Java'
+    docTitle = 'TIES 0.9.1 Java'
     noTimestamp = true
     noVersionStamp = true
     //add java classes to groovydoc

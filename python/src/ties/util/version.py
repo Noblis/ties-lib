@@ -31,7 +31,7 @@ class VersionAction(argparse.Action):
 
 
 def _get_version_number():
-    return '0.9.0'
+    return '0.9.1'
 
 
 def _get_build_number():
