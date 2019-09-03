@@ -15,19 +15,20 @@
 ################################################################################
 
 from __future__ import unicode_literals
+
 import unittest
 from unittest import TestCase
 
-from ties.semantic_validation import _check_duplicate_object_item_sha256_hashes
-from ties.semantic_validation import _check_duplicate_object_item_other_information_keys
+from ties.semantic_validation import TiesSemanticValidator
+from ties.semantic_validation import _check_duplicate_assertion_ids
 from ties.semantic_validation import _check_duplicate_object_group_other_information_keys
 from ties.semantic_validation import _check_duplicate_object_ids_and_group_ids
-from ties.semantic_validation import _check_duplicate_assertion_ids
-from ties.semantic_validation import _check_object_relationship_linkage_member_ids
-from ties.semantic_validation import _check_object_relationship_linkage_assertion_ids
+from ties.semantic_validation import _check_duplicate_object_item_other_information_keys
+from ties.semantic_validation import _check_duplicate_object_item_sha256_hashes
 from ties.semantic_validation import _check_duplicate_object_relationship_other_information_keys
 from ties.semantic_validation import _check_duplicate_top_level_other_information_keys
-from ties.semantic_validation import TiesSemanticValidator
+from ties.semantic_validation import _check_object_relationship_linkage_assertion_ids
+from ties.semantic_validation import _check_object_relationship_linkage_member_ids
 
 
 class SemanticValidationTests(TestCase):

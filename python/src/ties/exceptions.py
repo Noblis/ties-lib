@@ -15,8 +15,9 @@
 ################################################################################
 
 from __future__ import unicode_literals
-from collections import deque, OrderedDict
+
 import json
+from collections import OrderedDict, deque
 
 from ties.util import indent
 

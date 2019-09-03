@@ -16,16 +16,16 @@
 
 from __future__ import print_function, unicode_literals
 
+import json
+import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from glob import glob
-import json
 from os.path import abspath
-import sys
 
 from ties.schema_validation import TiesSchemaValidator
 from ties.semantic_validation import TiesSemanticValidator
 from ties.util import indent
-from ties.util.version import version_string, VersionAction
+from ties.util.version import VersionAction, version_string
 
 
 def _validate(instance_file, instance_path=None):

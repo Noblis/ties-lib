@@ -15,15 +15,14 @@
 ################################################################################
 
 import os
-from tempfile import mkstemp
 import unittest
+from tempfile import mkstemp
 from unittest import TestCase
 
 import six
 
 from ties.cli.ties_format import main
 from ties.util.testing import cli_test
-
 
 short_usage = """\
 usage: ties-format [-h] [--version] EXPORT_PATH"""

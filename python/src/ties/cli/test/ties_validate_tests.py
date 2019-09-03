@@ -15,14 +15,13 @@
 ################################################################################
 
 import os
-from os.path import abspath
 import shutil
 import unittest
+from os.path import abspath
 from unittest import TestCase
 
 from ties.cli.ties_validate import main
 from ties.util.testing import cli_test
-
 
 short_usage = 'usage: ties-validate [-h] [--version] [FILE]...'
 

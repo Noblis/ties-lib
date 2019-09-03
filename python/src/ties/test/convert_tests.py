@@ -15,10 +15,11 @@
 ################################################################################
 
 from __future__ import unicode_literals
+
 import unittest
 from unittest import TestCase
 
-from ties.convert import convert, _0_dot_2_to_0_dot_3, _0_dot_3_to_0_dot_4, _0_dot_4_to_0_dot_5, _0_dot_5_to_0_dot_6, _0_dot_6_to_0_dot_7, _0_dot_7_to_0_dot_8, _0_dot_8_to_0_dot_9
+from ties.convert import _0_dot_2_to_0_dot_3, _0_dot_3_to_0_dot_4, _0_dot_4_to_0_dot_5, _0_dot_5_to_0_dot_6, _0_dot_6_to_0_dot_7, _0_dot_7_to_0_dot_8, _0_dot_8_to_0_dot_9, convert
 
 
 class ConvertTests(TestCase):

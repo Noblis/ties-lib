@@ -15,14 +15,14 @@
 ################################################################################
 
 from __future__ import unicode_literals
+
 import json
 import os
-from tempfile import mkstemp
 import unittest
+from tempfile import mkstemp
 from unittest import TestCase
 
-from ties.schema_validation import load_schema, object_relationship_pointer, SchemaValidator, TiesSchemaValidator
-
+from ties.schema_validation import SchemaValidator, TiesSchemaValidator, load_schema, object_relationship_pointer
 
 test_input_str = """\
 {

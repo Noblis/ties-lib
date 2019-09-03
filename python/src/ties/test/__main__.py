@@ -14,11 +14,11 @@
 # limitations under the License.                                               #
 ################################################################################
 
-from os.path import dirname, join
 import sys
 import unittest
-import xmlrunner
+from os.path import dirname, join
 
+import xmlrunner
 
 here = dirname(__file__)
 

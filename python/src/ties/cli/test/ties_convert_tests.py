@@ -16,16 +16,15 @@
 
 import json
 import os
+import unittest
 from stat import S_IRUSR
 from tempfile import mkstemp
-import unittest
 from unittest import TestCase
 
 import six
 
 from ties.cli.ties_convert import main
 from ties.util.testing import cli_test
-
 
 short_usage = """\
 usage: ties-convert [-h] [--classification-level SECURITY_TAG]

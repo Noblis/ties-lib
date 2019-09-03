@@ -15,16 +15,16 @@
 ################################################################################
 
 from __future__ import unicode_literals
-from collections import OrderedDict
+
 import json
+from collections import OrderedDict
 from os.path import abspath, isfile
-from pkg_resources import resource_filename
 
 import jsonschema
 from jsonschema import Draft4Validator, RefResolver
+from pkg_resources import resource_filename
 
 from ties.exceptions import make_validation_error
-
 
 annotation_pointer = '/definitions/annotation-object'
 assertions_pointer = '/definitions/assertions-object'

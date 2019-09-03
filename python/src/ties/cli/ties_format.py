@@ -16,13 +16,13 @@
 
 from __future__ import print_function, unicode_literals
 
-from argparse import ArgumentParser
 import json
-from os.path import abspath, expanduser
 import sys
+from argparse import ArgumentParser
+from os.path import abspath, expanduser
 
 from ties.schema_order import reorder_ties_json
-from ties.util.version import version_string, VersionAction
+from ties.util.version import VersionAction, version_string
 
 
 def _configure_arg_parser():
