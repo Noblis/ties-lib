@@ -3,11 +3,11 @@ set -e
 set -x
 
 here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd ${here}
+cd "${here}/.."
 
-python_version=3
+python_version=3.6
 
-./setup-base-virtenv.sh wheel ${python_version}
+scripts/setup-base-virtenv.sh wheel "${python_version}"
 
-source ../build/wheel-virtualenv${python_version}/bin/activate
+source "build/wheel-virtualenv${python_version}/bin/activate"
 pip install setuptools wheel twine

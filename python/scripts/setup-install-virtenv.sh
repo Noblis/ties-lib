@@ -3,7 +3,7 @@ set -e
 set -x
 
 here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd ${here}
+cd "${here}/.."
 
 if [ "$#" -lt 1 ]; then
     echo "error: missing PYTHON_VERSION parameter"
@@ -17,4 +17,4 @@ fi
 
 python_version=$1
 
-./setup-base-virtenv.sh install ${python_version}
+scripts/setup-base-virtenv.sh install "${python_version}"

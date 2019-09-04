@@ -3,7 +3,7 @@ set -e
 set -x
 
 here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd ${here}
+cd "${here}/.."
 
 if [ "$#" -lt 1 ]; then
     echo "error: missing PYTHON_VERSION parameter"
@@ -17,10 +17,10 @@ fi
 
 python_version=$1
 
-./setup-test-virtenv.sh ${python_version}
+scripts/setup-test-virtenv.sh "${python_version}"
 
-source ../build/test-virtualenv${python_version}/bin/activate
-cd ../src
+source "build/test-virtualenv${python_version}/bin/activate"
+cd src
 coverage run --branch --source ties -m ties.test
 coverage xml -o ../build/coverage-reports/xml/coverage.xml --omit "ties/util/testing.py,*/test/*,*/__*__.py"
 coverage html -d ../build/coverage-reports --omit "ties/util/testing.py,*/test/*,*/__*__.py" --title "ties coverage"

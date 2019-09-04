@@ -3,7 +3,7 @@ set -x
 set -e
 
 here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd ${here}
+cd "${here}/../java"
 
-cd ../java
 ./gradlew clean build
+./gradlew dist

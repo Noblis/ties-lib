@@ -3,7 +3,7 @@ set -e
 set -x
 
 here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd ${here}/..
+cd "${here}/.."
 
 scripts/setup-wheel-virtenv.sh
 source build/wheel-virtualenv3/bin/activate

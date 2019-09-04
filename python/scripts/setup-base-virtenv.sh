@@ -3,7 +3,7 @@ set -e
 set -x
 
 here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd ${here}
+cd "${here}/.."
 
 if [ "$#" -lt 1 ]; then
     echo "error: missing ENV_NAME and PYTHON_VERSION parameters"
@@ -23,8 +23,8 @@ fi
 env_name=$1
 python_version=$2
 
-mkdir -p ../build
-rm -rf ../build/${env_name}-virtualenv${python_version}
+mkdir -p build
+rm -rf "build/${env_name}-virtualenv${python_version}"
 
-virtualenv -p python${python_version} ../build/${env_name}-virtualenv${python_version}
-source ../build/${env_name}-virtualenv${python_version}/bin/activate
+virtualenv -p "python${python_version}" "build/${env_name}-virtualenv${python_version}"
+source "build/${env_name}-virtualenv${python_version}/bin/activate"
