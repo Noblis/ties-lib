@@ -22,6 +22,7 @@ python_version=$1
 source ../build/test-virtualenv${python_version}/bin/activate
 cd ../src
 coverage run --branch --source ties -m ties.test
+coverage xml -o ../build/coverage-reports/xml/coverage.xml --omit "ties/util/testing.py,*/test/*,*/__*__.py"
 coverage html -d ../build/coverage-reports --omit "ties/util/testing.py,*/test/*,*/__*__.py" --title "ties coverage"
 coverage report -m --omit "ties/util/testing.py,*/test/*,*/__*__.py"
 

@@ -3,6 +3,7 @@ plugins {
     id 'groovy'
     id 'jacoco'
     id 'maven-publish'
+    id 'org.sonarqube' version '2.8'
 }
 
 //check that we're running the correct version of gradle
@@ -92,8 +93,20 @@ sourceSets.test.output.dir("${project.buildDir}/generated-resources/test", built
 sourceSets.main.output.dir("${project.buildDir}/generated-resources/main", builtBy: 'buildNumber')
 sourceSets.main.output.dir("${project.buildDir}/generated-resources/main", builtBy: 'buildTime')
 
-jacoco.toolVersion = '0.7.9'
+jacoco.toolVersion = '0.8.4'
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
 check.dependsOn('jacocoTestReport')
+
+sonarqube {
+    properties {
+        property 'sonar.projectKey', 'ties-lib-java'
+        property 'sonar.projectName', 'TIES Lib Java'
+    }
+}
 
 task convertStartScripts(type: CreateStartScripts) {
     mainClassName = 'org.noblis.ties.cli.TiesConvertCli'
