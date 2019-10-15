@@ -27,7 +27,7 @@ The Python TIES converter requires Python 2.7 or Python 3.4+ with pip installed.
 
 To install the converter::
 
-    pip install ties-lib==0.9.0
+    pip install ties-lib==0.9.1
 
 Usage
 =====
