@@ -156,6 +156,7 @@ publishing {
     repositories {
         maven {
             url { publishingMavenUrl }
+            allowInsecureProtocol true
             credentials {
                 username publishingMavenUsername
                 password publishingMavenPassword
