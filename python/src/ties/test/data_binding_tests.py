@@ -21,7 +21,6 @@ from collections import OrderedDict
 from typing import List, Union
 from unittest import TestCase
 
-import six
 from attr import attrib, attrs
 
 from ties.data_binding import Annotation
@@ -31,7 +30,6 @@ from ties.data_binding import ObjectGroup
 from ties.data_binding import ObjectItem
 from ties.data_binding import ObjectRelationship
 from ties.data_binding import OtherInformation
-from ties.data_binding import StringType
 from ties.data_binding import SupplementalDescriptionDataFile
 from ties.data_binding import SupplementalDescriptionDataObject
 from ties.data_binding import Ties
@@ -50,10 +48,10 @@ class TestDataSchemaValidator(object):
 @attrs(slots=True)
 class TestDataClass(TiesData):
 
-    foo = attrib(type=StringType, default=None, kw_only=six.PY3)
-    bar = attrib(type=Union[StringType, bool, int, float], default=None, kw_only=six.PY3)
-    baz = attrib(type=List[StringType], default=None, kw_only=six.PY3)
-    xyzzy = attrib(type=List[Union[StringType, bool, int, float]], default=None, kw_only=six.PY3)
+    foo = attrib(type=str, default=None, kw_only=True)
+    bar = attrib(type=Union[str, bool, int, float], default=None, kw_only=True)
+    baz = attrib(type=List[str], default=None, kw_only=True)
+    xyzzy = attrib(type=List[Union[str, bool, int, float]], default=None, kw_only=True)
 
     _validator = TestDataSchemaValidator()
 
@@ -62,17 +60,11 @@ class TiesDataTests(TestCase):
 
     def test_repr(self):
         self.assertEqual(repr(TestDataClass()), 'TestDataClass(foo=None, bar=None, baz=None, xyzzy=None)')
-        if six.PY3:
-            self.assertEqual(repr(TestDataClass(foo='a')), "TestDataClass(foo='a', bar=None, baz=None, xyzzy=None)")
-        else:
-            self.assertEqual(repr(TestDataClass(foo='a')), "TestDataClass(foo=u'a', bar=None, baz=None, xyzzy=None)")
+        self.assertEqual(repr(TestDataClass(foo='a')), "TestDataClass(foo='a', bar=None, baz=None, xyzzy=None)")
 
     def test_str(self):
         self.assertEqual(str(TestDataClass()), str('TestDataClass(foo=None, bar=None, baz=None, xyzzy=None)'))
-        if six.PY3:
-            self.assertEqual(str(TestDataClass(foo='a')), str("TestDataClass(foo='a', bar=None, baz=None, xyzzy=None)"))
-        else:
-            self.assertEqual(str(TestDataClass(foo='a')), str("TestDataClass(foo=u'a', bar=None, baz=None, xyzzy=None)"))
+        self.assertEqual(str(TestDataClass(foo='a')), str("TestDataClass(foo='a', bar=None, baz=None, xyzzy=None)"))
 
     def test_eq(self):
         obj = TestDataClass()
@@ -112,11 +104,6 @@ class TiesDataTests(TestCase):
         obj = TestDataClass()
         obj.foo = 'a'
         self.assertEqual(obj.foo, 'a')
-        if not six.PY3:
-            obj.foo = six.text_type('a')
-            self.assertEqual(obj.foo, 'a')
-            obj.foo = str('a')
-            self.assertEqual(obj.foo, 'a')
 
     def test_setattr_None(self):
         obj = TestDataClass(foo='a')

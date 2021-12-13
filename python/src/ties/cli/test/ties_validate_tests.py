@@ -72,13 +72,13 @@ class TiesValidateTests(TestCase):
 
     def setUp(self):
         os.mkdir('../build/ties_validate_tests')
-        with open('../build/ties_validate_tests/success1.json', 'w') as f:
+        with open('../build/ties_validate_tests/success1.json', 'w', encoding='utf-8') as f:
             f.write(minimal_valid_json)
-        with open('../build/ties_validate_tests/success2.json', 'w') as f:
+        with open('../build/ties_validate_tests/success2.json', 'w', encoding='utf-8') as f:
             f.write(minimal_valid_json)
-        with open('../build/ties_validate_tests/failure1.json', 'w') as f:
+        with open('../build/ties_validate_tests/failure1.json', 'w', encoding='utf-8') as f:
             f.write(minimal_invalid_json)
-        with open('../build/ties_validate_tests/failure2.json', 'w') as f:
+        with open('../build/ties_validate_tests/failure2.json', 'w', encoding='utf-8') as f:
             f.write(minimal_invalid_json)
 
     def tearDown(self):

@@ -23,11 +23,11 @@ Python
 
 .. highlight:: none
 
-The Python TIES converter requires Python 2.7 or Python 3.4+ with pip installed.
+The Python TIES converter requires Python 3.6+ with pip installed.
 
 To install the converter::
 
-    pip install ties-lib==0.9.1
+    pip install ties-lib==0.9.2
 
 Usage
 =====
@@ -99,4 +99,3 @@ Convert TIES JSON from file, write to the same file::
 Convert TIES JSON (without top-level securityTag field) from file, write to the same file::
 
     ties-convert export.json -i -c UNCLASSIFIED
-

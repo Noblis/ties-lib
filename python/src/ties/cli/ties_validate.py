@@ -21,10 +21,10 @@ import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from glob import glob
 from os.path import abspath
+from textwrap import indent
 
 from ties.schema_validation import TiesSchemaValidator
 from ties.semantic_validation import TiesSemanticValidator
-from ties.util import indent
 from ties.util.version import VersionAction, version_string
 
 
@@ -112,7 +112,7 @@ def main(argv=None):
         for file_path in file_paths:
             file_path = abspath(file_path)
             try:
-                with open(file_path, 'r') as f:
+                with open(file_path, 'r', encoding='utf-8') as f:
                     if _validate(f, file_path) != 0:
                         has_errors = True
             except Exception as e:  # pylint: disable=broad-except

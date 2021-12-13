@@ -18,8 +18,7 @@ from __future__ import unicode_literals
 
 import json
 from collections import OrderedDict, deque
-
-from ties.util import indent
+from textwrap import indent
 
 
 class ValidationWarning(Exception):

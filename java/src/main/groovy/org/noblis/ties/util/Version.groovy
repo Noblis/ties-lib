@@ -18,7 +18,7 @@ package org.noblis.ties.util
 
 class Version {
 
-    private static final String versionNumber = '0.9.1'
+    private static final String versionNumber = '0.9.2'
 
     private static String getBuildNumber() {
         InputStream resource = Version.getResourceAsStream('/version/build_number.txt')

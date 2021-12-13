@@ -47,7 +47,7 @@ def main(argv=None):
         # read input from a file
         try:
             args.export_path = abspath(expanduser(args.export_path))
-            with open(args.export_path, 'r') as f:
+            with open(args.export_path, 'r', encoding='utf-8') as f:
                 export_json = json.load(f)
         except Exception:  # pylint: disable=broad-except
             print("error: could not read from file: {}".format(args.export_path), file=sys.stderr)

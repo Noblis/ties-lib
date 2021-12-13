@@ -17,15 +17,10 @@
 from __future__ import unicode_literals
 
 from collections import OrderedDict
-from typing import TypeVar
 
 import attr
-import six
 from attr import attrs
 from inflection import camelize, underscore
-
-
-StringType = TypeVar("StringType", str, six.text_type)
 
 
 def _json_dict_converter(d):
