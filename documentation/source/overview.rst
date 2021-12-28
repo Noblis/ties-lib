@@ -52,7 +52,7 @@ Gradle
 ::
 
     dependencies {
-        compile('org.noblis:ties-lib:0.9.2')
+        compile('org.noblis:ties-lib:0.9.3')
     }
 
 Maven
@@ -63,7 +63,7 @@ Maven
     <dependency>
         <groupId>org.noblis</groupId>
         <artifactId>ties-lib</artifactId>
-        <version>0.9.2</version>
+        <version>0.9.3</version>
     </dependency>
 
 Python Reference Implementation
@@ -71,7 +71,7 @@ Python Reference Implementation
 
 The TIES Python reference implementation can be installed using pip::
 
-    pip install ties-lib==0.9.2
+    pip install ties-lib==0.9.3
 
 Git Repository
 ==============

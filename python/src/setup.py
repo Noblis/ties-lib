@@ -37,7 +37,7 @@ def load_dependencies():
 
 
 setup(name="ties-lib",
-      version="0.9.2",
+      version="0.9.3",
       description="Triage Import Export Schema (TIES)",
       long_description=long_description(),
       license="Apache License, Version 2.0",

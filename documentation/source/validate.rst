@@ -25,7 +25,7 @@ The Python TIES validator requires Python 3.6+ with pip installed.
 
 To install the validator:
 
-    pip install ties-lib==0.9.2
+    pip install ties-lib==0.9.3
 
 Usage
 =====
