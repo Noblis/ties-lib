@@ -19,8 +19,6 @@ import unittest
 from tempfile import mkstemp
 from unittest import TestCase
 
-import six
-
 from ties.cli.ties_format import main
 from ties.util.testing import cli_test
 
@@ -92,10 +90,7 @@ class TiesFormatTests(TestCase):
             t.return_code(2)
             t.stdout_text()
             t.stderr(short_usage)
-            if six.PY3:
-                t.stderr('ties-format: error: the following arguments are required: EXPORT_PATH')
-            else:
-                t.stderr('ties-format: error: too few arguments')
+            t.stderr('ties-format: error: the following arguments are required: EXPORT_PATH')
             t.stderr()
 
     def test_help_short(self):

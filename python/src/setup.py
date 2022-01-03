@@ -26,13 +26,13 @@ here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
 def long_description():
-    with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+    with open(path.join(here, 'README.rst'), 'r', encoding='utf-8') as f:
         return f.read()
 
 
 # Get dependencies from requirements.txt file
 def load_dependencies():
-    with open("requirements.txt") as f:
+    with open("requirements.txt", 'r', encoding='utf-8') as f:
         return [dep for dep in [s.strip() for s in f.readlines()] if dep and not dep.startswith("#")]
 
 
@@ -49,13 +49,10 @@ setup(name="ties-lib",
           "Intended Audience :: Developers",
           "Topic :: Software Development :: Libraries",
           "License :: OSI Approved :: Apache Software License",
-          "Programming Language :: Python :: 2",
-          "Programming Language :: Python :: 2.7",
           "Programming Language :: Python :: 3",
-          "Programming Language :: Python :: 3.4",
-          "Programming Language :: Python :: 3.5",
           "Programming Language :: Python :: 3.6",
           "Programming Language :: Python :: 3.7",
+          "Programming Language :: Python :: 3.8",
       ],
       packages=find_packages(exclude=["ties.test", "ties.cli.test"]),
       include_package_data=True,
@@ -66,5 +63,5 @@ setup(name="ties-lib",
               "ties-validate=ties.cli.ties_validate:main"
           ]
       },
-      python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
+      python_requires=">=3.6",
       install_requires=load_dependencies())

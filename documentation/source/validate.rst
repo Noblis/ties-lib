@@ -21,7 +21,7 @@ The Java TIES validator requires Java 1.7 or 1.8. To install the validator:
 Python
 ------
 
-The Python TIES validator requires Python 2.7 or Python 3.4+ with pip installed.
+The Python TIES validator requires Python 3.6+ with pip installed.
 
 To install the validator:
 

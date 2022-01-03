@@ -21,8 +21,6 @@ from stat import S_IRUSR
 from tempfile import mkstemp
 from unittest import TestCase
 
-import six
-
 from ties.cli.ties_convert import main
 from ties.util.testing import cli_test
 
@@ -102,11 +100,11 @@ class TiesConvertTests(TestCase):
             pass
 
     def _check_input_file_json(self, expected_json):
-        with open(self._input_file_path, 'r') as f:
+        with open(self._input_file_path, 'r', encoding='utf-8') as f:
             self.assertEqual(json.load(f), json.loads(expected_json))
 
     def _check_output_file_json(self, expected_json):
-        with open(self._output_file_path, 'r') as f:
+        with open(self._output_file_path, 'r', encoding='utf-8') as f:
             self.assertEqual(json.load(f), json.loads(expected_json))
 
     def test_no_args(self):
@@ -115,10 +113,7 @@ class TiesConvertTests(TestCase):
             t.return_code(2)
             t.stdout_text()
             t.stderr(short_usage)
-            if six.PY3:
-                t.stderr('ties-convert: error: the following arguments are required: EXPORT_PATH')
-            else:
-                t.stderr('ties-convert: error: too few arguments')
+            t.stderr('ties-convert: error: the following arguments are required: EXPORT_PATH')
             t.stderr()
 
     def test_help_short(self):

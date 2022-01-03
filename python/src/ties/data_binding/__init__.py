@@ -18,10 +18,9 @@ from __future__ import unicode_literals
 
 from typing import List, Union
 
-import six
 from attr import attrib, attrs
 
-from ties.data_binding._data_binding import StringType, TiesData
+from ties.data_binding._data_binding import TiesData
 from ties.schema_validation import AnnotationSchemaValidator
 from ties.schema_validation import AssertionsSchemaValidator
 from ties.schema_validation import AuthorityInformationSchemaValidator
@@ -104,18 +103,18 @@ def _supplemental_description_json_converter(value):
 @attrs(slots=True)
 class Annotation(TiesData):
 
-    assertion_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    assertion_reference_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    assertion_reference_id_label = attrib(type=StringType, default=None, kw_only=six.PY3)
-    system = attrib(type=StringType, default=None, kw_only=six.PY3)
-    creator = attrib(type=StringType, default=None, kw_only=six.PY3)
-    time = attrib(type=StringType, default=None, kw_only=six.PY3)
-    annotation_type = attrib(type=StringType, default=None, kw_only=six.PY3)
-    key = attrib(type=StringType, default=None, kw_only=six.PY3)
-    value = attrib(type=StringType, default=None, kw_only=six.PY3)
-    item_action = attrib(type=StringType, default=None, kw_only=six.PY3)
-    item_action_time = attrib(type=StringType, default=None, kw_only=six.PY3)
-    security_tag = attrib(type=StringType, default=None, kw_only=six.PY3)
+    assertion_id = attrib(type=str, default=None, kw_only=True)
+    assertion_reference_id = attrib(type=str, default=None, kw_only=True)
+    assertion_reference_id_label = attrib(type=str, default=None, kw_only=True)
+    system = attrib(type=str, default=None, kw_only=True)
+    creator = attrib(type=str, default=None, kw_only=True)
+    time = attrib(type=str, default=None, kw_only=True)
+    annotation_type = attrib(type=str, default=None, kw_only=True)
+    key = attrib(type=str, default=None, kw_only=True)
+    value = attrib(type=str, default=None, kw_only=True)
+    item_action = attrib(type=str, default=None, kw_only=True)
+    item_action_time = attrib(type=str, default=None, kw_only=True)
+    security_tag = attrib(type=str, default=None, kw_only=True)
 
     _validator = AnnotationSchemaValidator()
 
@@ -123,8 +122,8 @@ class Annotation(TiesData):
 @attrs(slots=True)
 class Assertions(TiesData):
 
-    annotations = attrib(type=List[Annotation], default=None, converter=_annotation_json_converter, kw_only=six.PY3)
-    supplemental_descriptions = attrib(type=List[Union["SupplementalDescriptionDataFile", "SupplementalDescriptionDataObject"]], default=None, converter=_supplemental_description_json_converter, kw_only=six.PY3)
+    annotations = attrib(type=List[Annotation], default=None, converter=_annotation_json_converter, kw_only=True)
+    supplemental_descriptions = attrib(type=List[Union["SupplementalDescriptionDataFile", "SupplementalDescriptionDataObject"]], default=None, converter=_supplemental_description_json_converter, kw_only=True)
 
     _validator = AssertionsSchemaValidator()
 
@@ -132,18 +131,18 @@ class Assertions(TiesData):
 @attrs(slots=True)
 class AuthorityInformation(TiesData):
 
-    collection_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    collection_id_label = attrib(type=StringType, default=None, kw_only=six.PY3)
-    collection_id_alias = attrib(type=StringType, default=None, kw_only=six.PY3)
-    collection_description = attrib(type=StringType, default=None, kw_only=six.PY3)
-    sub_collection_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    sub_collection_id_label = attrib(type=StringType, default=None, kw_only=six.PY3)
-    sub_collection_id_alias = attrib(type=StringType, default=None, kw_only=six.PY3)
-    sub_collection_description = attrib(type=StringType, default=None, kw_only=six.PY3)
-    registration_date = attrib(type=StringType, default=None, kw_only=six.PY3)
-    expiration_date = attrib(type=StringType, default=None, kw_only=six.PY3)
-    owner = attrib(type=StringType, default=None, kw_only=six.PY3)
-    security_tag = attrib(type=StringType, default=None, kw_only=six.PY3)
+    collection_id = attrib(type=str, default=None, kw_only=True)
+    collection_id_label = attrib(type=str, default=None, kw_only=True)
+    collection_id_alias = attrib(type=str, default=None, kw_only=True)
+    collection_description = attrib(type=str, default=None, kw_only=True)
+    sub_collection_id = attrib(type=str, default=None, kw_only=True)
+    sub_collection_id_label = attrib(type=str, default=None, kw_only=True)
+    sub_collection_id_alias = attrib(type=str, default=None, kw_only=True)
+    sub_collection_description = attrib(type=str, default=None, kw_only=True)
+    registration_date = attrib(type=str, default=None, kw_only=True)
+    expiration_date = attrib(type=str, default=None, kw_only=True)
+    owner = attrib(type=str, default=None, kw_only=True)
+    security_tag = attrib(type=str, default=None, kw_only=True)
 
     _validator = AuthorityInformationSchemaValidator()
 
@@ -151,12 +150,12 @@ class AuthorityInformation(TiesData):
 @attrs(slots=True)
 class ObjectGroup(TiesData):
 
-    group_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    group_type = attrib(type=StringType, default=None, kw_only=six.PY3)
-    group_description = attrib(type=StringType, default=None, kw_only=six.PY3)
-    group_member_ids = attrib(type=List[StringType], default=None, kw_only=six.PY3)
-    group_assertions = attrib(type=Assertions, default=None, converter=_assertions_json_converter, kw_only=six.PY3)
-    other_information = attrib(type=List["OtherInformation"], default=None, converter=_other_information_json_converter, kw_only=six.PY3)
+    group_id = attrib(type=str, default=None, kw_only=True)
+    group_type = attrib(type=str, default=None, kw_only=True)
+    group_description = attrib(type=str, default=None, kw_only=True)
+    group_member_ids = attrib(type=List[str], default=None, kw_only=True)
+    group_assertions = attrib(type=Assertions, default=None, converter=_assertions_json_converter, kw_only=True)
+    other_information = attrib(type=List["OtherInformation"], default=None, converter=_other_information_json_converter, kw_only=True)
 
     _validator = ObjectGroupSchemaValidator()
 
@@ -164,16 +163,16 @@ class ObjectGroup(TiesData):
 @attrs(slots=True)
 class ObjectItem(TiesData):
 
-    object_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    sha256_hash = attrib(type=StringType, default=None, kw_only=six.PY3)
-    md5_hash = attrib(type=StringType, default=None, kw_only=six.PY3)
-    size = attrib(type=int, default=None, kw_only=six.PY3)
-    mime_type = attrib(type=StringType, default=None, kw_only=six.PY3)
-    relative_uri = attrib(type=StringType, default=None, kw_only=six.PY3)
-    original_path = attrib(type=StringType, default=None, kw_only=six.PY3)
-    authority_information = attrib(type=AuthorityInformation, default=None, converter=_authority_information_json_converter, kw_only=six.PY3)
-    object_assertions = attrib(type=Assertions, default=None, converter=_assertions_json_converter, kw_only=six.PY3)
-    other_information = attrib(type=List["OtherInformation"], default=None, converter=_other_information_json_converter, kw_only=six.PY3)
+    object_id = attrib(type=str, default=None, kw_only=True)
+    sha256_hash = attrib(type=str, default=None, kw_only=True)
+    md5_hash = attrib(type=str, default=None, kw_only=True)
+    size = attrib(type=int, default=None, kw_only=True)
+    mime_type = attrib(type=str, default=None, kw_only=True)
+    relative_uri = attrib(type=str, default=None, kw_only=True)
+    original_path = attrib(type=str, default=None, kw_only=True)
+    authority_information = attrib(type=AuthorityInformation, default=None, converter=_authority_information_json_converter, kw_only=True)
+    object_assertions = attrib(type=Assertions, default=None, converter=_assertions_json_converter, kw_only=True)
+    other_information = attrib(type=List["OtherInformation"], default=None, converter=_other_information_json_converter, kw_only=True)
 
     _validator = ObjectItemSchemaValidator()
 
@@ -181,11 +180,11 @@ class ObjectItem(TiesData):
 @attrs(slots=True)
 class ObjectRelationship(TiesData):
 
-    linkage_member_ids = attrib(type=List[StringType], default=None, kw_only=six.PY3)
-    linkage_directionality = attrib(type=StringType, default=None, kw_only=six.PY3)
-    linkage_type = attrib(type=StringType, default=None, kw_only=six.PY3)
-    linkage_assertion_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    other_information = attrib(type=List["OtherInformation"], default=None, converter=_other_information_json_converter, kw_only=six.PY3)
+    linkage_member_ids = attrib(type=List[str], default=None, kw_only=True)
+    linkage_directionality = attrib(type=str, default=None, kw_only=True)
+    linkage_type = attrib(type=str, default=None, kw_only=True)
+    linkage_assertion_id = attrib(type=str, default=None, kw_only=True)
+    other_information = attrib(type=List["OtherInformation"], default=None, converter=_other_information_json_converter, kw_only=True)
 
     _validator = ObjectRelationshipSchemaValidator()
 
@@ -193,8 +192,8 @@ class ObjectRelationship(TiesData):
 @attrs(slots=True)
 class OtherInformation(TiesData):
 
-    key = attrib(type=StringType, default=None, kw_only=six.PY3)
-    value = attrib(type=Union[StringType, bool, int, float], default=None, kw_only=six.PY3)
+    key = attrib(type=str, default=None, kw_only=True)
+    value = attrib(type=Union[str, bool, int, float], default=None, kw_only=True)
 
     _validator = OtherInformationSchemaValidator()
 
@@ -202,15 +201,15 @@ class OtherInformation(TiesData):
 @attrs(slots=True)
 class SupplementalDescriptionDataFile(TiesData):
 
-    assertion_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    assertion_reference_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    assertion_reference_id_label = attrib(type=StringType, default=None, kw_only=six.PY3)
-    system = attrib(type=StringType, default=None, kw_only=six.PY3)
-    information_type = attrib(type=StringType, default=None, kw_only=six.PY3)
-    sha256_data_hash = attrib(type=StringType, default=None, kw_only=six.PY3)
-    data_size = attrib(type=int, default=None, kw_only=six.PY3)
-    data_relative_uri = attrib(type=StringType, default=None, kw_only=six.PY3)
-    security_tag = attrib(type=StringType, default=None, kw_only=six.PY3)
+    assertion_id = attrib(type=str, default=None, kw_only=True)
+    assertion_reference_id = attrib(type=str, default=None, kw_only=True)
+    assertion_reference_id_label = attrib(type=str, default=None, kw_only=True)
+    system = attrib(type=str, default=None, kw_only=True)
+    information_type = attrib(type=str, default=None, kw_only=True)
+    sha256_data_hash = attrib(type=str, default=None, kw_only=True)
+    data_size = attrib(type=int, default=None, kw_only=True)
+    data_relative_uri = attrib(type=str, default=None, kw_only=True)
+    security_tag = attrib(type=str, default=None, kw_only=True)
 
     _validator = SupplementalDescriptionDataFileSchemaValidator()
 
@@ -218,13 +217,13 @@ class SupplementalDescriptionDataFile(TiesData):
 @attrs(slots=True)
 class SupplementalDescriptionDataObject(TiesData):
 
-    assertion_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    assertion_reference_id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    assertion_reference_id_label = attrib(type=StringType, default=None, kw_only=six.PY3)
-    system = attrib(type=StringType, default=None, kw_only=six.PY3)
-    information_type = attrib(type=StringType, default=None, kw_only=six.PY3)
-    data_object = attrib(type=dict, default=None, kw_only=six.PY3)
-    security_tag = attrib(type=StringType, default=None, kw_only=six.PY3)
+    assertion_id = attrib(type=str, default=None, kw_only=True)
+    assertion_reference_id = attrib(type=str, default=None, kw_only=True)
+    assertion_reference_id_label = attrib(type=str, default=None, kw_only=True)
+    system = attrib(type=str, default=None, kw_only=True)
+    information_type = attrib(type=str, default=None, kw_only=True)
+    data_object = attrib(type=dict, default=None, kw_only=True)
+    security_tag = attrib(type=str, default=None, kw_only=True)
 
     _validator = SupplementalDescriptionDataObjectSchemaValidator()
 
@@ -232,17 +231,17 @@ class SupplementalDescriptionDataObject(TiesData):
 @attrs(slots=True)
 class Ties(TiesData):
 
-    version = attrib(type=StringType, default=None, kw_only=six.PY3)
-    id = attrib(type=StringType, default=None, kw_only=six.PY3)
-    system = attrib(type=StringType, default=None, kw_only=six.PY3)
-    organization = attrib(type=StringType, default=None, kw_only=six.PY3)
-    time = attrib(type=StringType, default=None, kw_only=six.PY3)
-    description = attrib(type=StringType, default=None, kw_only=six.PY3)
-    type = attrib(type=StringType, default=None, kw_only=six.PY3)
-    security_tag = attrib(type=StringType, default=None, kw_only=six.PY3)
-    object_items = attrib(type=List[ObjectItem], default=None, converter=_object_item_json_converter, kw_only=six.PY3)
-    object_groups = attrib(type=List[ObjectGroup], default=None, converter=_object_group_json_converter, kw_only=six.PY3)
-    object_relationships = attrib(type=List[ObjectRelationship], default=None, converter=_object_relationship_json_converter, kw_only=six.PY3)
-    other_information = attrib(type=List[OtherInformation], default=None, converter=_other_information_json_converter, kw_only=six.PY3)
+    version = attrib(type=str, default=None, kw_only=True)
+    id = attrib(type=str, default=None, kw_only=True)
+    system = attrib(type=str, default=None, kw_only=True)
+    organization = attrib(type=str, default=None, kw_only=True)
+    time = attrib(type=str, default=None, kw_only=True)
+    description = attrib(type=str, default=None, kw_only=True)
+    type = attrib(type=str, default=None, kw_only=True)
+    security_tag = attrib(type=str, default=None, kw_only=True)
+    object_items = attrib(type=List[ObjectItem], default=None, converter=_object_item_json_converter, kw_only=True)
+    object_groups = attrib(type=List[ObjectGroup], default=None, converter=_object_group_json_converter, kw_only=True)
+    object_relationships = attrib(type=List[ObjectRelationship], default=None, converter=_object_relationship_json_converter, kw_only=True)
+    other_information = attrib(type=List[OtherInformation], default=None, converter=_other_information_json_converter, kw_only=True)
 
     _validator = TiesSchemaValidator()

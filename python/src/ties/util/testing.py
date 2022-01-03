@@ -16,8 +16,7 @@
 
 import json
 import sys
-
-import six
+from io import StringIO
 
 
 class cli_test(object):
@@ -62,9 +61,9 @@ class cli_test(object):
         sys_stdin = sys.stdin
         sys_stdout = sys.stdout
         sys_stderr = sys.stderr
-        captured_stdout = six.StringIO()
-        captured_stderr = six.StringIO()
-        sys.stdin = six.StringIO(self._stdin_text)
+        captured_stdout = StringIO()
+        captured_stderr = StringIO()
+        sys.stdin = StringIO(self._stdin_text)
         sys.stdout = captured_stdout
         sys.stderr = captured_stderr
         try:
@@ -87,7 +86,7 @@ class cli_test(object):
                 captured_stderr.getvalue().strip(),
                 '-' * 80,
                 ])
-            raise AssertionError('\n' + message)
+            raise AssertionError('\n' + message)  # pylint: disable=raise-missing-from
         try:
             if self._expected_stdout_text is not None:
                 assert captured_stdout.getvalue().strip() == '\n'.join(self._expected_stdout_text).strip()
@@ -116,7 +115,7 @@ class cli_test(object):
                 captured_stderr.getvalue().strip(),
                 '-' * 80,
                 ])
-            raise AssertionError('\n' + message)
+            raise AssertionError('\n' + message)  # pylint: disable=raise-missing-from
 
 
 if __name__ == '__main__':

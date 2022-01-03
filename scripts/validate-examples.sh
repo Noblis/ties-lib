@@ -10,11 +10,6 @@ cd ../java
 build/install/ties-lib/bin/ties-validate ../examples/*.json
 
 cd ../python
-scripts/install-wheel.sh 2.7
-source build/install-virtualenv2.7/bin/activate
-ties-validate ../examples/*.json
-deactivate
-
 scripts/install-wheel.sh 3.6
 source build/install-virtualenv3.6/bin/activate
 ties-validate ../examples/*.json

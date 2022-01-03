@@ -48,7 +48,7 @@ class SchemaValidatorTests(TestCase):
         fd, self._test_input_file_path = mkstemp()
         with os.fdopen(fd, 'w') as f:
             f.write(self._test_input_str)
-        self._test_input_file = open(self._test_input_file_path, 'r')
+        self._test_input_file = open(self._test_input_file_path, 'r', encoding='utf-8')
         self._test_input_dict = json.loads(self._test_input_str)
         self._schema_validator = SchemaValidator()
 

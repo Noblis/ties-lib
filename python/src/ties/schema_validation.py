@@ -44,7 +44,7 @@ def load_schema(json_pointer=''):
     if not isfile(schema_path):
         raise Exception('could not find schema')
 
-    with open(schema_path, 'r') as f:
+    with open(schema_path, 'r', encoding='utf-8') as f:
         schema = json.load(f)
 
     for p in json_pointer.strip('/').split('/'):
@@ -74,7 +74,7 @@ class SchemaValidator(object):
         try:
             self.validator.validate(instance)
         except jsonschema.ValidationError as e:
-            raise make_validation_error(e)
+            raise make_validation_error(e)  # pylint: disable=raise-missing-from
 
     def all_errors(self, instance):
         try:

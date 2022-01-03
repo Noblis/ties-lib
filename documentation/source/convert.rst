@@ -23,7 +23,7 @@ Python
 
 .. highlight:: none
 
-The Python TIES converter requires Python 2.7 or Python 3.4+ with pip installed.
+The Python TIES converter requires Python 3.6+ with pip installed.
 
 To install the converter::
 

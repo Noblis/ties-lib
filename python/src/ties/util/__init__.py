@@ -13,19 +13,3 @@
 # See the License for the specific language governing permissions and          #
 # limitations under the License.                                               #
 ################################################################################
-
-import six
-
-
-# textwrap.indent() doesn't exist in Python 2
-if six.PY3:
-    from textwrap import indent  # pylint: disable=no-name-in-module
-else:
-    def indent(text, prefix):
-        if len(text) == 0:
-            return text
-        return prefix + text.replace('\n', "\n{}".format(prefix))
-
-
-if __name__ == '__main__':
-    pass

@@ -52,7 +52,7 @@ def main(argv=None):
         # read input from a file
         try:
             args.export_path = abspath(expanduser(args.export_path))
-            with open(args.export_path, 'r') as f:
+            with open(args.export_path, 'r', encoding='utf-8') as f:
                 export_json = json.load(f)
         except Exception:  # pylint: disable=broad-except
             print("error: could not read from file: {}".format(args.export_path), file=sys.stderr)
@@ -65,7 +65,7 @@ def main(argv=None):
         # write output to the specified file path
         try:
             args.output_file = abspath(expanduser(args.output_file))
-            with open(args.output_file, 'w') as f:
+            with open(args.output_file, 'w', encoding='utf-8') as f:
                 json.dump(export_json, f, indent=2)
             return 0
         except Exception:  # pylint: disable=broad-except
@@ -80,7 +80,7 @@ def main(argv=None):
             # input came from a file, write output back to the same file
             try:
                 args.export_path = abspath(expanduser(args.export_path))
-                with open(args.export_path, 'w') as f:
+                with open(args.export_path, 'w', encoding='utf-8') as f:
                     json.dump(export_json, f, indent=2)
                 return 0
             except Exception:  # pylint: disable=broad-except

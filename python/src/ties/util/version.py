@@ -37,7 +37,7 @@ def _get_version_number():
 def _get_build_number():
     resource_version_path = abspath(resource_filename(__name__, 'build_number.txt'))
     if isfile(resource_version_path):
-        with open(resource_version_path, 'r') as f:
+        with open(resource_version_path, 'r', encoding='utf-8') as f:
             build_number = f.read().strip()
             if build_number:
                 return build_number
@@ -50,7 +50,7 @@ def _get_build_number():
 def _get_build_time():
     resource_version_path = abspath(resource_filename(__name__, 'build_time.txt'))
     if isfile(resource_version_path):
-        with open(resource_version_path, 'r') as f:
+        with open(resource_version_path, 'r', encoding='utf-8') as f:
             build_time = f.read().strip()
             if build_time:
                 return build_time
