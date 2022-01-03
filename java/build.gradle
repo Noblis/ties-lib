@@ -57,18 +57,17 @@ repositories {
 }
 
 dependencies {
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
-    compile 'com.github.java-json-tools:json-schema-validator:2.2.10'
-    compile 'com.google.code.gson:gson:2.8.5'
-    compile 'commons-cli:commons-cli:1.4'
-    compile 'commons-lang:commons-lang:2.6'
-    compile 'log4j:log4j:1.2.17'
-    compile 'net.sourceforge.argparse4j:argparse4j:0.8.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    compile 'com.github.java-json-tools:json-schema-validator:2.2.14'
+    compile 'com.google.code.gson:gson:2.8.9'
+    compile 'commons-cli:commons-cli:1.5.0'
+    compile 'org.apache.commons:commons-lang3:3.12.0'
+    compile 'net.sourceforge.argparse4j:argparse4j:0.9.0'
     compile 'org.codehaus.groovy:groovy-all:2.5.6'
 
-    compile 'org.projectlombok:lombok:1.18.6'
+    compile 'org.projectlombok:lombok:1.18.22'
 
-    testCompile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.13.2'
     testCompile 'com.github.stefanbirkner:system-rules:1.19.0'
 }
 
@@ -192,6 +191,13 @@ publishing {
                     connection = 'scm:git:https://github.com/Noblis/ties-lib.git'
                     developerConnection = 'scm:git:https://github.com/Noblis/ties-lib.git'
                     url = 'https://github.com/Noblis/ties-lib'
+                }
+                withXml {
+                    asNode().dependencies.'*'.findAll() {
+                        it.scope.text() == 'runtime' && project.configurations.implementation.allDependencies.find { dep ->
+                            dep.name == it.artifactId.text()
+                        }
+                    }.each { it.scope*.value = 'compile'}
                 }
             }
         }
