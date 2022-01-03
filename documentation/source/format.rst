@@ -27,7 +27,7 @@ The Python TIES formatter requires Python 3.6+ with pip installed.
 
 To install the formatter::
 
-    pip install ties-lib==0.9.1
+    pip install ties-lib==0.9.1.1
 
 Usage
 =====
@@ -59,4 +59,3 @@ Format TIES JSON from stdin, write to stdout::
 Format TIES JSON from file, write to stdout::
 
     ties-format export.json
-

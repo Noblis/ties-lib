@@ -41,7 +41,7 @@ Python Reference Implementation
 
 The TIES Python reference implementation can be installed using pip::
 
-    pip install ties-lib==0.9.1
+    pip install ties-lib==0.9.1.1
 
 Git Repository
 ==============
