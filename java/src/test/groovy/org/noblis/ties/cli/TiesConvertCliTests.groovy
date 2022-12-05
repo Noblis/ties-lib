@@ -47,7 +47,7 @@ class TiesConvertCliTests implements ITemplateTest {
     private static final String longUsage = """\
 ${shortUsage}
 
-Converts TIES export.json files from older versions of the schema (0.1.8, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8) to the current version (0.9).
+Converts TIES export.json files from older versions of the schema (0.1.8, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9) to the current version (1.0).
 
 positional arguments:
   EXPORT_PATH            the path to the TIES JSON file or - to read from stdin
@@ -75,8 +75,10 @@ named arguments:
 
     private static final String testOutput = """\
 {
-  "version": "0.9",
-  "securityTag": "UNCLASSIFIED",
+  "version": "1.0",
+  "authorityInformation": {
+    "securityTag": "UNCLASSIFIED"
+  },
   "objectItems": [
     {
       "objectId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

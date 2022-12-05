@@ -132,10 +132,12 @@ class Assertions(TiesData):
 class AuthorityInformation(TiesData):
 
     collection_id = attrib(type=str, default=None, kw_only=True)
+    collection_uuid = attrib(type=str, default=None, kw_only=True)
     collection_id_label = attrib(type=str, default=None, kw_only=True)
     collection_id_alias = attrib(type=str, default=None, kw_only=True)
     collection_description = attrib(type=str, default=None, kw_only=True)
     sub_collection_id = attrib(type=str, default=None, kw_only=True)
+    sub_collection_uuid = attrib(type=str, default=None, kw_only=True)
     sub_collection_id_label = attrib(type=str, default=None, kw_only=True)
     sub_collection_id_alias = attrib(type=str, default=None, kw_only=True)
     sub_collection_description = attrib(type=str, default=None, kw_only=True)
@@ -168,6 +170,7 @@ class ObjectItem(TiesData):
     md5_hash = attrib(type=str, default=None, kw_only=True)
     size = attrib(type=int, default=None, kw_only=True)
     mime_type = attrib(type=str, default=None, kw_only=True)
+    absolute_uri = attrib(type=str, default=None, kw_only=True)
     relative_uri = attrib(type=str, default=None, kw_only=True)
     original_path = attrib(type=str, default=None, kw_only=True)
     authority_information = attrib(type=AuthorityInformation, default=None, converter=_authority_information_json_converter, kw_only=True)
@@ -208,6 +211,7 @@ class SupplementalDescriptionDataFile(TiesData):
     information_type = attrib(type=str, default=None, kw_only=True)
     sha256_data_hash = attrib(type=str, default=None, kw_only=True)
     data_size = attrib(type=int, default=None, kw_only=True)
+    data_absolute_uri = attrib(type=str, default=None, kw_only=True)
     data_relative_uri = attrib(type=str, default=None, kw_only=True)
     security_tag = attrib(type=str, default=None, kw_only=True)
 
@@ -238,7 +242,7 @@ class Ties(TiesData):
     time = attrib(type=str, default=None, kw_only=True)
     description = attrib(type=str, default=None, kw_only=True)
     type = attrib(type=str, default=None, kw_only=True)
-    security_tag = attrib(type=str, default=None, kw_only=True)
+    authority_information = attrib(type=AuthorityInformation, default=None, converter=_authority_information_json_converter, kw_only=True)
     object_items = attrib(type=List[ObjectItem], default=None, converter=_object_item_json_converter, kw_only=True)
     object_groups = attrib(type=List[ObjectGroup], default=None, converter=_object_group_json_converter, kw_only=True)
     object_relationships = attrib(type=List[ObjectRelationship], default=None, converter=_object_relationship_json_converter, kw_only=True)

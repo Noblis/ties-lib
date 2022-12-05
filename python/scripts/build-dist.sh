@@ -5,7 +5,10 @@ set -x
 here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${here}/.."
 
-python_version=3.6
+if [ ! -f "/.dockerenv" ]; then
+    scripts/run-in-build-env.sh "scripts/build-dist.sh"
+    exit $?
+fi
 
 rm -rf build/dist src/build
 mkdir -p build/dist
@@ -18,8 +21,6 @@ if [ -n "${BUILD_TIMESTAMP}" ]; then
   echo "${BUILD_TIMESTAMP}" > src/ties/util/build_time.txt
 fi
 
-scripts/setup-wheel-virtenv.sh
-source "build/wheel-virtualenv${python_version}/bin/activate"
 
 cd src
 python3 setup.py build --build-base=build egg_info --egg-base=build sdist --formats=gztar,zip --dist-dir=../build/dist bdist_wheel --dist-dir=../build/dist

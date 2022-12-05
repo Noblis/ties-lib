@@ -51,14 +51,14 @@ class TiesSchemaTests {
                 'value': 'a',
         ]
         ties = [
-                'version': '0.9',
+                'version': '1.0',
                 'id': 'a',
                 'system': 'a',
                 'organization': 'a',
                 'time': '1970-01-01T00:00:00Z',
                 'description': 'a',
                 'type': 'a',
-                'securityTag': '',
+                'authorityInformation': ['securityTag': ''],
                 'objectItems': [objectItem],
                 'objectGroups': [objectGroup],
                 'objectRelationships': [objectRelationship],
@@ -90,11 +90,11 @@ class TiesSchemaTests {
     @Test
     void test_allRequiredFieldsMissing() {
         ties.remove('version')
-        ties.remove('securityTag')
+        ties.remove('authorityInformation')
         ties.remove('objectItems')
         List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
         assert validationExceptions.size() == 1
-        assert validationExceptions[0].message == 'required properties [objectItems, securityTag, version] are missing'
+        assert validationExceptions[0].message == 'required properties [authorityInformation, objectItems, version] are missing'
         assert validationExceptions[0].location == '/'
     }
 
@@ -131,7 +131,7 @@ class TiesSchemaTests {
         ties['version'] = null
         List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
         assert validationExceptions.size() == 1
-        assert validationExceptions[0].message == 'enum property version with value null should have one of the allowed values: [0.9]'
+        assert validationExceptions[0].message == 'enum property version with value null should have one of the allowed values: [1.0]'
         assert validationExceptions[0].location == '/version'
     }
 
@@ -140,7 +140,7 @@ class TiesSchemaTests {
         ties['version'] = ''
         List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
         assert validationExceptions.size() == 1
-        assert validationExceptions[0].message == "enum property version with value '' should have one of the allowed values: [0.9]"
+        assert validationExceptions[0].message == "enum property version with value '' should have one of the allowed values: [1.0]"
         assert validationExceptions[0].location == '/version'
     }
 
@@ -149,7 +149,7 @@ class TiesSchemaTests {
         ties['version'] = '0.1'
         List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
         assert validationExceptions.size() == 1
-        assert validationExceptions[0].message == "enum property version with value '0.1' should have one of the allowed values: [0.9]"
+        assert validationExceptions[0].message == "enum property version with value '0.1' should have one of the allowed values: [1.0]"
         assert validationExceptions[0].location == '/version'
     }
 
@@ -313,28 +313,21 @@ class TiesSchemaTests {
     }
 
     @Test
-    void test_securityTagMissing() {
-        ties.remove('securityTag')
+    void test_authorityInformationMissing() {
+        ties.remove('authorityInformation')
         List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
         assert validationExceptions.size() == 1
-        assert validationExceptions[0].message == 'required property securityTag is missing'
+        assert validationExceptions[0].message == 'required property authorityInformation is missing'
         assert validationExceptions[0].location == '/'
     }
 
     @Test
-    void test_securityTagNull() {
-        ties['securityTag'] = null
+    void test_authorityInformationNull() {
+        ties['authorityInformation'] = null
         List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
         assert validationExceptions.size() == 1
-        assert validationExceptions[0].message == 'property securityTag with null value should be of type string'
-        assert validationExceptions[0].location == '/securityTag'
-    }
-
-    @Test
-    void test_securityTagTooShort() {
-        ties['securityTag'] = ''
-        List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
-        assert validationExceptions.size() == 0
+        assert validationExceptions[0].message == 'property authorityInformation with null value should be of type object'
+        assert validationExceptions[0].location == '/authorityInformation'
     }
 
     @Test

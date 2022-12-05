@@ -34,8 +34,8 @@ class TiesWriterTests {
     private TiesWriter writer
 
     private static final Ties minimalValidTies = new Ties(
-            version: '0.9',
-            securityTag: 'a',
+            version: '1.0',
+            authorityInformation: new AuthorityInformation(securityTag: 'a'),
             objectItems: [
                     new ObjectItem(
                             objectId: 'a',
@@ -46,8 +46,10 @@ class TiesWriterTests {
 
     private static final String comparisonValidJson = JsonOutput.prettyPrint("""\
 {
-  "version": "0.9",
-  "securityTag": "a",
+  "version": "1.0",
+  "authorityInformation": {
+    "securityTag": "a"
+  },
   "objectItems": [
     {
       "objectId": "a",
@@ -167,9 +169,9 @@ class TiesWriterTests {
     @Test
     void test_dateTimeConversion() {
         def ties = new Ties(
-                version: '0.9',
+                version: '1.0',
                 time: new Date(0),
-                securityTag: 'a',
+                authorityInformation: new AuthorityInformation(securityTag: 'a'),
                 objectItems: [
                         new ObjectItem(
                                 objectId: 'a',
@@ -178,9 +180,11 @@ class TiesWriterTests {
                                 authorityInformation: new AuthorityInformation(securityTag: 'a'))])
         def json = """\
 {
-  "version": "0.9",
+  "version": "1.0",
   "time": "1970-01-01T00:00:00.000Z",
-  "securityTag": "a",
+  "authorityInformation": {
+    "securityTag": "a"
+  },
   "objectItems": [
     {
       "objectId": "a",
@@ -198,9 +202,9 @@ class TiesWriterTests {
     @Test
     void test_otherInformationMultipleDataTypes() {
         def ties = new Ties(
-                version: '0.9',
+                version: '1.0',
                 time: new Date(0),
-                securityTag: 'a',
+                authorityInformation: new AuthorityInformation(securityTag: 'a'),
                 objectItems: [
                         new ObjectItem(
                                 objectId: 'a',
@@ -215,9 +219,11 @@ class TiesWriterTests {
                         new OtherInformation(key: 'booleanValue', value: true)])
         def json = """\
 {
-  "version": "0.9",
+  "version": "1.0",
   "time": "1970-01-01T00:00:00.000Z",
-  "securityTag": "a",
+  "authorityInformation": {
+    "securityTag": "a"
+  },
   "objectItems": [
     {
       "objectId": "a",
@@ -257,8 +263,8 @@ class TiesWriterTests {
     @Test
     void test_systemSupplementalDescriptionPolymorphic() {
         def ties = new Ties(
-                version: '0.9',
-                securityTag: 'a',
+                version: '1.0',
+                authorityInformation: new AuthorityInformation(securityTag: 'a'),
                 objectItems: [
                         new ObjectItem(
                                 objectId: 'a',
@@ -271,7 +277,8 @@ class TiesWriterTests {
                                                         assertionId: 'a',
                                                         informationType: 'a',
                                                         sha256DataHash: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                                                        dataSize: 0, securityTag: 'a'),
+                                                        dataSize: 0,
+                                                        securityTag: 'a'),
                                                 new SupplementalDescriptionDataObject(
                                                         assertionId: 'a',
                                                         informationType: 'a',
@@ -279,8 +286,10 @@ class TiesWriterTests {
                                                         securityTag: 'a')]))])
         def json = """\
 {
-  "version": "0.9",
-  "securityTag": "a",
+  "version": "1.0",
+  "authorityInformation": {
+    "securityTag": "a"
+  },
   "objectItems": [
     {
       "objectId": "a",

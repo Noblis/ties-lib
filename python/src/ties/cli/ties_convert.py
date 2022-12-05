@@ -28,7 +28,7 @@ from ties.util.version import VersionAction, version_string
 
 def _configure_arg_parser():
     parser = ArgumentParser(prog='ties-convert')
-    parser.description = 'Converts TIES export.json files from older versions of the schema (0.1.8, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8) to the current version (0.9).'
+    parser.description = 'Converts TIES export.json files from older versions of the schema (0.1.8, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9) to the current version (1.0).'
     parser.add_argument('export_path', metavar='EXPORT_PATH', help='the path to the TIES JSON file or - to read from stdin')
     parser.add_argument('--classification-level', '-c', dest='security_tag', required=False, default=None, help='the classification level of the TIES JSON, required for TIES JSON from pre-0.3 versions of the schema')
     group = parser.add_mutually_exclusive_group()

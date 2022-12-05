@@ -51,12 +51,12 @@ test_input = """\
         }
     ],
     "securityTag": "UNCLASSIFIED",
-    "version": "0.9"
+    "version": "1.0"
 }"""
 
 test_output = """\
 {
-  "version": "0.9",
+  "version": "1.0",
   "securityTag": "UNCLASSIFIED",
   "objectItems": [
     {

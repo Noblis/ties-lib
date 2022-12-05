@@ -40,8 +40,8 @@ class OtherInformationSchemaTests {
                 'authorityInformation': ['securityTag': '']
         ]
         ties = [
-                'version': '0.9',
-                'securityTag': 'a',
+                'version': '1.0',
+                'authorityInformation': ['securityTag': ''],
                 'objectItems': [objectItem],
                 'otherInformation': [otherInformation]
         ]

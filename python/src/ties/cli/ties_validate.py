@@ -68,7 +68,7 @@ def _print_status(status):
 def _configure_arg_parser():
     parser = ArgumentParser(prog='ties-validate', formatter_class=RawDescriptionHelpFormatter)
     parser.usage = 'ties-validate [-h] [--version] [FILE]...'
-    parser.description = 'Validate FILE(s), or standard input, against the TIES 0.9 schema.'
+    parser.description = 'Validate FILE(s), or standard input, against the TIES 1.0 schema.'
     parser.epilog = ('''\
 If FILE arguments are provided, attempts to validate all files. FILE arguments may be provided as either file paths or shell globs.
 

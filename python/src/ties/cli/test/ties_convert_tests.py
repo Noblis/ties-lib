@@ -25,15 +25,12 @@ from ties.cli.ties_convert import main
 from ties.util.testing import cli_test
 
 short_usage = """\
-usage: ties-convert [-h] [--classification-level SECURITY_TAG]
-                    [--output-file OUTPUT_FILE | --in-place] [--version]
-                    EXPORT_PATH"""
+usage: ties-convert [-h] [--classification-level SECURITY_TAG] [--output-file OUTPUT_FILE | --in-place] [--version] EXPORT_PATH"""
 
 long_usage = """\
 {}
 
-Converts TIES export.json files from older versions of the schema (0.1.8, 0.2,
-0.3, 0.4, 0.5, 0.6, 0.7, 0.8) to the current version (0.9).
+Converts TIES export.json files from older versions of the schema (0.1.8, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9) to the current version (1.0).
 
 positional arguments:
   EXPORT_PATH           the path to the TIES JSON file or - to read from stdin
@@ -41,12 +38,10 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --classification-level SECURITY_TAG, -c SECURITY_TAG
-                        the classification level of the TIES JSON, required
-                        for TIES JSON from pre-0.3 versions of the schema
+                        the classification level of the TIES JSON, required for TIES JSON from pre-0.3 versions of the schema
   --output-file OUTPUT_FILE, -f OUTPUT_FILE
                         the output file path for the converted TIES JSON
-  --in-place, -i        modifies the input file in-place, overwriting it with
-                        the converted JSON data
+  --in-place, -i        modifies the input file in-place, overwriting it with the converted JSON data
   --version             prints version information
 """.format(short_usage)
 
@@ -63,8 +58,10 @@ test_input = """\
 
 test_output = """\
 {
-  "version": "0.9",
-  "securityTag": "UNCLASSIFIED",
+  "version": "1.0",
+  "authorityInformation": {
+    "securityTag": "UNCLASSIFIED"
+  },
   "objectItems": [
     {
       "objectId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -81,6 +78,7 @@ test_output = """\
 class TiesConvertTests(TestCase):
 
     def setUp(self):
+        os.environ["COLUMNS"] = "160"
         self._default_args = ['--classification-level', 'UNCLASSIFIED']
         fd, self._input_file_path = mkstemp()
         with os.fdopen(fd, 'w') as f:

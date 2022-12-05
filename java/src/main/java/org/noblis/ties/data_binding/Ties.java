@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"version", "id", "system", "organization", "time", "description", "type", "securityTag", "objectItems", "objectGroups", "objectRelationships", "otherInformation"})
+@JsonPropertyOrder({"version", "id", "system", "organization", "time", "description", "type", "authorityInformation", "objectItems", "objectGroups", "objectRelationships", "otherInformation"})
 public class Ties {
     @JsonProperty("version")
     private String version;
@@ -39,8 +39,8 @@ public class Ties {
     private String description;
     @JsonProperty("type")
     private String type;
-    @JsonProperty("securityTag")
-    private String securityTag;
+    @JsonProperty("authorityInformation")
+    private AuthorityInformation authorityInformation;
     @JsonProperty("objectItems")
     private List<ObjectItem> objectItems = null;
     @JsonProperty("objectGroups")
@@ -55,7 +55,7 @@ public class Ties {
     }
 
     @java.lang.SuppressWarnings("all")
-    public Ties(final String version, final String id, final String system, final String organization, final Date time, final String description, final String type, final String securityTag, final List<ObjectItem> objectItems, final List<ObjectGroup> objectGroups, final List<ObjectRelationship> objectRelationships, final List<OtherInformation> otherInformation) {
+    public Ties(final String version, final String id, final String system, final String organization, final Date time, final String description, final String type, final AuthorityInformation authorityInformation, final List<ObjectItem> objectItems, final List<ObjectGroup> objectGroups, final List<ObjectRelationship> objectRelationships, final List<OtherInformation> otherInformation) {
         this.version = version;
         this.id = id;
         this.system = system;
@@ -63,7 +63,7 @@ public class Ties {
         this.time = time;
         this.description = description;
         this.type = type;
-        this.securityTag = securityTag;
+        this.authorityInformation = authorityInformation;
         this.objectItems = objectItems;
         this.objectGroups = objectGroups;
         this.objectRelationships = objectRelationships;
@@ -106,8 +106,8 @@ public class Ties {
     }
 
     @java.lang.SuppressWarnings("all")
-    public String getSecurityTag() {
-        return this.securityTag;
+    public AuthorityInformation getAuthorityInformation() {
+        return this.authorityInformation;
     }
 
     @java.lang.SuppressWarnings("all")
@@ -166,8 +166,8 @@ public class Ties {
     }
 
     @java.lang.SuppressWarnings("all")
-    public void setSecurityTag(final String securityTag) {
-        this.securityTag = securityTag;
+    public void setAuthorityInformation(final AuthorityInformation authorityInformation) {
+        this.authorityInformation = authorityInformation;
     }
 
     @java.lang.SuppressWarnings("all")
@@ -218,9 +218,9 @@ public class Ties {
         final java.lang.Object this$type = this.getType();
         final java.lang.Object other$type = other.getType();
         if (this$type == null ? other$type != null : !this$type.equals(other$type)) return false;
-        final java.lang.Object this$securityTag = this.getSecurityTag();
-        final java.lang.Object other$securityTag = other.getSecurityTag();
-        if (this$securityTag == null ? other$securityTag != null : !this$securityTag.equals(other$securityTag)) return false;
+        final java.lang.Object this$authorityInformation = this.getAuthorityInformation();
+        final java.lang.Object other$authorityInformation = other.getAuthorityInformation();
+        if (this$authorityInformation == null ? other$authorityInformation != null : !this$authorityInformation.equals(other$authorityInformation)) return false;
         final java.lang.Object this$objectItems = this.getObjectItems();
         final java.lang.Object other$objectItems = other.getObjectItems();
         if (this$objectItems == null ? other$objectItems != null : !this$objectItems.equals(other$objectItems)) return false;
@@ -260,8 +260,8 @@ public class Ties {
         result = result * PRIME + ($description == null ? 43 : $description.hashCode());
         final java.lang.Object $type = this.getType();
         result = result * PRIME + ($type == null ? 43 : $type.hashCode());
-        final java.lang.Object $securityTag = this.getSecurityTag();
-        result = result * PRIME + ($securityTag == null ? 43 : $securityTag.hashCode());
+        final java.lang.Object $authorityInformation = this.getAuthorityInformation();
+        result = result * PRIME + ($authorityInformation == null ? 43 : $authorityInformation.hashCode());
         final java.lang.Object $objectItems = this.getObjectItems();
         result = result * PRIME + ($objectItems == null ? 43 : $objectItems.hashCode());
         final java.lang.Object $objectGroups = this.getObjectGroups();
@@ -276,6 +276,6 @@ public class Ties {
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
     public java.lang.String toString() {
-        return "Ties(version=" + this.getVersion() + ", id=" + this.getId() + ", system=" + this.getSystem() + ", organization=" + this.getOrganization() + ", time=" + this.getTime() + ", description=" + this.getDescription() + ", type=" + this.getType() + ", securityTag=" + this.getSecurityTag() + ", objectItems=" + this.getObjectItems() + ", objectGroups=" + this.getObjectGroups() + ", objectRelationships=" + this.getObjectRelationships() + ", otherInformation=" + this.getOtherInformation() + ")";
+        return "Ties(version=" + this.getVersion() + ", id=" + this.getId() + ", system=" + this.getSystem() + ", organization=" + this.getOrganization() + ", time=" + this.getTime() + ", description=" + this.getDescription() + ", type=" + this.getType() + ", authorityInformation=" + this.getAuthorityInformation() + ", objectItems=" + this.getObjectItems() + ", objectGroups=" + this.getObjectGroups() + ", objectRelationships=" + this.getObjectRelationships() + ", otherInformation=" + this.getOtherInformation() + ")";
     }
 }

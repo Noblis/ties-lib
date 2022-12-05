@@ -26,8 +26,10 @@ from ties.schema_validation import SchemaValidator, TiesSchemaValidator, load_sc
 
 test_input_str = """\
 {
-  "version": "0.9",
-  "securityTag": "UNCLASSIFIED",
+  "version": "1.0",
+  "authorityInformation": {
+    "securityTag": "UNCLASSIFIED"
+  },
   "objectItems": [
     {
       "objectId": "a",
@@ -61,7 +63,7 @@ class SchemaValidatorTests(TestCase):
 
     def test_load_schema_ties(self):
         schema = load_schema()
-        self.assertSetEqual(set(schema['properties'].keys()), {'version', 'id', 'system', 'organization', 'time', 'description', 'type', 'securityTag', 'objectItems', 'objectGroups', 'objectRelationships', 'otherInformation'})
+        self.assertSetEqual(set(schema['properties'].keys()), {'version', 'id', 'system', 'organization', 'time', 'description', 'type', 'authorityInformation', 'objectItems', 'objectGroups', 'objectRelationships', 'otherInformation'})
 
     def test_load_schema_sub_schema(self):
         schema = load_schema(json_pointer=object_relationship_pointer)
@@ -118,14 +120,16 @@ class AnnotationSchemaTests(TestCase):
             }
         }
         self.ties = {
-            'version': '0.9',
-            'securityTag': 'a',
+            'version': '1.0',
+            'authorityInformation': {
+                'securityTag': 'a'
+            },
             'objectItems': [self.object_item]
         }
 
     def test_all_fields(self):
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_only_required_fields(self):
         del self.annotation['assertionReferenceId']
@@ -137,7 +141,7 @@ class AnnotationSchemaTests(TestCase):
         del self.annotation['creator']
         del self.annotation['system']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_all_required_fields_missing(self):
         del self.annotation['assertionId']
@@ -188,7 +192,7 @@ class AnnotationSchemaTests(TestCase):
     def test_assertion_reference_id_missing(self):
         del self.annotation['assertionReferenceId']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_assertion_reference_id_too_short(self):
         self.annotation['assertionReferenceId'] = ''
@@ -200,7 +204,7 @@ class AnnotationSchemaTests(TestCase):
     def test_assertion_reference_id_label_missing(self):
         del self.annotation['assertionReferenceIdLabel']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_assertion_reference_id_label_too_short(self):
         self.annotation['assertionReferenceIdLabel'] = ''
@@ -212,7 +216,7 @@ class AnnotationSchemaTests(TestCase):
     def test_time_missing(self):
         del self.annotation['time']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_annotationType_missing(self):
         del self.annotation['annotationType']
@@ -231,7 +235,7 @@ class AnnotationSchemaTests(TestCase):
     def test_key_missing(self):
         del self.annotation['key']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_key_too_short(self):
         self.annotation['key'] = ''
@@ -257,7 +261,7 @@ class AnnotationSchemaTests(TestCase):
     def test_item_action_missing(self):
         del self.annotation['itemAction']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_item_action_too_short(self):
         self.annotation['itemAction'] = ''
@@ -269,12 +273,12 @@ class AnnotationSchemaTests(TestCase):
     def test_item_action_time_missing(self):
         del self.annotation['itemActionTime']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_creator_missing(self):
         del self.annotation['creator']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_creator_too_short(self):
         self.annotation['creator'] = ''
@@ -286,7 +290,7 @@ class AnnotationSchemaTests(TestCase):
     def test_system_missing(self):
         del self.annotation['system']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_system_too_short(self):
         self.annotation['system'] = ''
@@ -308,10 +312,12 @@ class AuthorityInformationSchemaTests(TestCase):
     def setUp(self):
         self.authority_information = {
             'collectionId': 'a',
+            'collectionUuid': 'a' * 32,
             'collectionIdLabel': 'a',
             'collectionIdAlias': 'a',
             'collectionDescription': 'a',
             'subCollectionId': 'a',
+            'subCollectionUuid': 'a' * 32,
             'subCollectionIdLabel': 'a',
             'subCollectionIdAlias': 'a',
             'subCollectionDescription': 'a',
@@ -327,21 +333,25 @@ class AuthorityInformationSchemaTests(TestCase):
             'authorityInformation': self.authority_information,
         }
         self.ties = {
-            'version': '0.9',
-            'securityTag': 'a',
+            'version': '1.0',
+            'authorityInformation': {
+                'securityTag': 'a'
+            },
             'objectItems': [self.object_item]
         }
 
     def test_all_fields(self):
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_only_required_fields(self):
         del self.authority_information['collectionId']
+        del self.authority_information['collectionUuid']
         del self.authority_information['collectionIdLabel']
         del self.authority_information['collectionIdAlias']
         del self.authority_information['collectionDescription']
         del self.authority_information['subCollectionId']
+        del self.authority_information['subCollectionUuid']
         del self.authority_information['subCollectionIdLabel']
         del self.authority_information['subCollectionIdAlias']
         del self.authority_information['subCollectionDescription']
@@ -349,7 +359,7 @@ class AuthorityInformationSchemaTests(TestCase):
         del self.authority_information['expirationDate']
         del self.authority_information['owner']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_all_required_fields_missing(self):
         del self.authority_information['securityTag']
@@ -376,7 +386,7 @@ class AuthorityInformationSchemaTests(TestCase):
     def test_collection_id_missing(self):
         del self.authority_information['collectionId']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_collection_id_too_short(self):
         self.authority_information['collectionId'] = ''
@@ -385,10 +395,22 @@ class AuthorityInformationSchemaTests(TestCase):
         self.assertEqual(errors[0].message, "property value '' for collectionId property is too short, minimum length 1")
         self.assertEqual(errors[0].location, '/objectItems[0]/authorityInformation/collectionId')
 
+    def test_collection_uuid_missing(self):
+        del self.authority_information['collectionUuid']
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(errors, [])
+
+    def test_collection_uuid_regex(self):
+        self.authority_information['collectionUuid'] = 'a'
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].message, "'a' is not valid under any of the given schemas")
+        self.assertEqual(errors[0].location, '/objectItems[0]/authorityInformation/collectionUuid')
+
     def test_collection_id_label_missing(self):
         del self.authority_information['collectionIdLabel']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_collection_id_label_too_short(self):
         self.authority_information['collectionIdLabel'] = ''
@@ -400,7 +422,7 @@ class AuthorityInformationSchemaTests(TestCase):
     def test_collection_id_alias_missing(self):
         del self.authority_information['collectionIdAlias']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_collection_id_alias_too_short(self):
         self.authority_information['collectionIdAlias'] = ''
@@ -412,7 +434,7 @@ class AuthorityInformationSchemaTests(TestCase):
     def test_collection_description_missing(self):
         del self.authority_information['collectionDescription']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_collection_description_too_short(self):
         self.authority_information['collectionDescription'] = ''
@@ -424,7 +446,7 @@ class AuthorityInformationSchemaTests(TestCase):
     def test_sub_collection_id_missing(self):
         del self.authority_information['subCollectionId']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_sub_collection_id_too_short(self):
         self.authority_information['subCollectionId'] = ''
@@ -433,10 +455,22 @@ class AuthorityInformationSchemaTests(TestCase):
         self.assertEqual(errors[0].message, "property value '' for subCollectionId property is too short, minimum length 1")
         self.assertEqual(errors[0].location, '/objectItems[0]/authorityInformation/subCollectionId')
 
+    def test_sub_collection_uuid_missing(self):
+        del self.authority_information['subCollectionUuid']
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(errors, [])
+
+    def test_sub_collection_uuid_regex(self):
+        self.authority_information['subCollectionUuid'] = 'a'
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].message, "'a' is not valid under any of the given schemas")
+        self.assertEqual(errors[0].location, '/objectItems[0]/authorityInformation/subCollectionUuid')
+
     def test_sub_collection_id_label_missing(self):
         del self.authority_information['subCollectionIdLabel']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_sub_collection_id_label_too_short(self):
         self.authority_information['subCollectionIdLabel'] = ''
@@ -448,7 +482,7 @@ class AuthorityInformationSchemaTests(TestCase):
     def test_sub_collection_id_alias_missing(self):
         del self.authority_information['subCollectionIdAlias']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_sub_collection_id_alias_too_short(self):
         self.authority_information['subCollectionIdAlias'] = ''
@@ -460,7 +494,7 @@ class AuthorityInformationSchemaTests(TestCase):
     def test_sub_collection_description_missing(self):
         del self.authority_information['subCollectionDescription']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_sub_collection_description_too_short(self):
         self.authority_information['subCollectionDescription'] = ''
@@ -472,12 +506,12 @@ class AuthorityInformationSchemaTests(TestCase):
     def test_registration_date_missing(self):
         del self.authority_information['registrationDate']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_expiration_date_missing(self):
         del self.authority_information['expirationDate']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_security_tag_missing(self):
         del self.authority_information['securityTag']
@@ -489,12 +523,12 @@ class AuthorityInformationSchemaTests(TestCase):
     def test_security_tag_too_short(self):
         self.authority_information['securityTag'] = ''
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_owner_missing(self):
         del self.authority_information['owner']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_owner_too_short(self):
         self.authority_information['owner'] = ''
@@ -534,24 +568,26 @@ class ObjectAssertionsSchemaTests(TestCase):
             'objectAssertions': self.object_assertions,
         }
         self.ties = {
-            'version': '0.9',
-            'securityTag': 'a',
+            'version': '1.0',
+            'authorityInformation': {
+                'securityTag': 'a'
+            },
             'objectItems': [self.object_item]
         }
 
     def test_all_fields(self):
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_only_required_fields(self):
         del self.object_assertions['annotations']
         del self.object_assertions['supplementalDescriptions']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_all_required_fields_missing(self):
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_additional_field(self):
         self.object_assertions['foo'] = 'a'
@@ -571,12 +607,12 @@ class ObjectAssertionsSchemaTests(TestCase):
     def test_annotations_missing(self):
         del self.object_assertions['annotations']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_annotations_list_too_short(self):
         self.object_assertions['annotations'] = []
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_annotations_list_duplicate_items(self):
         self.object_assertions['annotations'].append(self.object_assertions['annotations'][0])
@@ -588,12 +624,12 @@ class ObjectAssertionsSchemaTests(TestCase):
     def test_supplemental_descriptions_missing(self):
         del self.object_assertions['supplementalDescriptions']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_supplemental_descriptions_list_too_short(self):
         self.object_assertions['supplementalDescriptions'] = []
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_supplemental_descriptions_list_duplicate_items(self):
         self.object_assertions['supplementalDescriptions'].append(self.object_assertions['supplementalDescriptions'][0])
@@ -613,6 +649,7 @@ class ObjectItemSchemaTests(TestCase):
             'md5Hash': 'a' * 32,
             'size': 0,
             'originalPath': 'a',
+            'absoluteUri': 'a',
             'relativeUri': 'a',
             'authorityInformation': {
                 'securityTag': '',
@@ -621,24 +658,27 @@ class ObjectItemSchemaTests(TestCase):
             'otherInformation': [],
         }
         self.ties = {
-            'version': '0.9',
-            'securityTag': 'a',
+            'version': '1.0',
+            'authorityInformation': {
+                'securityTag': 'a'
+            },
             'objectItems': [self.object_item]
         }
 
     def test_all_fields(self):
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_only_required_fields(self):
         del self.object_item['mimeType']
         del self.object_item['size']
         del self.object_item['originalPath']
+        del self.object_item['absoluteUri']
         del self.object_item['relativeUri']
         del self.object_item['objectAssertions']
         del self.object_item['otherInformation']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_all_required_fields_missing(self):
         del self.object_item['objectId']
@@ -689,7 +729,7 @@ class ObjectItemSchemaTests(TestCase):
     def test_mime_type_missing(self):
         del self.object_item['mimeType']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_mime_type_too_short(self):
         self.object_item['mimeType'] = ''
@@ -765,7 +805,7 @@ class ObjectItemSchemaTests(TestCase):
     def test_size_missing(self):
         del self.object_item['size']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_size_too_small(self):
         self.object_item['size'] = -1
@@ -777,7 +817,7 @@ class ObjectItemSchemaTests(TestCase):
     def test_original_path_missing(self):
         del self.object_item['originalPath']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_original_path_too_short(self):
         self.object_item['originalPath'] = ''
@@ -786,10 +826,22 @@ class ObjectItemSchemaTests(TestCase):
         self.assertEqual(errors[0].message, "property value '' for originalPath property is too short, minimum length 1")
         self.assertEqual(errors[0].location, '/objectItems[0]/originalPath')
 
+    def test_absolute_uri_missing(self):
+        del self.object_item['absoluteUri']
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(errors, [])
+
+    def test_absolute_uri_too_short(self):
+        self.object_item['absoluteUri'] = ''
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].message, "property value '' for absoluteUri property is too short, minimum length 1")
+        self.assertEqual(errors[0].location, '/objectItems[0]/absoluteUri')
+
     def test_relative_uri_missing(self):
         del self.object_item['relativeUri']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_relative_uri_too_short(self):
         self.object_item['relativeUri'] = ''
@@ -808,17 +860,17 @@ class ObjectItemSchemaTests(TestCase):
     def test_object_assertions_missing(self):
         del self.object_item['objectAssertions']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_other_information_missing(self):
         del self.object_item['otherInformation']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_other_information_empty_list(self):
         self.object_item['otherInformation'] = []
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_other_information_duplicate_items(self):
         other_info = {'key': 'a', 'value': 'a'}
@@ -848,22 +900,24 @@ class ObjectRelationshipSchemaTests(TestCase):
             },
         }
         self.ties = {
-            'version': '0.9',
-            'securityTag': 'a',
+            'version': '1.0',
+            'authorityInformation': {
+                'securityTag': 'a'
+            },
             'objectItems': [self.object_item],
             'objectRelationships': [self.object_relationship],
         }
 
     def test_all_fields(self):
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_only_required_fields(self):
         del self.object_relationship['linkageType']
         del self.object_relationship['linkageAssertionId']
         del self.object_relationship['otherInformation']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_all_required_fields_missing(self):
         del self.object_relationship['linkageMemberIds']
@@ -940,7 +994,7 @@ class ObjectRelationshipSchemaTests(TestCase):
     def test_linkage_type_missing(self):
         del self.object_relationship['linkageType']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_linkage_type_too_short(self):
         self.object_relationship['linkageType'] = ''
@@ -952,7 +1006,7 @@ class ObjectRelationshipSchemaTests(TestCase):
     def test_linkage_assertion_id_missing(self):
         del self.object_relationship['linkageAssertionId']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_linkage_assertion_id_too_short(self):
         self.object_relationship['linkageAssertionId'] = ''
@@ -964,12 +1018,12 @@ class ObjectRelationshipSchemaTests(TestCase):
     def test_other_information_missing(self):
         del self.object_relationship['otherInformation']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_other_information_empty_list(self):
         self.object_relationship['otherInformation'] = []
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_other_information_duplicate_items(self):
         other_info = {'key': 'a', 'value': 'a'}
@@ -1001,15 +1055,17 @@ class OtherInformationSchemaTests(TestCase):
             'otherInformation': [self.other_information],
         }
         self.ties = {
-            'version': '0.9',
-            'securityTag': 'a',
+            'version': '1.0',
+            'authorityInformation': {
+                'securityTag': 'a'
+            },
             'objectItems': [self.object_item],
             'objectRelationships': [self.object_relationship],
         }
 
     def test_all_fields(self):
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_all_required_fields_missing(self):
         del self.other_information['key']
@@ -1058,22 +1114,22 @@ class OtherInformationSchemaTests(TestCase):
     def test_value_boolean(self):
         self.other_information['value'] = True
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_value_integer(self):
         self.other_information['value'] = 1
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_value_number(self):
         self.other_information['value'] = 1.1
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_value_string(self):
         self.other_information['value'] = ''
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_value_array(self):
         self.other_information['value'] = []
@@ -1101,6 +1157,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
             'informationType': 'a',
             'sha256DataHash': 'a' * 64,
             'dataSize': 0,
+            'dataAbsoluteUri': 'a',
             'dataRelativeUri': 'a',
             'securityTag': '',
         }
@@ -1116,22 +1173,25 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
             }
         }
         self.ties = {
-            'version': '0.9',
-            'securityTag': '',
+            'version': '1.0',
+            'authorityInformation': {
+                'securityTag': ''
+            },
             'objectItems': [self.object_item]
         }
 
     def test_all_fields(self):
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_only_required_fields(self):
         del self.supplemental_description['assertionReferenceId']
         del self.supplemental_description['assertionReferenceIdLabel']
         del self.supplemental_description['system']
+        del self.supplemental_description['dataAbsoluteUri']
         del self.supplemental_description['dataRelativeUri']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_all_required_fields_missing(self):
         del self.supplemental_description['assertionId']
@@ -1144,7 +1204,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional property dataRelativeUri is not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required properties [assertionId, dataSize, informationType, securityTag, sha256DataHash] are missing')
@@ -1164,7 +1224,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].causes[0].message, 'additional property foo is not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
-        self.assertEqual(errors[0].causes[1].message, 'additional properties [dataRelativeUri, dataSize, foo, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[1].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, foo, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[1].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[1].causes), 0)
         self.assertEqual(errors[0].causes[2].message, 'required property dataObject is missing')
@@ -1182,7 +1242,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].causes[0].message, 'additional properties [bar, foo] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
-        self.assertEqual(errors[0].causes[1].message, 'additional properties [bar, dataRelativeUri, dataSize, foo, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[1].message, 'additional properties [bar, dataAbsoluteUri, dataRelativeUri, dataSize, foo, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[1].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[1].causes), 0)
         self.assertEqual(errors[0].causes[2].message, 'required property dataObject is missing')
@@ -1196,7 +1256,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property assertionId is missing')
@@ -1213,7 +1273,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1230,7 +1290,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1247,7 +1307,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1260,7 +1320,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
     def test_assertion_reference_id_missing(self):
         del self.supplemental_description['assertionReferenceId']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_assertion_reference_id_null(self):
         self.supplemental_description['assertionReferenceId'] = None
@@ -1269,7 +1329,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1286,7 +1346,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1299,7 +1359,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
     def test_assertion_reference_id_label_missing(self):
         del self.supplemental_description['assertionReferenceIdLabel']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_assertion_reference_id_label_null(self):
         self.supplemental_description['assertionReferenceIdLabel'] = None
@@ -1308,7 +1368,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1325,7 +1385,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1338,7 +1398,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
     def test_system_missing(self):
         del self.supplemental_description['system']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_system_null(self):
         self.supplemental_description['system'] = None
@@ -1347,7 +1407,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1364,7 +1424,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1381,7 +1441,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property informationType is missing')
@@ -1398,7 +1458,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1415,7 +1475,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1432,7 +1492,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property sha256DataHash is missing')
@@ -1449,7 +1509,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1466,7 +1526,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 4)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1486,7 +1546,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 4)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1506,7 +1566,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1523,7 +1583,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataSize is missing')
@@ -1540,7 +1600,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1557,7 +1617,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1567,10 +1627,49 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].causes[2].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]/dataSize')
         self.assertEqual(len(errors[0].causes[2].causes), 0)
 
+    def test_data_absolute_uri_missing(self):
+        del self.supplemental_description['dataAbsoluteUri']
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(errors, [])
+
+    def test_data_absolute_uri_null(self):
+        self.supplemental_description['dataAbsoluteUri'] = None
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
+        self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
+        self.assertEqual(len(errors[0].causes), 3)
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
+        self.assertEqual(len(errors[0].causes[0].causes), 0)
+        self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
+        self.assertEqual(errors[0].causes[1].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
+        self.assertEqual(len(errors[0].causes[1].causes), 0)
+        self.assertEqual(errors[0].causes[2].message, 'property dataAbsoluteUri with null value should be of type string')
+        self.assertEqual(errors[0].causes[2].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]/dataAbsoluteUri')
+        self.assertEqual(len(errors[0].causes[2].causes), 0)
+
+    def test_data_absolute_uri_too_short(self):
+        self.supplemental_description['dataAbsoluteUri'] = ''
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
+        self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
+        self.assertEqual(len(errors[0].causes), 3)
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
+        self.assertEqual(len(errors[0].causes[0].causes), 0)
+        self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
+        self.assertEqual(errors[0].causes[1].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
+        self.assertEqual(len(errors[0].causes[1].causes), 0)
+        self.assertEqual(errors[0].causes[2].message, "property value '' for dataAbsoluteUri property is too short, minimum length 1")
+        self.assertEqual(errors[0].causes[2].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]/dataAbsoluteUri')
+        self.assertEqual(len(errors[0].causes[2].causes), 0)
+
     def test_data_relative_uri_missing(self):
         del self.supplemental_description['dataRelativeUri']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_data_relative_uri_null(self):
         self.supplemental_description['dataRelativeUri'] = None
@@ -1579,7 +1678,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1596,7 +1695,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1613,7 +1712,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property securityTag is missing')
@@ -1630,7 +1729,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
         self.assertEqual(errors[0].message, 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions')
         self.assertEqual(errors[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes), 3)
-        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed')
+        self.assertEqual(errors[0].causes[0].message, 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed')
         self.assertEqual(errors[0].causes[0].location, '/objectItems[0]/objectAssertions/supplementalDescriptions[0]')
         self.assertEqual(len(errors[0].causes[0].causes), 0)
         self.assertEqual(errors[0].causes[1].message, 'required property dataObject is missing')
@@ -1643,7 +1742,7 @@ class SupplementalDescriptionDataFileSchemaTests(TestCase):
     def test_security_tag_empty_string(self):
         self.supplemental_description['securityTag'] = ''
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
 
 class SupplementalDescriptionDataObjectSchemaTests(TestCase):
@@ -1670,21 +1769,23 @@ class SupplementalDescriptionDataObjectSchemaTests(TestCase):
             }
         }
         self.ties = {
-            'version': '0.9',
-            'securityTag': '',
+            'version': '1.0',
+            'authorityInformation': {
+                'securityTag': ''
+            },
             'objectItems': [self.object_item]
         }
 
     def test_all_fields(self):
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_only_required_fields(self):
         del self.supplemental_description['assertionReferenceId']
         del self.supplemental_description['assertionReferenceIdLabel']
         del self.supplemental_description['system']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_all_required_fields_missing(self):
         del self.supplemental_description['assertionId']
@@ -1809,7 +1910,7 @@ class SupplementalDescriptionDataObjectSchemaTests(TestCase):
     def test_assertion_reference_id_missing(self):
         del self.supplemental_description['assertionReferenceId']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_assertion_reference_id_null(self):
         self.supplemental_description['assertionReferenceId'] = None
@@ -1848,7 +1949,7 @@ class SupplementalDescriptionDataObjectSchemaTests(TestCase):
     def test_assertion_reference_id_label_missing(self):
         del self.supplemental_description['assertionReferenceIdLabel']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_assertion_reference_id_label_null(self):
         self.supplemental_description['assertionReferenceIdLabel'] = None
@@ -1887,7 +1988,7 @@ class SupplementalDescriptionDataObjectSchemaTests(TestCase):
     def test_system_missing(self):
         del self.supplemental_description['system']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_system_null(self):
         self.supplemental_description['system'] = None
@@ -2016,7 +2117,7 @@ class SupplementalDescriptionDataObjectSchemaTests(TestCase):
             'null': None,
         }
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_security_tag_missing(self):
         del self.supplemental_description['securityTag']
@@ -2055,21 +2156,21 @@ class SupplementalDescriptionDataObjectSchemaTests(TestCase):
     def test_security_tag_empty_string(self):
         self.supplemental_description['securityTag'] = ''
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
 
 class TiesSchemaTests(TestCase):
 
     def setUp(self):
         self.ties = {
-            'version': '0.9',
+            'version': '1.0',
             'id': 'a',
             'system': 'a',
             'organization': 'a',
             'time': 'a',
             'description': 'a',
             'type': 'a',
-            'securityTag': '',
+            'authorityInformation': {'securityTag': ''},
             'objectItems': [
                 {
                     'objectId': 'a',
@@ -2086,7 +2187,7 @@ class TiesSchemaTests(TestCase):
 
     def test_all_fields(self):
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_only_required_fields(self):
         del self.ties['id']
@@ -2096,15 +2197,15 @@ class TiesSchemaTests(TestCase):
         del self.ties['description']
         del self.ties['type']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_all_required_fields_missing(self):
         del self.ties['version']
-        del self.ties['securityTag']
+        del self.ties['authorityInformation']
         del self.ties['objectItems']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
         self.assertEqual(len(errors), 1)
-        self.assertEqual(errors[0].message, 'required properties [objectItems, securityTag, version] are missing')
+        self.assertEqual(errors[0].message, 'required properties [authorityInformation, objectItems, version] are missing')
         self.assertEqual(errors[0].location, '/')
 
     def test_additional_field(self):
@@ -2133,27 +2234,27 @@ class TiesSchemaTests(TestCase):
         self.ties['version'] = None
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
         self.assertEqual(len(errors), 1)
-        self.assertEqual(errors[0].message, "enum property version with value null should have one of the allowed values: [0.9]")
+        self.assertEqual(errors[0].message, "enum property version with value null should have one of the allowed values: [1.0]")
         self.assertEqual(errors[0].location, '/version')
 
     def test_version_empty_string(self):
         self.ties['version'] = ''
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
         self.assertEqual(len(errors), 1)
-        self.assertEqual(errors[0].message, "enum property version with value '' should have one of the allowed values: [0.9]")
+        self.assertEqual(errors[0].message, "enum property version with value '' should have one of the allowed values: [1.0]")
         self.assertEqual(errors[0].location, '/version')
 
     def test_version_invalid_value(self):
         self.ties['version'] = '0.1'
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
         self.assertEqual(len(errors), 1)
-        self.assertEqual(errors[0].message, "enum property version with value '0.1' should have one of the allowed values: [0.9]")
+        self.assertEqual(errors[0].message, "enum property version with value '0.1' should have one of the allowed values: [1.0]")
         self.assertEqual(errors[0].location, '/version')
 
     def test_id_missing(self):
         del self.ties['id']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_id_null(self):
         self.ties['id'] = None
@@ -2179,7 +2280,7 @@ class TiesSchemaTests(TestCase):
     def test_system_missing(self):
         del self.ties['system']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_system_null(self):
         self.ties['system'] = None
@@ -2198,7 +2299,7 @@ class TiesSchemaTests(TestCase):
     def test_organization_missing(self):
         del self.ties['organization']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_organization_null(self):
         self.ties['organization'] = None
@@ -2217,7 +2318,7 @@ class TiesSchemaTests(TestCase):
     def test_time_missing(self):
         del self.ties['time']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_time_null(self):
         self.ties['time'] = None
@@ -2229,7 +2330,7 @@ class TiesSchemaTests(TestCase):
     def test_description_missing(self):
         del self.ties['description']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_description_null(self):
         self.ties['description'] = None
@@ -2248,7 +2349,7 @@ class TiesSchemaTests(TestCase):
     def test_type_missing(self):
         del self.ties['type']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_type_null(self):
         self.ties['type'] = None
@@ -2264,24 +2365,26 @@ class TiesSchemaTests(TestCase):
         self.assertEqual(errors[0].message, "property value '' for type property is too short, minimum length 1")
         self.assertEqual(errors[0].location, '/type')
 
-    def test_security_tag_missing(self):
-        del self.ties['securityTag']
+    def test_authority_information_missing(self):
+        del self.ties['authorityInformation']
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].message, 'required property authorityInformation is missing')
+        self.assertEqual(errors[0].location, '/')
+
+    def test_authority_information_null(self):
+        self.ties['authorityInformation'] = None
+        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].message, 'property authorityInformation with null value should be of type object')
+        self.assertEqual(errors[0].location, '/authorityInformation')
+
+    def test_authorityInformation_empty(self):
+        self.ties['authorityInformation'] = {}
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
         self.assertEqual(len(errors), 1)
         self.assertEqual(errors[0].message, 'required property securityTag is missing')
-        self.assertEqual(errors[0].location, '/')
-
-    def test_security_tag_null(self):
-        self.ties['securityTag'] = None
-        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 1)
-        self.assertEqual(errors[0].message, 'property securityTag with null value should be of type string')
-        self.assertEqual(errors[0].location, '/securityTag')
-
-    def test_security_tag_empty_string(self):
-        self.ties['securityTag'] = ''
-        errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors[0].location, '/authorityInformation')
 
     def test_object_items_missing(self):
         del self.ties['objectItems']
@@ -2322,12 +2425,12 @@ class TiesSchemaTests(TestCase):
     def test_object_relationships_missing(self):
         del self.ties['objectRelationships']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_object_relationships_empty_list(self):
         self.ties['objectRelationships'] = []
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_object_relationships_duplicate_items(self):
         object_relationship = {
@@ -2343,12 +2446,12 @@ class TiesSchemaTests(TestCase):
     def test_other_information_missing(self):
         del self.ties['otherInformation']
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_other_information_empty_list(self):
         self.ties['otherInformation'] = []
         errors = TiesSchemaValidator().all_errors(json.dumps(self.ties))
-        self.assertEqual(len(errors), 0)
+        self.assertEqual(errors, [])
 
     def test_other_information_duplicate_items(self):
         other_info = {'key': 'a', 'value': 'a'}

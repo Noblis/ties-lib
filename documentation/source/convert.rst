@@ -27,7 +27,7 @@ The Python TIES converter requires Python 3.6+ with pip installed.
 
 To install the converter::
 
-    pip install ties-lib==0.9.3
+    pip install ties-lib==1.0.0
 
 Usage
 =====
@@ -39,7 +39,7 @@ Usage
     usage: ties-convert [-h] [--version] [--classification-level SECURITY_TAG] [--output-file OUTPUT_FILE | --in-place] EXPORT_PATH
 
     Converts TIES export.json files from older versions of the schema (0.1.8, 0.2,
-    0.3, 0.4, 0.5, 0.6, 0.7, 0.8) to the current version (0.9).
+    0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9) to the current version (1.0).
 
     positional arguments:
       EXPORT_PATH           the path to the TIES JSON file or - to read from stdin

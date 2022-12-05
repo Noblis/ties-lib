@@ -40,63 +40,70 @@ public class TiesConverterTests {
     void test_version0Dot1Dot8() {
         def ties = ['version': '0.1.8']
         converter.convert(ties, 'U')
-        assert ties['version'] == '0.9'
+        assert ties['version'] == '1.0'
     }
 
     @Test
     void test_version0Dot2() {
         def ties = ['version': '0.2']
         converter.convert(ties, 'U')
-        assert ties['version'] == '0.9'
+        assert ties['version'] == '1.0'
     }
 
     @Test
     void test_version0Dot3() {
         def ties = ['version': '0.3']
         converter.convert(ties)
-        assert ties['version'] == '0.9'
+        assert ties['version'] == '1.0'
     }
 
     @Test
     void test_version0Dot4() {
         def ties = ['version': '0.4']
         converter.convert(ties)
-        assert ties['version'] == '0.9'
+        assert ties['version'] == '1.0'
     }
 
     @Test
     void test_version0Dot5() {
         def ties = ['version': '0.5']
         converter.convert(ties)
-        assert ties['version'] == '0.9'
+        assert ties['version'] == '1.0'
     }
 
     @Test
     void test_version0Dot6() {
         def ties = ['version': '0.6']
         converter.convert(ties)
-        assert ties['version'] == '0.9'
+        assert ties['version'] == '1.0'
     }
 
     @Test
     void test_version0Dot7() {
         def ties = ['version': '0.7']
         converter.convert(ties)
-        assert ties['version'] == '0.9'
+        assert ties['version'] == '1.0'
     }
 
     @Test
     void test_version0Dot8() {
         def ties = ['version': '0.8']
         converter.convert(ties)
-        assert ties['version'] == '0.9'
+        assert ties['version'] == '1.0'
     }
 
     @Test
     void test_version0Dot9() {
         def ties = ['version': '0.9']
         converter.convert(ties)
-        assert ties['version'] == '0.9'
+        assert ties['version'] == '1.0'
+    }
+
+    @Test
+    void test_version1Dot0() {
+        def ties = ['version': '1.0']
+        converter.convert(ties)
+        assert ties['version'] == '1.0'
     }
 
     @Test(expected = IllegalArgumentException)
@@ -645,5 +652,12 @@ public class TiesConverterTests {
         assert objectRelationship1['linkageMemberIds'] == ['a', 'a']
         assert !('linkageSystemIds' in objectRelationship1.keySet())
         assert !('linkageMemberIds' in objectRelationship2.keySet())
+    }
+
+    @Test
+    void test_securityTagToAuthorityInformation() {
+        def ties = ['version': '0.9', 'securityTag': 'a']
+        converter._0Dot9To1Dot0(ties)
+        assert ties == ['version': '1.0', 'authorityInformation': ['securityTag': 'a']]
     }
 }

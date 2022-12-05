@@ -19,7 +19,7 @@ from __future__ import unicode_literals
 import unittest
 from unittest import TestCase
 
-from ties.convert import _0_dot_2_to_0_dot_3, _0_dot_3_to_0_dot_4, _0_dot_4_to_0_dot_5, _0_dot_5_to_0_dot_6, _0_dot_6_to_0_dot_7, _0_dot_7_to_0_dot_8, _0_dot_8_to_0_dot_9, convert
+from ties.convert import _0_dot_2_to_0_dot_3, _0_dot_3_to_0_dot_4, _0_dot_4_to_0_dot_5, _0_dot_5_to_0_dot_6, _0_dot_6_to_0_dot_7, _0_dot_7_to_0_dot_8, _0_dot_8_to_0_dot_9, _0_dot_9_to_1_dot_0, convert
 
 
 class ConvertTests(TestCase):
@@ -32,47 +32,52 @@ class ConvertTests(TestCase):
     def test_version_0_dot_1_dot_8(self):
         ties_json = {'version': '0.1.8'}
         convert(ties_json, 'U')
-        self.assertEqual(ties_json['version'], '0.9')
+        self.assertEqual(ties_json['version'], '1.0')
 
     def test_version_0_dot_2(self):
         ties_json = {'version': '0.2'}
         convert(ties_json, 'U')
-        self.assertEqual(ties_json['version'], '0.9')
+        self.assertEqual(ties_json['version'], '1.0')
 
     def test_version_0_dot_3(self):
         ties_json = {'version': '0.3'}
         convert(ties_json)
-        self.assertEqual(ties_json['version'], '0.9')
+        self.assertEqual(ties_json['version'], '1.0')
 
     def test_version_0_dot_4(self):
         ties_json = {'version': '0.4'}
         convert(ties_json)
-        self.assertEqual(ties_json['version'], '0.9')
+        self.assertEqual(ties_json['version'], '1.0')
 
     def test_version_0_dot_5(self):
         ties_json = {'version': '0.5'}
         convert(ties_json)
-        self.assertEqual(ties_json['version'], '0.9')
+        self.assertEqual(ties_json['version'], '1.0')
 
     def test_version_0_dot_6(self):
         ties_json = {'version': '0.6'}
         convert(ties_json)
-        self.assertEqual(ties_json['version'], '0.9')
+        self.assertEqual(ties_json['version'], '1.0')
 
     def test_version_0_dot_7(self):
         ties_json = {'version': '0.7'}
         convert(ties_json)
-        self.assertEqual(ties_json['version'], '0.9')
+        self.assertEqual(ties_json['version'], '1.0')
 
     def test_version_0_dot_8(self):
         ties_json = {'version': '0.8'}
         convert(ties_json)
-        self.assertEqual(ties_json['version'], '0.9')
+        self.assertEqual(ties_json['version'], '1.0')
 
     def test_version_0_dot_9(self):
         ties_json = {'version': '0.9'}
         convert(ties_json)
-        self.assertEqual(ties_json['version'], '0.9')
+        self.assertEqual(ties_json['version'], '1.0')
+
+    def test_version_1_dot_0(self):
+        ties_json = {'version': '1.0'}
+        convert(ties_json)
+        self.assertEqual(ties_json['version'], '1.0')
 
     def test_security_tag_none_0_dot_1_dot_8(self):
         ties_json = {'version': '0.1.8'}
@@ -547,6 +552,14 @@ class TiesConvert_0_dot_9Tests(TestCase):
         self.assertFalse('linkageSystemIds' in object_relationship_1)
         self.assertFalse('linkageMemberIds' in object_relationship_2)
         self.assertFalse('linkageSystemIds' in object_relationship_2)
+
+
+class TiesConvert_1_dot_0Tests(TestCase):
+
+    def test_security_tag(self):
+        ties_json = {'version': '0.9', 'securityTag': "UNCLASSIFIED"}
+        _0_dot_9_to_1_dot_0(ties_json)
+        self.assertEqual(ties_json, {'version': '1.0', 'authorityInformation': {'securityTag': "UNCLASSIFIED"}})
 
 
 if __name__ == '__main__':

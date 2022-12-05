@@ -37,6 +37,7 @@ class SupplementalDescriptionDataFileSchemaTests {
                 'informationType': 'a',
                 'sha256DataHash': 'a' * 64,
                 'dataSize': 0,
+                'dataAbsoluteUri': 'a',
                 'dataRelativeUri': 'a',
                 'securityTag': ''
         ]
@@ -48,8 +49,8 @@ class SupplementalDescriptionDataFileSchemaTests {
                 'objectAssertions': ['supplementalDescriptions': [supplementalDescription]]
         ]
         ties = [
-                'version': '0.9',
-                'securityTag': 'a',
+                'version': '1.0',
+                'authorityInformation': ['securityTag': ''],
                 'objectItems': [objectItem]
         ]
     }
@@ -65,6 +66,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         supplementalDescription.remove('assertionReferenceId')
         supplementalDescription.remove('assertionReferenceIdLabel')
         supplementalDescription.remove('system')
+        supplementalDescription.remove('dataAbsoluteUri')
         supplementalDescription.remove('dataRelativeUri')
         List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
         assert validationExceptions.size() == 0
@@ -85,7 +87,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].causes[0].message == 'required properties [assertionId, dataSize, informationType, securityTag, sha256DataHash] are missing'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
-        assert validationExceptions[0].causes[1].message == 'additional property dataRelativeUri is not allowed'
+        assert validationExceptions[0].causes[1].message == 'additional properties [dataAbsoluteUri, dataRelativeUri] are not allowed'
         assert validationExceptions[0].causes[1].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[1].causes.size() == 0
         assert validationExceptions[0].causes[2].message == 'required properties [assertionId, dataObject, informationType, securityTag] are missing'
@@ -105,7 +107,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].causes[0].message == 'additional property foo is not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
-        assert validationExceptions[0].causes[1].message == 'additional properties [dataRelativeUri, dataSize, foo, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[1].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, foo, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[1].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[1].causes.size() == 0
         assert validationExceptions[0].causes[2].message == 'required property dataObject is missing'
@@ -125,7 +127,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].causes[0].message == 'additional properties [bar, foo] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
-        assert validationExceptions[0].causes[1].message == 'additional properties [bar, dataRelativeUri, dataSize, foo, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[1].message == 'additional properties [bar, dataAbsoluteUri, dataRelativeUri, dataSize, foo, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[1].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[1].causes.size() == 0
         assert validationExceptions[0].causes[2].message == 'required property dataObject is missing'
@@ -144,7 +146,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].causes[0].message == 'required property assertionId is missing'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
-        assert validationExceptions[0].causes[1].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[1].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[1].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[1].causes.size() == 0
         assert validationExceptions[0].causes[2].message == 'required properties [assertionId, dataObject] are missing'
@@ -160,7 +162,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -179,7 +181,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -198,7 +200,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -224,7 +226,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -243,7 +245,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -269,7 +271,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -288,7 +290,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -314,7 +316,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -333,7 +335,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -355,7 +357,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].causes[0].message == 'required property informationType is missing'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
-        assert validationExceptions[0].causes[1].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[1].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[1].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[1].causes.size() == 0
         assert validationExceptions[0].causes[2].message == 'required properties [dataObject, informationType] are missing'
@@ -371,7 +373,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -390,7 +392,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -412,7 +414,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].causes[0].message == 'required property sha256DataHash is missing'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
-        assert validationExceptions[0].causes[1].message == 'additional properties [dataRelativeUri, dataSize] are not allowed'
+        assert validationExceptions[0].causes[1].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize] are not allowed'
         assert validationExceptions[0].causes[1].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[1].causes.size() == 0
         assert validationExceptions[0].causes[2].message == 'required property dataObject is missing'
@@ -428,7 +430,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -447,7 +449,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 4
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -469,7 +471,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 4
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -491,7 +493,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -513,7 +515,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].causes[0].message == 'required property dataSize is missing'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
-        assert validationExceptions[0].causes[1].message == 'additional properties [dataRelativeUri, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[1].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[1].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[1].causes.size() == 0
         assert validationExceptions[0].causes[2].message == 'required property dataObject is missing'
@@ -529,7 +531,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -548,7 +550,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -556,6 +558,51 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].causes[1].causes.size() == 0
         assert validationExceptions[0].causes[2].message == 'property value -1 for dataSize property is less than the minimum value of 0'
         assert validationExceptions[0].causes[2].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]/dataSize'
+        assert validationExceptions[0].causes[2].causes.size() == 0
+    }
+
+    @Test
+    void test_dataAbsoluteUriMissing() {
+        supplementalDescription.remove('dataAbsoluteUri')
+        List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
+        assert validationExceptions.size() == 0
+    }
+
+    @Test
+    void test_dataAbsoluteUriNull() {
+        supplementalDescription['dataAbsoluteUri'] = null
+        List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
+        assert validationExceptions.size() == 1
+        assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
+        assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
+        assert validationExceptions[0].causes.size() == 3
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
+        assert validationExceptions[0].causes[0].causes.size() == 0
+        assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
+        assert validationExceptions[0].causes[1].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
+        assert validationExceptions[0].causes[1].causes.size() == 0
+        assert validationExceptions[0].causes[2].message == 'property dataAbsoluteUri with null value should be of type string'
+        assert validationExceptions[0].causes[2].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]/dataAbsoluteUri'
+        assert validationExceptions[0].causes[2].causes.size() == 0
+    }
+
+    @Test
+    void test_dataAbsoluteUriTooShort() {
+        supplementalDescription['dataAbsoluteUri'] = ''
+        List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
+        assert validationExceptions.size() == 1
+        assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
+        assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
+        assert validationExceptions[0].causes.size() == 3
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
+        assert validationExceptions[0].causes[0].causes.size() == 0
+        assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
+        assert validationExceptions[0].causes[1].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
+        assert validationExceptions[0].causes[1].causes.size() == 0
+        assert validationExceptions[0].causes[2].message == "property value '' for dataAbsoluteUri property is too short, minimum length 1"
+        assert validationExceptions[0].causes[2].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]/dataAbsoluteUri'
         assert validationExceptions[0].causes[2].causes.size() == 0
     }
 
@@ -574,7 +621,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -593,7 +640,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'
@@ -615,7 +662,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].causes[0].message == 'required property securityTag is missing'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
-        assert validationExceptions[0].causes[1].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[1].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[1].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[1].causes.size() == 0
         assert validationExceptions[0].causes[2].message == 'required properties [dataObject, securityTag] are missing'
@@ -631,7 +678,7 @@ class SupplementalDescriptionDataFileSchemaTests {
         assert validationExceptions[0].message == 'content for array property at index 0 in supplementalDescriptions does not match any of the possible schema definitions'
         assert validationExceptions[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes.size() == 3
-        assert validationExceptions[0].causes[0].message == 'additional properties [dataRelativeUri, dataSize, sha256DataHash] are not allowed'
+        assert validationExceptions[0].causes[0].message == 'additional properties [dataAbsoluteUri, dataRelativeUri, dataSize, sha256DataHash] are not allowed'
         assert validationExceptions[0].causes[0].location == '/objectItems[0]/objectAssertions/supplementalDescriptions[0]'
         assert validationExceptions[0].causes[0].causes.size() == 0
         assert validationExceptions[0].causes[1].message == 'required property dataObject is missing'

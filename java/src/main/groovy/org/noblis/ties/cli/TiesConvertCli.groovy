@@ -36,7 +36,7 @@ class TiesConvertCli {
     private static ArgumentParser configureArgParser() {
         ArgumentParser parser = ArgumentParsers.newArgumentParser('ties-convert')
         parser.usage('ties-convert [-h] [--version] [--classification-level SECURITY_TAG] [--output-file OUTPUT_FILE | --in-place] EXPORT_PATH')
-        parser.description('Converts TIES export.json files from older versions of the schema (0.1.8, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8) to the current version (0.9).')
+        parser.description('Converts TIES export.json files from older versions of the schema (0.1.8, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9) to the current version (1.0).')
         parser.version("TIES Schema Converter\n${Version.versionString}")
         parser.addArgument('export_path')
                 .help('the path to the TIES JSON file or - to read from stdin')

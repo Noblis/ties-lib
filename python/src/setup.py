@@ -37,7 +37,7 @@ def load_dependencies():
 
 
 setup(name="ties-lib",
-      version="0.9.3",
+      version="1.0.0",
       description="Triage Import Export Schema (TIES)",
       long_description=long_description(),
       license="Apache License, Version 2.0",
@@ -50,9 +50,11 @@ setup(name="ties-lib",
           "Topic :: Software Development :: Libraries",
           "License :: OSI Approved :: Apache Software License",
           "Programming Language :: Python :: 3",
-          "Programming Language :: Python :: 3.6",
           "Programming Language :: Python :: 3.7",
           "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
       ],
       packages=find_packages(exclude=["ties.test", "ties.cli.test"]),
       include_package_data=True,
@@ -63,5 +65,5 @@ setup(name="ties-lib",
               "ties-validate=ties.cli.ties_validate:main"
           ]
       },
-      python_requires=">=3.6",
+      python_requires=">=3.7",
       install_requires=load_dependencies())

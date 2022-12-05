@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"objectId", "sha256Hash", "md5Hash", "size", "mimeType", "relativeUri", "originalPath", "authorityInformation", "objectAssertions", "otherInformation"})
+@JsonPropertyOrder({"objectId", "sha256Hash", "md5Hash", "size", "mimeType", "absoluteUri", "relativeUri", "originalPath", "authorityInformation", "objectAssertions", "otherInformation"})
 public class ObjectItem {
     @JsonProperty("objectId")
     private String objectId;
@@ -34,6 +34,8 @@ public class ObjectItem {
     private Long size;
     @JsonProperty("mimeType")
     private String mimeType;
+    @JsonProperty("absoluteUri")
+    private String absoluteUri;
     @JsonProperty("relativeUri")
     private String relativeUri;
     @JsonProperty("originalPath")
@@ -50,12 +52,13 @@ public class ObjectItem {
     }
 
     @java.lang.SuppressWarnings("all")
-    public ObjectItem(final String objectId, final String sha256Hash, final String md5Hash, final Long size, final String mimeType, final String relativeUri, final String originalPath, final AuthorityInformation authorityInformation, final Assertions objectAssertions, final List<OtherInformation> otherInformation) {
+    public ObjectItem(final String objectId, final String sha256Hash, final String md5Hash, final Long size, final String mimeType, final String absoluteUri, final String relativeUri, final String originalPath, final AuthorityInformation authorityInformation, final Assertions objectAssertions, final List<OtherInformation> otherInformation) {
         this.objectId = objectId;
         this.sha256Hash = sha256Hash;
         this.md5Hash = md5Hash;
         this.size = size;
         this.mimeType = mimeType;
+        this.absoluteUri = absoluteUri;
         this.relativeUri = relativeUri;
         this.originalPath = originalPath;
         this.authorityInformation = authorityInformation;
@@ -86,6 +89,11 @@ public class ObjectItem {
     @java.lang.SuppressWarnings("all")
     public String getMimeType() {
         return this.mimeType;
+    }
+
+    @java.lang.SuppressWarnings("all")
+    public String getAbsoluteUri() {
+        return this.absoluteUri;
     }
 
     @java.lang.SuppressWarnings("all")
@@ -139,6 +147,11 @@ public class ObjectItem {
     }
 
     @java.lang.SuppressWarnings("all")
+    public void setAbsoluteUri(final String absoluteUri) {
+        this.absoluteUri = absoluteUri;
+    }
+
+    @java.lang.SuppressWarnings("all")
     public void setRelativeUri(final String relativeUri) {
         this.relativeUri = relativeUri;
     }
@@ -185,6 +198,9 @@ public class ObjectItem {
         final java.lang.Object this$mimeType = this.getMimeType();
         final java.lang.Object other$mimeType = other.getMimeType();
         if (this$mimeType == null ? other$mimeType != null : !this$mimeType.equals(other$mimeType)) return false;
+        final java.lang.Object this$absoluteUri = this.getAbsoluteUri();
+        final java.lang.Object other$absoluteUri = other.getAbsoluteUri();
+        if (this$absoluteUri == null ? other$absoluteUri != null : !this$absoluteUri.equals(other$absoluteUri)) return false;
         final java.lang.Object this$relativeUri = this.getRelativeUri();
         final java.lang.Object other$relativeUri = other.getRelativeUri();
         if (this$relativeUri == null ? other$relativeUri != null : !this$relativeUri.equals(other$relativeUri)) return false;
@@ -223,6 +239,8 @@ public class ObjectItem {
         result = result * PRIME + ($size == null ? 43 : $size.hashCode());
         final java.lang.Object $mimeType = this.getMimeType();
         result = result * PRIME + ($mimeType == null ? 43 : $mimeType.hashCode());
+        final java.lang.Object $absoluteUri = this.getAbsoluteUri();
+        result = result * PRIME + ($absoluteUri == null ? 43 : $absoluteUri.hashCode());
         final java.lang.Object $relativeUri = this.getRelativeUri();
         result = result * PRIME + ($relativeUri == null ? 43 : $relativeUri.hashCode());
         final java.lang.Object $originalPath = this.getOriginalPath();
@@ -239,6 +257,6 @@ public class ObjectItem {
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
     public java.lang.String toString() {
-        return "ObjectItem(objectId=" + this.getObjectId() + ", sha256Hash=" + this.getSha256Hash() + ", md5Hash=" + this.getMd5Hash() + ", size=" + this.getSize() + ", mimeType=" + this.getMimeType() + ", relativeUri=" + this.getRelativeUri() + ", originalPath=" + this.getOriginalPath() + ", authorityInformation=" + this.getAuthorityInformation() + ", objectAssertions=" + this.getObjectAssertions() + ", otherInformation=" + this.getOtherInformation() + ")";
+        return "ObjectItem(objectId=" + this.getObjectId() + ", sha256Hash=" + this.getSha256Hash() + ", md5Hash=" + this.getMd5Hash() + ", size=" + this.getSize() + ", mimeType=" + this.getMimeType() + ", absoluteUri=" + this.getAbsoluteUri() + ", relativeUri=" + this.getRelativeUri() + ", originalPath=" + this.getOriginalPath() + ", authorityInformation=" + this.getAuthorityInformation() + ", objectAssertions=" + this.getObjectAssertions() + ", otherInformation=" + this.getOtherInformation() + ")";
     }
 }

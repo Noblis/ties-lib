@@ -23,7 +23,7 @@ import org.noblis.ties.ValidationException
 
 class TiesValidatorTests {
 
-    private static final String minimalValidJson = "{\"version\":\"0.9\",\"securityTag\":\"a\",\"objectItems\":[{\"objectId\":\"a\",\"sha256Hash\":\"${'a' * 64}\",\"md5Hash\":\"${'a' * 32}\",\"authorityInformation\":{\"securityTag\":\"a\"}}]}"
+    private static final String minimalValidJson = "{\"version\":\"1.0\",\"authorityInformation\":{\"securityTag\":\"a\"},\"objectItems\":[{\"objectId\":\"a\",\"sha256Hash\":\"${'a' * 64}\",\"md5Hash\":\"${'a' * 32}\",\"authorityInformation\":{\"securityTag\":\"a\"}}]}"
     private static final String minimalInvalidJson = '{}'
 
     private TiesValidator validator

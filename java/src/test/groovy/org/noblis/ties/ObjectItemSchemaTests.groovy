@@ -34,6 +34,7 @@ class ObjectItemSchemaTests {
                 'md5Hash': 'a' * 32,
                 'size': 0,
                 'mimeType': 'a',
+                'absoluteUri': 'a',
                 'relativeUri': 'a',
                 'originalPath': 'a',
                 'authorityInformation': ['securityTag': ''],
@@ -41,8 +42,8 @@ class ObjectItemSchemaTests {
                 'otherInformation': [],
         ]
         ties = [
-                'version': '0.9',
-                'securityTag': 'a',
+                'version': '1.0',
+                'authorityInformation': ['securityTag': ''],
                 'objectItems': [objectItem]
         ]
     }
@@ -57,6 +58,7 @@ class ObjectItemSchemaTests {
     void test_onlyRequiredFields() {
         objectItem.remove('size')
         objectItem.remove('mimeType')
+        objectItem.remove('absoluteUri')
         objectItem.remove('relativeUri')
         objectItem.remove('originalPath')
         objectItem.remove('objectAssertions')
@@ -233,6 +235,22 @@ class ObjectItemSchemaTests {
         assert validationExceptions.size() == 1
         assert validationExceptions[0].message == "property value '' for mimeType property is too short, minimum length 1"
         assert validationExceptions[0].location == '/objectItems[0]/mimeType'
+    }
+
+    @Test
+    void test_absoluteUriMissing() {
+        objectItem.remove('absoluteUri')
+        List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
+        assert validationExceptions.size() == 0
+    }
+
+    @Test
+    void test_absoluteUriTooShort() {
+        objectItem['absoluteUri'] = ''
+        List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
+        assert validationExceptions.size() == 1
+        assert validationExceptions[0].message == "property value '' for absoluteUri property is too short, minimum length 1"
+        assert validationExceptions[0].location == '/objectItems[0]/absoluteUri'
     }
 
     @Test

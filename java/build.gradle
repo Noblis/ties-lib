@@ -83,7 +83,7 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 group 'org.noblis'
-version '0.9.3'
+version '1.0.0'
 
 //put json schemas on the classpath
 sourceSets.main.output.dir("${project.buildDir}/generated-resources/main", builtBy: 'schema')
@@ -134,7 +134,7 @@ startScripts.dependsOn(['convertStartScripts', 'formatStartScripts', 'validateSt
 startScripts.enabled = false
 
 groovydoc {
-    docTitle = 'TIES 0.9.3 Java'
+    docTitle = 'TIES 1.0.0 Java'
     noTimestamp = true
     noVersionStamp = true
     //add java classes to groovydoc
@@ -156,11 +156,14 @@ task dist {
 publishing {
     repositories {
         maven {
-            url { publishingMavenUrl }
-            allowInsecureProtocol true
-            credentials {
-                username publishingMavenUsername
-                password publishingMavenPassword
+            name publishingMavenRepo
+            url { publishingMavenRepoUrl }
+            credentials(HttpHeaderCredentials) {
+                name publishingMavenRepoTokenName
+                value publishingMavenRepoTokenValue
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
             }
         }
     }

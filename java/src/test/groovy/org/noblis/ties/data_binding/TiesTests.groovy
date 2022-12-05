@@ -28,14 +28,14 @@ class TiesTests implements SchemaTestTrait {
 
     private static Ties getCompleteObject() {
         return new Ties(
-                version: '0.9',
+                version: '1.0',
                 id: 'a',
                 system: 'a',
                 organization: 'a',
                 time: new Date(0),
                 description: 'a',
                 type: 'a',
-                securityTag: 'a',
+                authorityInformation: new AuthorityInformation(securityTag: 'a'),
                 objectItems: [
                         new ObjectItem(
                                 objectId: 'a',
@@ -64,14 +64,16 @@ class TiesTests implements SchemaTestTrait {
 
     private static String completeJson = '''\
 {
-    "version": "0.9",
+    "version": "1.0",
     "id": "a",
     "system": "a",
     "organization": "a",
     "time": "1970-01-01T00:00:00.000Z",
     "description": "a",
     "type": "a",
-    "securityTag": "a",
+    "authorityInformation": {
+        "securityTag": "a"
+    },
     "objectItems": [
         {
             "objectId": "a",
@@ -87,7 +89,7 @@ class TiesTests implements SchemaTestTrait {
             "groupId": "a",
             "groupType": "a",
             "groupMemberIds": [
-                
+
             ]
         }
     ],
@@ -134,7 +136,7 @@ class TiesTests implements SchemaTestTrait {
         assert new Ties(time: new Date(0)) != new Ties(time: new Date(1))
         assert new Ties(description: 'a') != new Ties(description: 'b')
         assert new Ties(type: 'a') != new Ties(type: 'b')
-        assert new Ties(securityTag: 'a') != new Ties(securityTag: 'b')
+        assert new Ties(authorityInformation: new AuthorityInformation(securityTag: 'a')) != new Ties(authorityInformation: new AuthorityInformation(securityTag: 'b'))
         assert new Ties(objectItems: [new ObjectItem(objectId: 'a', sha256Hash: 'a' * 64, md5Hash: 'a' * 32, authorityInformation: new AuthorityInformation(securityTag: 'a'))]) != new Ties(objectItems: [new ObjectItem(sha256Hash: 'b' * 64, md5Hash: 'b' * 32, authorityInformation: new AuthorityInformation(securityTag: 'a'))])
         assert new Ties(objectGroups: [new ObjectGroup(groupId: 'a', groupType: 'a', groupMemberIds: [])]) != new Ties(objectGroups: [new ObjectGroup(groupId: 'b', groupType: 'b', groupMemberIds: [])])
         assert new Ties(objectRelationships: [new ObjectRelationship('linkageMemberIds': ['a', 'a'], 'linkageDirectionality': 'UNDIRECTED')]) != new Ties(objectRelationships: [new ObjectRelationship('linkageMemberIds': ['b', 'b'], 'linkageDirectionality': 'UNDIRECTED')])
@@ -154,7 +156,7 @@ class TiesTests implements SchemaTestTrait {
         assert new Ties(time: new Date(0)).hashCode() != new Ties(time: new Date(1)).hashCode()
         assert new Ties(description: 'a').hashCode() != new Ties(description: 'b').hashCode()
         assert new Ties(type: 'a').hashCode() != new Ties(type: 'b').hashCode()
-        assert new Ties(securityTag: 'a').hashCode() != new Ties(securityTag: 'b').hashCode()
+        assert new Ties(authorityInformation: new AuthorityInformation(securityTag: 'a')).hashCode() != new Ties(authorityInformation: new AuthorityInformation(securityTag: 'b')).hashCode()
         assert new Ties(objectItems: [new ObjectItem(objectId: 'a', sha256Hash: 'a' * 64, md5Hash: 'a' * 32, authorityInformation: new AuthorityInformation(securityTag: 'a'))]).hashCode() != new Ties(objectItems: [new ObjectItem(sha256Hash: 'b' * 64, md5Hash: 'b' * 32, authorityInformation: new AuthorityInformation(securityTag: 'a'))]).hashCode()
         assert new Ties(objectGroups: [new ObjectGroup(groupId: 'a', groupType: 'a', groupMemberIds: [])]).hashCode() != new Ties(objectGroups: [new ObjectGroup(groupId: 'b', groupType: 'b', groupMemberIds: [])]).hashCode()
         assert new Ties(objectRelationships: [new ObjectRelationship('linkageMemberIds': ['a', 'a'], 'linkageDirectionality': 'UNDIRECTED')]).hashCode() != new Ties(objectRelationships: [new ObjectRelationship('linkageMemberIds': ['b', 'b'], 'linkageDirectionality': 'UNDIRECTED')]).hashCode()

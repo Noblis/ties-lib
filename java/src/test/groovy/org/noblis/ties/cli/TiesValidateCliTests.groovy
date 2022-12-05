@@ -48,7 +48,7 @@ class TiesValidateCliTests implements ITemplateTest {
     private static final String longUsage = """\
 ${shortUsage}
 
-Validate FILE(s), or standard input, against the TIES 0.9 schema.
+Validate FILE(s), or standard input, against the TIES 1.0 schema.
 
 positional arguments:
   FILE                   the path to the JSON file(s) to be validated against the schema or - to read from stdin
@@ -64,7 +64,7 @@ If no FILE arguments are provided, attempts to read a single JSON object from st
 Returns non-zero exit code if one or more input files fail to validate successfully.
 """
 
-    private static final String minimalValidJson = "{\"version\":\"0.9\",\"securityTag\":\"a\",\"objectItems\":[{\"objectId\":\"a\",\"sha256Hash\":\"${'a' * 64}\",\"md5Hash\":\"${'a' * 32}\",\"authorityInformation\":{\"securityTag\":\"a\"}}]}"
+    private static final String minimalValidJson = "{\"version\":\"1.0\",\"authorityInformation\":{\"securityTag\":\"a\"},\"objectItems\":[{\"objectId\":\"a\",\"sha256Hash\":\"${'a' * 64}\",\"md5Hash\":\"${'a' * 32}\",\"authorityInformation\":{\"securityTag\":\"a\"}}]}"
     private static final String minimalInvalidJson = '{}'
 
     private static final String statusDone(String s) {
@@ -182,7 +182,7 @@ Returns non-zero exit code if one or more input files fail to validate successfu
             stdout statusError('Validating stdin')
             stdout 'Schema validation was unsuccessful:'
             stdout 'error:'
-            stdout '    required properties [objectItems, securityTag, version] are missing'
+            stdout '    required properties [authorityInformation, objectItems, version] are missing'
             stdout '    location: /'
             stderr ''
             execute()
@@ -210,7 +210,7 @@ Returns non-zero exit code if one or more input files fail to validate successfu
             stdout statusError('Validating stdin')
             stdout 'Schema validation was unsuccessful:'
             stdout 'error:'
-            stdout '    required properties [objectItems, securityTag, version] are missing'
+            stdout '    required properties [authorityInformation, objectItems, version] are missing'
             stdout '    location: /'
             stderr ''
             execute()
@@ -236,7 +236,7 @@ Returns non-zero exit code if one or more input files fail to validate successfu
             stdout statusError("Validating ${path('build/TiesValidateCliTests/failure1.json')}")
             stdout 'Schema validation was unsuccessful:'
             stdout 'error:'
-            stdout '    required properties [objectItems, securityTag, version] are missing'
+            stdout '    required properties [authorityInformation, objectItems, version] are missing'
             stdout '    location: /'
             stderr ''
             execute()
@@ -263,12 +263,12 @@ Returns non-zero exit code if one or more input files fail to validate successfu
             stdout statusError("Validating ${path('build/TiesValidateCliTests/failure1.json')}")
             stdout 'Schema validation was unsuccessful:'
             stdout 'error:'
-            stdout '    required properties [objectItems, securityTag, version] are missing'
+            stdout '    required properties [authorityInformation, objectItems, version] are missing'
             stdout '    location: /'
             stdout statusError("Validating ${path('build/TiesValidateCliTests/failure2.json')}")
             stdout 'Schema validation was unsuccessful:'
             stdout 'error:'
-            stdout '    required properties [objectItems, securityTag, version] are missing'
+            stdout '    required properties [authorityInformation, objectItems, version] are missing'
             stdout '    location: /'
             stderr ''
             execute()
@@ -295,12 +295,12 @@ Returns non-zero exit code if one or more input files fail to validate successfu
             stdout statusError("Validating ${path('build/TiesValidateCliTests/failure1.json')}")
             stdout 'Schema validation was unsuccessful:'
             stdout 'error:'
-            stdout '    required properties [objectItems, securityTag, version] are missing'
+            stdout '    required properties [authorityInformation, objectItems, version] are missing'
             stdout '    location: /'
             stdout statusError("Validating ${path('build/TiesValidateCliTests/failure2.json')}")
             stdout 'Schema validation was unsuccessful:'
             stdout 'error:'
-            stdout '    required properties [objectItems, securityTag, version] are missing'
+            stdout '    required properties [authorityInformation, objectItems, version] are missing'
             stdout '    location: /'
             stderr ''
             execute()
@@ -327,12 +327,12 @@ Returns non-zero exit code if one or more input files fail to validate successfu
             stdout statusError("Validating ${path('build/TiesValidateCliTests/failure1.json')}")
             stdout 'Schema validation was unsuccessful:'
             stdout 'error:'
-            stdout '    required properties [objectItems, securityTag, version] are missing'
+            stdout '    required properties [authorityInformation, objectItems, version] are missing'
             stdout '    location: /'
             stdout statusError("Validating ${path('build/TiesValidateCliTests/failure2.json')}")
             stdout 'Schema validation was unsuccessful:'
             stdout 'error:'
-            stdout '    required properties [objectItems, securityTag, version] are missing'
+            stdout '    required properties [authorityInformation, objectItems, version] are missing'
             stdout '    location: /'
             stderr ''
             execute()

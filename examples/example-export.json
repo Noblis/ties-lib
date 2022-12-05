@@ -1,9 +1,11 @@
 {
-  "version": "0.9",
+  "version": "1.0",
   "id": "34:735",
   "system": "Hypothetical",
   "time": "1970-01-01T00:00:00Z",
-  "securityTag": "UNCLASSIFIED",
+  "authorityInformation": {
+    "securityTag": "UNCLASSIFIED"
+  },
   "objectItems": [
     {
       "objectId": "12:570",

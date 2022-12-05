@@ -42,7 +42,7 @@ def load_schema(json_pointer=''):
     schema_path = abspath(resource_filename(__name__, 'schemata/ties-base.json'))
 
     if not isfile(schema_path):
-        raise Exception('could not find schema')
+        raise FileNotFoundError('could not find schema')
 
     with open(schema_path, 'r', encoding='utf-8') as f:
         schema = json.load(f)

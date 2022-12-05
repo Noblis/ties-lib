@@ -28,11 +28,10 @@ short_usage = 'usage: ties-validate [-h] [--version] [FILE]...'
 long_usage = """\
 {}
 
-Validate FILE(s), or standard input, against the TIES 0.9 schema.
+Validate FILE(s), or standard input, against the TIES 1.0 schema.
 
 positional arguments:
-  FILE        the path to the JSON file(s) to be validated against the schema
-              or - to read from stdin
+  FILE        the path to the JSON file(s) to be validated against the schema or - to read from stdin
 
 optional arguments:
   -h, --help  show this help message and exit
@@ -47,8 +46,10 @@ Returns non-zero exit code if one or more input files fail to validate successfu
 
 minimal_valid_json = """\
 {
-  "version": "0.9",
-  "securityTag": "UNCLASSIFIED",
+  "version": "1.0",
+  "authorityInformation": {
+    "securityTag": "UNCLASSIFIED"
+  },
   "objectItems": [
     {
       "objectId": "a",
@@ -71,7 +72,8 @@ def _make_status(message, status):
 class TiesValidateTests(TestCase):
 
     def setUp(self):
-        os.mkdir('../build/ties_validate_tests')
+        os.environ["COLUMNS"] = "160"
+        os.makedirs('../build/ties_validate_tests', exist_ok=True)
         with open('../build/ties_validate_tests/success1.json', 'w', encoding='utf-8') as f:
             f.write(minimal_valid_json)
         with open('../build/ties_validate_tests/success2.json', 'w', encoding='utf-8') as f:
@@ -114,7 +116,7 @@ class TiesValidateTests(TestCase):
             t.stdout_text(_make_status('Validating stdin', 'ERROR'))
             t.stderr('Schema validation was unsuccessful:')
             t.stderr('error:')
-            t.stderr('    required properties [objectItems, securityTag, version] are missing')
+            t.stderr('    required properties [authorityInformation, objectItems, version] are missing')
             t.stderr('    location: /')
 
     def test_stdin_success(self):
@@ -133,7 +135,7 @@ class TiesValidateTests(TestCase):
             t.stdout_text(_make_status('Validating stdin', 'ERROR'))
             t.stderr('Schema validation was unsuccessful:')
             t.stderr('error:')
-            t.stderr('    required properties [objectItems, securityTag, version] are missing')
+            t.stderr('    required properties [authorityInformation, objectItems, version] are missing')
             t.stderr('    location: /')
 
     def test_one_file_success(self):
@@ -150,7 +152,7 @@ class TiesValidateTests(TestCase):
             t.stdout_text(_make_status("Validating {}".format(abspath('../build/ties_validate_tests/failure1.json')), 'ERROR'))
             t.stderr('Schema validation was unsuccessful:')
             t.stderr('error:')
-            t.stderr('    required properties [objectItems, securityTag, version] are missing')
+            t.stderr('    required properties [authorityInformation, objectItems, version] are missing')
             t.stderr('    location: /')
 
     def test_two_files_success(self):
@@ -168,12 +170,12 @@ class TiesValidateTests(TestCase):
             t.stdout_text(_make_status("Validating {}".format(abspath('../build/ties_validate_tests/failure1.json')), 'ERROR'))
             t.stderr('Schema validation was unsuccessful:')
             t.stderr('error:')
-            t.stderr('    required properties [objectItems, securityTag, version] are missing')
+            t.stderr('    required properties [authorityInformation, objectItems, version] are missing')
             t.stderr('    location: /')
             t.stdout_text(_make_status("Validating {}".format(abspath('../build/ties_validate_tests/failure2.json')), 'ERROR'))
             t.stderr('Schema validation was unsuccessful:')
             t.stderr('error:')
-            t.stderr('    required properties [objectItems, securityTag, version] are missing')
+            t.stderr('    required properties [authorityInformation, objectItems, version] are missing')
             t.stderr('    location: /')
 
     def test_one_glob_success(self):
@@ -191,12 +193,12 @@ class TiesValidateTests(TestCase):
             t.stdout_text(_make_status("Validating {}".format(abspath('../build/ties_validate_tests/failure1.json')), 'ERROR'))
             t.stderr('Schema validation was unsuccessful:')
             t.stderr('error:')
-            t.stderr('    required properties [objectItems, securityTag, version] are missing')
+            t.stderr('    required properties [authorityInformation, objectItems, version] are missing')
             t.stderr('    location: /')
             t.stdout_text(_make_status("Validating {}".format(abspath('../build/ties_validate_tests/failure2.json')), 'ERROR'))
             t.stderr('Schema validation was unsuccessful:')
             t.stderr('error:')
-            t.stderr('    required properties [objectItems, securityTag, version] are missing')
+            t.stderr('    required properties [authorityInformation, objectItems, version] are missing')
             t.stderr('    location: /')
 
     def test_two_globs_success(self):
@@ -214,12 +216,12 @@ class TiesValidateTests(TestCase):
             t.stdout_text(_make_status("Validating {}".format(abspath('../build/ties_validate_tests/failure1.json')), 'ERROR'))
             t.stderr('Schema validation was unsuccessful:')
             t.stderr('error:')
-            t.stderr('    required properties [objectItems, securityTag, version] are missing')
+            t.stderr('    required properties [authorityInformation, objectItems, version] are missing')
             t.stderr('    location: /')
             t.stdout_text(_make_status("Validating {}".format(abspath('../build/ties_validate_tests/failure2.json')), 'ERROR'))
             t.stderr('Schema validation was unsuccessful:')
             t.stderr('error:')
-            t.stderr('    required properties [objectItems, securityTag, version] are missing')
+            t.stderr('    required properties [authorityInformation, objectItems, version] are missing')
             t.stderr('    location: /')
 
     def test_file_fnf(self):

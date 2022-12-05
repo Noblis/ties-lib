@@ -69,14 +69,18 @@ named arguments:
             "objectId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         }
     ],
-    "securityTag": "UNCLASSIFIED",
-    "version": "0.9"
+    "authorityInformation": {
+      "securityTag": "UNCLASSIFIED"
+    },
+    "version": "1.0"
 }"""
 
     private static final String testOutput = """\
 {
-  "version": "0.9",
-  "securityTag": "UNCLASSIFIED",
+  "version": "1.0",
+  "authorityInformation": {
+    "securityTag": "UNCLASSIFIED"
+  },
   "objectItems": [
     {
       "objectId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

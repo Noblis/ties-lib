@@ -22,10 +22,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"collectionId", "collectionIdLabel", "collectionIdAlias", "collectionDescription", "subCollectionId", "subCollectionIdLabel", "subCollectionIdAlias", "subCollectionDescription", "registrationDate", "expirationDate", "owner", "securityTag"})
+@JsonPropertyOrder({"collectionId", "collectionUuid", "collectionIdLabel", "collectionIdAlias", "collectionDescription", "subCollectionId", "subCollectionUuid", "subCollectionIdLabel", "subCollectionIdAlias", "subCollectionDescription", "registrationDate", "expirationDate", "owner", "securityTag"})
 public class AuthorityInformation {
     @JsonProperty("collectionId")
     private String collectionId;
+    @JsonProperty("collectionUuid")
+    private String collectionUuid;
     @JsonProperty("collectionIdLabel")
     private String collectionIdLabel;
     @JsonProperty("collectionIdAlias")
@@ -34,6 +36,8 @@ public class AuthorityInformation {
     private String collectionDescription;
     @JsonProperty("subCollectionId")
     private String subCollectionId;
+    @JsonProperty("subCollectionUuid")
+    private String subCollectionUuid;
     @JsonProperty("subCollectionIdLabel")
     private String subCollectionIdLabel;
     @JsonProperty("subCollectionIdAlias")
@@ -54,12 +58,14 @@ public class AuthorityInformation {
     }
 
     @java.lang.SuppressWarnings("all")
-    public AuthorityInformation(final String collectionId, final String collectionIdLabel, final String collectionIdAlias, final String collectionDescription, final String subCollectionId, final String subCollectionIdLabel, final String subCollectionIdAlias, final String subCollectionDescription, final Date registrationDate, final Date expirationDate, final String owner, final String securityTag) {
+    public AuthorityInformation(final String collectionId, final String collectionUuid, final String collectionIdLabel, final String collectionIdAlias, final String collectionDescription, final String subCollectionId, final String subCollectionUuid, final String subCollectionIdLabel, final String subCollectionIdAlias, final String subCollectionDescription, final Date registrationDate, final Date expirationDate, final String owner, final String securityTag) {
         this.collectionId = collectionId;
+        this.collectionUuid = collectionUuid;
         this.collectionIdLabel = collectionIdLabel;
         this.collectionIdAlias = collectionIdAlias;
         this.collectionDescription = collectionDescription;
         this.subCollectionId = subCollectionId;
+        this.subCollectionUuid = subCollectionUuid;
         this.subCollectionIdLabel = subCollectionIdLabel;
         this.subCollectionIdAlias = subCollectionIdAlias;
         this.subCollectionDescription = subCollectionDescription;
@@ -72,6 +78,11 @@ public class AuthorityInformation {
     @java.lang.SuppressWarnings("all")
     public String getCollectionId() {
         return this.collectionId;
+    }
+
+    @java.lang.SuppressWarnings("all")
+    public String getCollectionUuid() {
+        return this.collectionUuid;
     }
 
     @java.lang.SuppressWarnings("all")
@@ -92,6 +103,11 @@ public class AuthorityInformation {
     @java.lang.SuppressWarnings("all")
     public String getSubCollectionId() {
         return this.subCollectionId;
+    }
+
+    @java.lang.SuppressWarnings("all")
+    public String getSubCollectionUuid() {
+        return this.subCollectionUuid;
     }
 
     @java.lang.SuppressWarnings("all")
@@ -135,6 +151,11 @@ public class AuthorityInformation {
     }
 
     @java.lang.SuppressWarnings("all")
+    public void setCollectionUuid(final String collectionUuid) {
+        this.collectionUuid = collectionUuid;
+    }
+
+    @java.lang.SuppressWarnings("all")
     public void setCollectionIdLabel(final String collectionIdLabel) {
         this.collectionIdLabel = collectionIdLabel;
     }
@@ -152,6 +173,11 @@ public class AuthorityInformation {
     @java.lang.SuppressWarnings("all")
     public void setSubCollectionId(final String subCollectionId) {
         this.subCollectionId = subCollectionId;
+    }
+
+    @java.lang.SuppressWarnings("all")
+    public void setSubCollectionUuid(final String subCollectionUuid) {
+        this.subCollectionUuid = subCollectionUuid;
     }
 
     @java.lang.SuppressWarnings("all")
@@ -199,6 +225,9 @@ public class AuthorityInformation {
         final java.lang.Object this$collectionId = this.getCollectionId();
         final java.lang.Object other$collectionId = other.getCollectionId();
         if (this$collectionId == null ? other$collectionId != null : !this$collectionId.equals(other$collectionId)) return false;
+        final java.lang.Object this$collectionUuid = this.getCollectionUuid();
+        final java.lang.Object other$collectionUuid = other.getCollectionUuid();
+        if (this$collectionUuid == null ? other$collectionUuid != null : !this$collectionUuid.equals(other$collectionUuid)) return false;
         final java.lang.Object this$collectionIdLabel = this.getCollectionIdLabel();
         final java.lang.Object other$collectionIdLabel = other.getCollectionIdLabel();
         if (this$collectionIdLabel == null ? other$collectionIdLabel != null : !this$collectionIdLabel.equals(other$collectionIdLabel)) return false;
@@ -211,6 +240,9 @@ public class AuthorityInformation {
         final java.lang.Object this$subCollectionId = this.getSubCollectionId();
         final java.lang.Object other$subCollectionId = other.getSubCollectionId();
         if (this$subCollectionId == null ? other$subCollectionId != null : !this$subCollectionId.equals(other$subCollectionId)) return false;
+        final java.lang.Object this$subCollectionUuid = this.getSubCollectionUuid();
+        final java.lang.Object other$subCollectionUuid = other.getSubCollectionUuid();
+        if (this$subCollectionUuid == null ? other$subCollectionUuid != null : !this$subCollectionUuid.equals(other$subCollectionUuid)) return false;
         final java.lang.Object this$subCollectionIdLabel = this.getSubCollectionIdLabel();
         final java.lang.Object other$subCollectionIdLabel = other.getSubCollectionIdLabel();
         if (this$subCollectionIdLabel == null ? other$subCollectionIdLabel != null : !this$subCollectionIdLabel.equals(other$subCollectionIdLabel)) return false;
@@ -247,6 +279,8 @@ public class AuthorityInformation {
         int result = 1;
         final java.lang.Object $collectionId = this.getCollectionId();
         result = result * PRIME + ($collectionId == null ? 43 : $collectionId.hashCode());
+        final java.lang.Object $collectionUuid = this.getCollectionUuid();
+        result = result * PRIME + ($collectionUuid == null ? 43 : $collectionUuid.hashCode());
         final java.lang.Object $collectionIdLabel = this.getCollectionIdLabel();
         result = result * PRIME + ($collectionIdLabel == null ? 43 : $collectionIdLabel.hashCode());
         final java.lang.Object $collectionIdAlias = this.getCollectionIdAlias();
@@ -255,6 +289,8 @@ public class AuthorityInformation {
         result = result * PRIME + ($collectionDescription == null ? 43 : $collectionDescription.hashCode());
         final java.lang.Object $subCollectionId = this.getSubCollectionId();
         result = result * PRIME + ($subCollectionId == null ? 43 : $subCollectionId.hashCode());
+        final java.lang.Object $subCollectionUuid = this.getSubCollectionUuid();
+        result = result * PRIME + ($subCollectionUuid == null ? 43 : $subCollectionUuid.hashCode());
         final java.lang.Object $subCollectionIdLabel = this.getSubCollectionIdLabel();
         result = result * PRIME + ($subCollectionIdLabel == null ? 43 : $subCollectionIdLabel.hashCode());
         final java.lang.Object $subCollectionIdAlias = this.getSubCollectionIdAlias();
@@ -275,6 +311,6 @@ public class AuthorityInformation {
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
     public java.lang.String toString() {
-        return "AuthorityInformation(collectionId=" + this.getCollectionId() + ", collectionIdLabel=" + this.getCollectionIdLabel() + ", collectionIdAlias=" + this.getCollectionIdAlias() + ", collectionDescription=" + this.getCollectionDescription() + ", subCollectionId=" + this.getSubCollectionId() + ", subCollectionIdLabel=" + this.getSubCollectionIdLabel() + ", subCollectionIdAlias=" + this.getSubCollectionIdAlias() + ", subCollectionDescription=" + this.getSubCollectionDescription() + ", registrationDate=" + this.getRegistrationDate() + ", expirationDate=" + this.getExpirationDate() + ", owner=" + this.getOwner() + ", securityTag=" + this.getSecurityTag() + ")";
+        return "AuthorityInformation(collectionId=" + this.getCollectionId() + ", collectionUuid=" + this.getCollectionUuid() + ", collectionIdLabel=" + this.getCollectionIdLabel() + ", collectionIdAlias=" + this.getCollectionIdAlias() + ", collectionDescription=" + this.getCollectionDescription() + ", subCollectionId=" + this.getSubCollectionId() + ", subCollectionUuid=" + this.getSubCollectionUuid() + ", subCollectionIdLabel=" + this.getSubCollectionIdLabel() + ", subCollectionIdAlias=" + this.getSubCollectionIdAlias() + ", subCollectionDescription=" + this.getSubCollectionDescription() + ", registrationDate=" + this.getRegistrationDate() + ", expirationDate=" + this.getExpirationDate() + ", owner=" + this.getOwner() + ", securityTag=" + this.getSecurityTag() + ")";
     }
 }

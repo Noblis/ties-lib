@@ -31,10 +31,12 @@ class AuthorityInformationSchemaTests {
     void setUp() {
         authorityInformation = [
                 'collectionId': 'a',
+                'collectionUuid': 'a' * 32,
                 'collectionIdLabel': 'a',
                 'collectionIdAlias': 'a',
                 'collectionDescription': 'a',
                 'subCollectionId': 'a',
+                'subCollectionUuid': 'a' * 32,
                 'subCollectionIdLabel': 'a',
                 'subCollectionIdAlias': 'a',
                 'subCollectionDescription': 'a',
@@ -50,8 +52,8 @@ class AuthorityInformationSchemaTests {
                 'authorityInformation': authorityInformation
         ]
         ties = [
-                'version': '0.9',
-                'securityTag': 'a',
+                'version': '1.0',
+                'authorityInformation': ['securityTag': ''],
                 'objectItems': [objectItem]
         ]
     }
@@ -65,10 +67,12 @@ class AuthorityInformationSchemaTests {
     @Test
     void test_onlyRequiredFields() {
         authorityInformation.remove('collectionId')
+        authorityInformation.remove('collectionUuid')
         authorityInformation.remove('collectionIdLabel')
         authorityInformation.remove('collectionIdAlias')
         authorityInformation.remove('collectionDescription')
         authorityInformation.remove('subCollectionId')
+        authorityInformation.remove('subCollectionUuid')
         authorityInformation.remove('subCollectionIdLabel')
         authorityInformation.remove('subCollectionIdAlias')
         authorityInformation.remove('subCollectionDescription')
@@ -121,6 +125,22 @@ class AuthorityInformationSchemaTests {
         assert validationExceptions.size() == 1
         assert validationExceptions[0].message == "property value '' for collectionId property is too short, minimum length 1"
         assert validationExceptions[0].location == '/objectItems[0]/authorityInformation/collectionId'
+    }
+
+    @Test
+    void test_collectionUuidMissing() {
+        authorityInformation.remove('collectionUuid')
+        List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
+        assert validationExceptions.size() == 0
+    }
+
+    @Test
+    void test_collectionUuidRegex() {
+        authorityInformation['collectionUuid'] = ''
+        List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
+        assert validationExceptions.size() == 1
+        assert validationExceptions[0].message == "instance failed to match exactly one schema (matched 0 out of 2)"
+        assert validationExceptions[0].location == '/objectItems[0]/authorityInformation/collectionUuid'
     }
 
     @Test
@@ -185,6 +205,22 @@ class AuthorityInformationSchemaTests {
         assert validationExceptions.size() == 1
         assert validationExceptions[0].message == "property value '' for subCollectionId property is too short, minimum length 1"
         assert validationExceptions[0].location == '/objectItems[0]/authorityInformation/subCollectionId'
+    }
+
+    @Test
+    void test_subCollectionUuidMissing() {
+        authorityInformation.remove('subCollectionUuid')
+        List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
+        assert validationExceptions.size() == 0
+    }
+
+    @Test
+    void test_subCollectionUuidRegex() {
+        authorityInformation['subCollectionUuid'] = ''
+        List<ValidationException> validationExceptions = new TiesValidator().allErrors(ties)
+        assert validationExceptions.size() == 1
+        assert validationExceptions[0].message == "instance failed to match exactly one schema (matched 0 out of 2)"
+        assert validationExceptions[0].location == '/objectItems[0]/authorityInformation/subCollectionUuid'
     }
 
     @Test

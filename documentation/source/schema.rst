@@ -3,7 +3,7 @@
 TIES Schema Objects
 *******************
 
-`TIES 0.9 JSON Schema <../../schemata/ties-base.json>`_
+`TIES 1.0 JSON Schema <../../schemata/ties-base.json>`_
 
 .. _top-level-label:
 
@@ -13,7 +13,7 @@ TIES Schema Objects
 version **[required]**
 ----------------------
 
-*enum* : ["0.9"]
+*enum* : ["1.0"]
 
 TIES Schema version that the export conforms to
 
@@ -62,12 +62,12 @@ type
 
 Identifier indicating the type of export
 
-securityTag **[required]**
---------------------------
+authorityInformation **[required]**
+-----------------------------------
 
-*string*
+*object* : :ref:`authority-information-label`
 
-Security markings associated with the export
+Object containing authority information metadata about the export
 
 .. _top-level-object-items-label:
 
@@ -143,6 +143,16 @@ mimeType
 *string*
 
 MIME type of the exported object
+
+absoluteUri
+-----------
+
+*string*
+
+Uniform Resource Identifier (URI) describing the location of the exported object outside of the export package
+
+The absoluteUri property should be included if the exported object exists as a file that is accessible at the given
+URI.
 
 relativeUri
 -----------
@@ -346,6 +356,13 @@ collectionId
 
 Unique identifier of the collection the exported object is associated with (scoped to the exporting system)
 
+collectionUuid
+--------------
+
+*string*
+
+UUID of the collection the exported object is associated with
+
 collectionIdLabel
 -----------------
 
@@ -375,6 +392,13 @@ subCollectionId
 *string*
 
 Unique identifier of the sub-collection the exported object is associated with (scoped to the collection)
+
+subCollectionUuid
+-----------------
+
+*string*
+
+UUID of the sub-collection the exported object is associated with
 
 subCollectionIdLabel
 --------------------
@@ -613,6 +637,17 @@ dataSize **[required]**
 *integer*
 
 Size of the supplemental description data file in bytes
+
+dataAbsoluteUri
+---------------
+
+*string*
+
+Uniform Resource Identifier (URI) describing the location of the supplemental description data file outside of the
+export package
+
+The dataAbsoluteUri property should be included if the supplemental description data file exists as a file that is
+accessible at the given URI.
 
 dataRelativeUri
 ---------------

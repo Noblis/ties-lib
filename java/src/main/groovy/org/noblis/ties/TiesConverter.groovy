@@ -29,6 +29,7 @@ class TiesConverter {
         _0Dot6To0Dot7(ties)
         _0Dot7To0Dot8(ties)
         _0Dot8To0Dot9(ties)
+        _0Dot9To1Dot0(ties)
     }
 
     private static void _0Dot2To0Dot3(Map ties, String securityTag) {
@@ -326,6 +327,20 @@ class TiesConverter {
             if ('linkageSystemIds' in objectRelationship.keySet()) {
                 objectRelationship['linkageMemberIds'] = objectRelationship.remove('linkageSystemIds')
             }
+        }
+    }
+
+    private static void _0Dot9To1Dot0(Map ties) {
+        if (ties['version'] != '0.9') {
+            return
+        }
+
+        // change top level schema version
+        ties['version'] = '1.0'
+
+        // move top-level securityTag to new top-level authorityInformation object
+        if ("securityTag" in ties.keySet()) {
+            ties['authorityInformation'] = ['securityTag': ties.remove('securityTag')]
         }
     }
 }

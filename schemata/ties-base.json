@@ -5,11 +5,11 @@
   "description": "A data interchange format for bidirectional sharing of data",
   "type": "object",
   "additionalProperties": false,
-  "required": ["version", "securityTag", "objectItems"],
+  "required": ["version", "authorityInformation", "objectItems"],
   "properties": {
     "version": {
       "description": "TIES Schema version that the export conforms to",
-      "enum": ["0.9"]
+      "enum": ["1.0"]
     },
     "id": {
       "description": "Unique identifier of the export (scoped to the exporting system)",
@@ -40,9 +40,9 @@
       "type": "string",
       "minLength": 1
     },
-    "securityTag": {
-      "description": "Security markings associated with the export",
-      "type": "string"
+    "authorityInformation": {
+      "description": "Object containing authority information metadata about the export",
+      "$ref": "#/definitions/authorityInformation-object"
     },
     "objectItems": {
       "description": "Array of multimedia object items",
@@ -158,6 +158,10 @@
           "type": "string",
           "minLength": 1
         },
+        "collectionUuid": {
+          "description": "Universally unique identifier of the collection the exported object is associated with",
+          "$ref": "#/definitions/uuid-string"
+        },
         "collectionIdLabel": {
           "description": "Descriptor indicating the type of collection",
           "type": "string",
@@ -177,6 +181,10 @@
           "description": "Unique identifier of the sub-collection the exported object is associated with (scoped to the collection)",
           "type": "string",
           "minLength": 1
+        },
+        "subCollectionUuid": {
+          "description": "Univerally unique identifier of the sub-collection the exported object is associated with",
+          "$ref": "#/definitions/uuid-string"
         },
         "subCollectionIdLabel": {
           "description": "Descriptor indicating the type of sub-collection",
@@ -287,6 +295,11 @@
         },
         "mimeType": {
           "description": "MIME type of the exported object",
+          "type": "string",
+          "minLength": 1
+        },
+        "absoluteUri": {
+          "description": "Uniform Resource Identifier (URI) describing the location of the exported object outside of the export package",
           "type": "string",
           "minLength": 1
         },
@@ -424,6 +437,11 @@
           "type": "integer",
           "minimum": 0
         },
+        "dataAbsoluteUri": {
+          "description": "Uniform Resource Identifier (URI) describing the location of the supplemental description data file outside of the export package",
+          "type": "string",
+          "minLength": 1
+        },
         "dataRelativeUri": {
           "description": "Uniform Resource Identifier (URI) describing the location of the supplemental description data file within the export package",
           "type": "string",
@@ -492,6 +510,22 @@
       "type": "string",
       "minLength": 1,
       "maxLength": 256
+    },
+    "uuid-string":{
+      "oneOf":[
+        {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          "minLength": 36,
+          "maxLength": 36
+        },
+        {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{32}$",
+          "minLength": 32,
+          "maxLength": 32
+        }
+      ]
     }
   }
 }

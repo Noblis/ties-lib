@@ -21,12 +21,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"assertionId", "assertionReferenceId", "assertionReferenceIdLabel", "system", "informationType", "sha256DataHash", "dataSize", "dataRelativeUri", "securityTag"})
+@JsonPropertyOrder({"assertionId", "assertionReferenceId", "assertionReferenceIdLabel", "system", "informationType", "sha256DataHash", "dataSize", "dataAbsoluteUri", "dataRelativeUri", "securityTag"})
 public class SupplementalDescriptionDataFile extends SupplementalDescription {
     @JsonProperty("sha256DataHash")
     private String sha256DataHash;
     @JsonProperty("dataSize")
     private Long dataSize;
+    @JsonProperty("dataAbsoluteUri")
+    private String dataAbsoluteUri;
     @JsonProperty("dataRelativeUri")
     private String dataRelativeUri;
 
@@ -35,9 +37,10 @@ public class SupplementalDescriptionDataFile extends SupplementalDescription {
     }
 
     @java.lang.SuppressWarnings("all")
-    public SupplementalDescriptionDataFile(final String sha256DataHash, final Long dataSize, final String dataRelativeUri) {
+    public SupplementalDescriptionDataFile(final String sha256DataHash, final Long dataSize, final String dataAbsoluteUri, final String dataRelativeUri) {
         this.sha256DataHash = sha256DataHash;
         this.dataSize = dataSize;
+        this.dataAbsoluteUri = dataAbsoluteUri;
         this.dataRelativeUri = dataRelativeUri;
     }
 
@@ -49,6 +52,11 @@ public class SupplementalDescriptionDataFile extends SupplementalDescription {
     @java.lang.SuppressWarnings("all")
     public Long getDataSize() {
         return this.dataSize;
+    }
+
+    @java.lang.SuppressWarnings("all")
+    public String getDataAbsoluteUri() {
+        return this.dataAbsoluteUri;
     }
 
     @java.lang.SuppressWarnings("all")
@@ -64,6 +72,11 @@ public class SupplementalDescriptionDataFile extends SupplementalDescription {
     @java.lang.SuppressWarnings("all")
     public void setDataSize(final Long dataSize) {
         this.dataSize = dataSize;
+    }
+
+    @java.lang.SuppressWarnings("all")
+    public void setDataAbsoluteUri(final String dataAbsoluteUri) {
+        this.dataAbsoluteUri = dataAbsoluteUri;
     }
 
     @java.lang.SuppressWarnings("all")
@@ -85,6 +98,9 @@ public class SupplementalDescriptionDataFile extends SupplementalDescription {
         final java.lang.Object this$dataSize = this.getDataSize();
         final java.lang.Object other$dataSize = other.getDataSize();
         if (this$dataSize == null ? other$dataSize != null : !this$dataSize.equals(other$dataSize)) return false;
+        final java.lang.Object this$dataAbsoluteUri = this.getDataAbsoluteUri();
+        final java.lang.Object other$dataAbsoluteUri = other.getDataAbsoluteUri();
+        if (this$dataAbsoluteUri == null ? other$dataAbsoluteUri != null : !this$dataAbsoluteUri.equals(other$dataAbsoluteUri)) return false;
         final java.lang.Object this$dataRelativeUri = this.getDataRelativeUri();
         final java.lang.Object other$dataRelativeUri = other.getDataRelativeUri();
         if (this$dataRelativeUri == null ? other$dataRelativeUri != null : !this$dataRelativeUri.equals(other$dataRelativeUri)) return false;
@@ -105,6 +121,8 @@ public class SupplementalDescriptionDataFile extends SupplementalDescription {
         result = result * PRIME + ($sha256DataHash == null ? 43 : $sha256DataHash.hashCode());
         final java.lang.Object $dataSize = this.getDataSize();
         result = result * PRIME + ($dataSize == null ? 43 : $dataSize.hashCode());
+        final java.lang.Object $dataAbsoluteUri = this.getDataAbsoluteUri();
+        result = result * PRIME + ($dataAbsoluteUri == null ? 43 : $dataAbsoluteUri.hashCode());
         final java.lang.Object $dataRelativeUri = this.getDataRelativeUri();
         result = result * PRIME + ($dataRelativeUri == null ? 43 : $dataRelativeUri.hashCode());
         return result;
@@ -113,6 +131,6 @@ public class SupplementalDescriptionDataFile extends SupplementalDescription {
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
     public java.lang.String toString() {
-        return "SupplementalDescriptionDataFile(sha256DataHash=" + this.getSha256DataHash() + ", dataSize=" + this.getDataSize() + ", dataRelativeUri=" + this.getDataRelativeUri() + ")";
+        return "SupplementalDescriptionDataFile(sha256DataHash=" + this.getSha256DataHash() + ", dataSize=" + this.getDataSize() + ", dataAbsoluteUri=" + this.getDataAbsoluteUri() + ", dataRelativeUri=" + this.getDataRelativeUri() + ")";
     }
 }

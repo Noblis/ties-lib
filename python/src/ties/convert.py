@@ -27,6 +27,7 @@ def convert(ties, security_tag=None):
     _0_dot_6_to_0_dot_7(ties)
     _0_dot_7_to_0_dot_8(ties)
     _0_dot_8_to_0_dot_9(ties)
+    _0_dot_9_to_1_dot_0(ties)
 
 
 def _0_dot_2_to_0_dot_3(ties, security_tag):
@@ -297,6 +298,21 @@ def _0_dot_8_to_0_dot_9(ties):
 
     return warnings
 
+
+def _0_dot_9_to_1_dot_0(ties):
+    warnings = []
+
+    if ties['version'] != '0.9':
+        return warnings
+
+    ties['version'] = '1.0'
+
+    if 'securityTag' in ties:
+        # move top-level securityTag to new top-level authorityInformation object
+        ties['authorityInformation'] = {'securityTag': ties['securityTag']}
+        del ties['securityTag']
+
+    return warnings
 
 if __name__ == '__main__':
     pass

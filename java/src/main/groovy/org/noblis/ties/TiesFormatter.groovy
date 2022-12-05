@@ -50,10 +50,12 @@ class TiesFormatter {
     private static LinkedHashMap<String, ?> reorderAuthorityInformation(Map<String, ?> json) {
         List<String> keyOrder = [
                 'collectionId',
+                'collectionUuid',
                 'collectionIdLabel',
                 'collectionIdAlias',
                 'collectionDescription',
                 'subCollectionId',
+                'subCollectionUuid',
                 'subCollectionIdLabel',
                 'subCollectionIdAlias',
                 'subCollectionDescription',
@@ -89,6 +91,7 @@ class TiesFormatter {
                 'md5Hash',
                 'size',
                 'mimeType',
+                'absoluteUri',
                 'relativeUri',
                 'originalPath',
                 'authorityInformation',
@@ -136,6 +139,7 @@ class TiesFormatter {
                 'informationType',
                 'sha256DataHash',
                 'dataSize',
+                'dataAbsoluteUri',
                 'dataRelativeUri',
                 'dataObject',
                 'securityTag',
@@ -152,13 +156,16 @@ class TiesFormatter {
                 'time',
                 'description',
                 'type',
-                'securityTag',
+                'authorityInformation',
                 'objectItems',
                 'objectGroups',
                 'objectRelationships',
                 'otherInformation',
         ]
         LinkedHashMap<String, ?> orderedJson = reorderJsonKeys(json, keyOrder)
+        if ('authorityInformation' in orderedJson.keySet()) {
+            orderedJson['authorityInformation'] = reorderAuthorityInformation(orderedJson['authorityInformation'] as Map<String, ?>)
+        }
         reorderJsonList(orderedJson, 'objectItems', TiesFormatter.&reorderObjectItem)
         reorderJsonList(orderedJson, 'objectGroups', TiesFormatter.&reorderObjectGroup)
         reorderJsonList(orderedJson, 'objectRelationships', TiesFormatter.&reorderObjectRelationship)

@@ -32,8 +32,10 @@ class TiesReaderTests {
 
     private static final String minimalValidJson = """\
 {
-  "version": "0.9",
-  "securityTag": "a",
+  "version": "1.0",
+  "authorityInformation": {
+    "securityTag":"a"
+  },
   "objectItems": [
     {
       "objectId": "a",
@@ -48,8 +50,8 @@ class TiesReaderTests {
     private static final String minimalInvalidJson = '{}'
 
     private static final Ties comparisonValidTies = new Ties(
-            version: '0.9',
-            securityTag: 'a',
+            version: '1.0',
+            authorityInformation: new AuthorityInformation(securityTag: 'a'),
             objectItems: [
                     new ObjectItem(
                             objectId: 'a',
@@ -159,9 +161,11 @@ class TiesReaderTests {
     void test_dateTimeConversion() {
         def json = """\
 {
-  "version": "0.9",
+  "version": "1.0",
   "time": "1970-01-01T00:00:00Z",
-  "securityTag": "a",
+  "authorityInformation": {
+    "securityTag": "a"
+  },
   "objectItems": [
     {
       "objectId": "a",
@@ -177,9 +181,11 @@ class TiesReaderTests {
 
         json = """\
 {
-  "version": "0.9",
+  "version": "1.0",
   "time": "1970-01-01T00:00:00.000Z",
-  "securityTag": "a",
+  "authorityInformation": {
+    "securityTag": "a"
+  },
   "objectItems": [
     {
       "objectId": "a",
@@ -198,9 +204,11 @@ class TiesReaderTests {
     void test_otherInformationMultipleDataTypes() {
         def json = """\
 {
-  "version": "0.9",
+  "version": "1.0",
   "time": "1970-01-01T00:00:00.000Z",
-  "securityTag": "a",
+  "authorityInformation": {
+    "securityTag": "a"
+  },
   "objectItems": [
     {
       "objectId": "a",
@@ -240,8 +248,10 @@ class TiesReaderTests {
     void test_supplementalDescriptionPolymorphic() {
         def json = """\
 {
-  "version": "0.9",
-  "securityTag": "a",
+  "version": "1.0",
+  "authorityInformation": {
+    "securityTag": "a"
+  },
   "objectItems": [
     {
       "objectId": "a",

@@ -103,7 +103,7 @@ public class TiesValidateCli implements GlobTrait {
     private static ArgumentParser configureArgParser() {
         ArgumentParser parser = ArgumentParsers.newArgumentParser('ties-validate')
         parser.usage('ties-validate [-h] [--version] [FILE]...')
-        parser.description('Validate FILE(s), or standard input, against the TIES 0.9 schema.')
+        parser.description('Validate FILE(s), or standard input, against the TIES 1.0 schema.')
         parser.epilog('''\
 If FILE arguments are provided, attempts to validate all files. FILE arguments may be provided as either file paths or shell globs.
 

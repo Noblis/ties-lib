@@ -51,10 +51,12 @@ def _reorder_assertions(json_object):
 def _reorder_authority_information(json_object):
     key_order = [
         'collectionId',
+        'collectionUuid',
         'collectionIdLabel',
         'collectionIdAlias',
         'collectionDescription',
         'subCollectionId',
+        'subCollectionUuid',
         'subCollectionIdLabel',
         'subCollectionIdAlias',
         'subCollectionDescription',
@@ -89,6 +91,7 @@ def _reorder_object_item(json_object):
         'md5Hash',
         'size',
         'mimeType',
+        'absoluteUri',
         'relativeUri',
         'originalPath',
         'authorityInformation',
@@ -134,6 +137,7 @@ def _reorder_supplemental_description(json_object):
         'informationType',
         'sha256DataHash',
         'dataSize',
+        'dataAbsoluteUri',
         'dataRelativeUri',
         'dataObject',
         'securityTag',
@@ -150,13 +154,15 @@ def reorder_ties_json(json_object):
         'time',
         'description',
         'type',
-        'securityTag',
+        'authorityInformation',
         'objectItems',
         'objectGroups',
         'objectRelationships',
         'otherInformation',
     ]
     ordered_json_object = _reorder_json_keys(json_object, key_order)
+    if 'authorityInformation' in ordered_json_object:
+        ordered_json_object['authorityInformation'] = _reorder_authority_information(ordered_json_object['authorityInformation'])
     _reorder_json_list(ordered_json_object, 'objectItems', _reorder_object_item)
     _reorder_json_list(ordered_json_object, 'objectGroups', _reorder_object_group)
     _reorder_json_list(ordered_json_object, 'objectRelationships', _reorder_object_relationship)

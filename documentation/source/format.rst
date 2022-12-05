@@ -27,7 +27,7 @@ The Python TIES formatter requires Python 3.6+ with pip installed.
 
 To install the formatter::
 
-    pip install ties-lib==0.9.3
+    pip install ties-lib==1.0.0
 
 Usage
 =====
