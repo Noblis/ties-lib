@@ -1,18 +1,18 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Triage Import Export Schema (TIES) &#8212; TIES Schema 0.9 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Triage Import Export Schema (TIES) &#8212; TIES Schema 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -31,7 +31,8 @@
         <li class="right" >
           <a href="index.html" title="TIES Schema Documentation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">TIES Schema 0.9 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">TIES Schema 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Triage Import Export Schema (TIES)</a></li> 
       </ul>
     </div>  
 
@@ -40,10 +41,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="triage-import-export-schema-ties">
-<span id="overview-label"></span><h1>Triage Import Export Schema (TIES)<a class="headerlink" href="#triage-import-export-schema-ties" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+  <section id="triage-import-export-schema-ties">
+<span id="overview-label"></span><h1>Triage Import Export Schema (TIES)<a class="headerlink" href="#triage-import-export-schema-ties" title="Permalink to this heading">¶</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
 <p>The Triage Import Export Schema (TIES) specifies a data interchange format for bidirectional sharing of data. The schema
 captures object items, relationships, and assertion information via a generic and flexible approach.</p>
 <p>At its highest level, it consists of:</p>
@@ -55,9 +56,9 @@ captures object items, relationships, and assertion information via a generic an
 <li><p>Relationships between object items, annotations, and supplemental descriptions</p></li>
 <li><p>An array of key/value pairs containing user-defined metadata</p></li>
 </ul>
-</div>
-<div class="section" id="license">
-<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h2>
 <p>Copyright 2019 Noblis, Inc</p>
 <p>Licensed under the Apache License, Version 2.0 (the “License”);
 you may not use this file except in compliance with the License.
@@ -72,47 +73,47 @@ See the License for the specific language governing permissions and
 limitations under the License.</p>
 <p>The above license applies to all of the Triage Import Export Schema (TIES)
 source code in the TIES repository.</p>
-</div>
-<div class="section" id="java-reference-implementation">
-<h2>Java Reference Implementation<a class="headerlink" href="#java-reference-implementation" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="javadoc">
-<h3>Javadoc<a class="headerlink" href="#javadoc" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="../groovydoc/index.html">TIES 0.9 Java</a></p>
-</div>
-<div class="section" id="gradle">
-<h3>Gradle<a class="headerlink" href="#gradle" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="java-reference-implementation">
+<h2>Java Reference Implementation<a class="headerlink" href="#java-reference-implementation" title="Permalink to this heading">¶</a></h2>
+<section id="javadoc">
+<h3>Javadoc<a class="headerlink" href="#javadoc" title="Permalink to this heading">¶</a></h3>
+<p><a class="reference external" href="../groovydoc/index.html">TIES 1.0 Java</a></p>
+</section>
+<section id="gradle">
+<h3>Gradle<a class="headerlink" href="#gradle" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dependencies</span> <span class="p">{</span>
-    <span class="nb">compile</span><span class="p">(</span><span class="s1">&#39;org.noblis:ties-lib:0.9.1&#39;</span><span class="p">)</span>
+    <span class="nb">compile</span><span class="p">(</span><span class="s1">&#39;org.noblis:ties-lib:1.0.0&#39;</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="maven">
-<h3>Maven<a class="headerlink" href="#maven" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="maven">
+<h3>Maven<a class="headerlink" href="#maven" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="n">noblis</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">ties</span><span class="o">-</span><span class="n">lib</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">0.9</span><span class="o">.</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">1.0.0</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
 <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="python-reference-implementation">
-<h2>Python Reference Implementation<a class="headerlink" href="#python-reference-implementation" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="python-reference-implementation">
+<h2>Python Reference Implementation<a class="headerlink" href="#python-reference-implementation" title="Permalink to this heading">¶</a></h2>
 <p>The TIES Python reference implementation can be installed using pip:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ties</span><span class="o">-</span><span class="n">lib</span><span class="o">==</span><span class="mf">0.9</span><span class="o">.</span><span class="mi">1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ties</span><span class="o">-</span><span class="n">lib</span><span class="o">==</span><span class="mf">1.0.0</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="git-repository">
-<h2>Git Repository<a class="headerlink" href="#git-repository" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="git-repository">
+<h2>Git Repository<a class="headerlink" href="#git-repository" title="Permalink to this heading">¶</a></h2>
 <p>To clone the TIES Git repository:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Noblis</span><span class="o">/</span><span class="n">ties</span><span class="o">-</span><span class="n">lib</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
-<div class="section" id="contents-of-the-git-repository">
-<h3>Contents of the Git Repository<a class="headerlink" href="#contents-of-the-git-repository" title="Permalink to this headline">¶</a></h3>
+<section id="contents-of-the-git-repository">
+<h3>Contents of the Git Repository<a class="headerlink" href="#contents-of-the-git-repository" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>docs - github.io files</p></li>
 <li><p>documentation - project documentation</p></li>
@@ -122,18 +123,20 @@ source code in the TIES repository.</p>
 <li><p>schemata - JSON schema files</p></li>
 <li><p>scripts - Jenkins CI scripts</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Triage Import Export Schema (TIES)</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
 <li><a class="reference internal" href="#license">License</a></li>
@@ -152,12 +155,17 @@ source code in the TIES repository.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">TIES Schema Documentation</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="schema.html"
-                        title="next chapter">TIES Schema Objects</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">TIES Schema Documentation</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="schema.html"
+                          title="next chapter">TIES Schema Objects</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -169,12 +177,12 @@ source code in the TIES repository.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -191,12 +199,13 @@ source code in the TIES repository.</p>
         <li class="right" >
           <a href="index.html" title="TIES Schema Documentation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">TIES Schema 0.9 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">TIES Schema 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Triage Import Export Schema (TIES)</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, Noblis, Inc..
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
     </div>
   </body>
 </html>

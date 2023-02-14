@@ -1,18 +1,18 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>TIES Schema Converter &#8212; TIES Schema 0.9 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>TIES Schema Converter &#8212; TIES Schema 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -31,7 +31,8 @@
         <li class="right" >
           <a href="validate.html" title="TIES Schema Validator"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">TIES Schema 0.9 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">TIES Schema 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">TIES Schema Converter</a></li> 
       </ul>
     </div>  
 
@@ -40,35 +41,35 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="ties-schema-converter">
-<span id="convert-label"></span><h1>TIES Schema Converter<a class="headerlink" href="#ties-schema-converter" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="install-schema-converter">
-<h2>Install Schema Converter<a class="headerlink" href="#install-schema-converter" title="Permalink to this headline">¶</a></h2>
+  <section id="ties-schema-converter">
+<span id="convert-label"></span><h1>TIES Schema Converter<a class="headerlink" href="#ties-schema-converter" title="Permalink to this heading">¶</a></h1>
+<section id="install-schema-converter">
+<h2>Install Schema Converter<a class="headerlink" href="#install-schema-converter" title="Permalink to this heading">¶</a></h2>
 <p>The Java and Python implementations of the TIES Schema Converter are distributed as part of each TIES release.</p>
-<div class="section" id="java">
-<h3>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h3>
+<section id="java">
+<h3>Java<a class="headerlink" href="#java" title="Permalink to this heading">¶</a></h3>
 <p>The Java TIES converter requires Java 1.7 or 1.8. To install the converter:</p>
 <ol class="arabic simple">
 <li><p>Copy the *.zip or *.tgz archive from <em>TIES_RELEASE_DIR</em>/java/distributions to the desired install location</p></li>
 <li><p>Extract the *.zip or *.tgz archive</p></li>
 <li><p>Add the bin directory of the extracted archive to your PATH</p></li>
 </ol>
-</div>
-<div class="section" id="python">
-<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
-<p>The Python TIES converter requires Python 2.7 or Python 3.4+ with pip installed.</p>
+</section>
+<section id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this heading">¶</a></h3>
+<p>The Python TIES converter requires Python 3.6+ with pip installed.</p>
 <p>To install the converter:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install ties-lib==0.9.1
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install ties-lib==1.0.0
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>usage: ties-convert [-h] [--version] [--classification-level SECURITY_TAG] [--output-file OUTPUT_FILE | --in-place] EXPORT_PATH
 
 Converts TIES export.json files from older versions of the schema (0.1.8, 0.2,
-0.3, 0.4, 0.5, 0.6, 0.7, 0.8) to the current version (0.9).
+0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9) to the current version (1.0).
 
 positional arguments:
   EXPORT_PATH           the path to the TIES JSON file or - to read from stdin
@@ -85,9 +86,9 @@ optional arguments:
   --version             prints version information
 </pre></div>
 </div>
-</div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <p>Convert TIES JSON from stdin, write to stdout:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cat export.json | ties-convert -
 </pre></div>
@@ -128,17 +129,19 @@ optional arguments:
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ties-convert export.json -i -c UNCLASSIFIED
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">TIES Schema Converter</a><ul>
 <li><a class="reference internal" href="#install-schema-converter">Install Schema Converter</a><ul>
 <li><a class="reference internal" href="#java">Java</a></li>
@@ -151,12 +154,17 @@ optional arguments:
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="validate.html"
-                        title="previous chapter">TIES Schema Validator</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="format.html"
-                        title="next chapter">TIES Schema Formatter</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="validate.html"
+                          title="previous chapter">TIES Schema Validator</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="format.html"
+                          title="next chapter">TIES Schema Formatter</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -168,12 +176,12 @@ optional arguments:
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -190,12 +198,13 @@ optional arguments:
         <li class="right" >
           <a href="validate.html" title="TIES Schema Validator"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">TIES Schema 0.9 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">TIES Schema 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">TIES Schema Converter</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, Noblis, Inc..
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
     </div>
   </body>
 </html>
